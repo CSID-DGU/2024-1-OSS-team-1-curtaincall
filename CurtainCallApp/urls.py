@@ -1,6 +1,7 @@
 from django.urls import path
 #from rest_framework.routers import DefaultRouter
 from CurtainCallApp.views import TestView, FileUploadView
+from CurtainCallApp import views
 
 # Create a router and register our viewsets with it.
 # router = DefaultRouter()
@@ -9,4 +10,5 @@ from CurtainCallApp.views import TestView, FileUploadView
 urlpatterns = [
     path('test/', TestView.as_view(), name='test'),
     path('POSTMAN/', FileUploadView.as_view(), name='POSTMAN'),
+    path('', views.index),
 ]

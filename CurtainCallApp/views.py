@@ -5,7 +5,7 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import File
-
+from django.http import HttpResponse
 
 # Create your views here.
 class TestView(APIView):
@@ -23,3 +23,5 @@ class FileUploadView(APIView):
         file = request.data['file']
         File.objects.create(file=file)  # 파일을 DB에 저장
         return Response("파일 업로드 성공")
+def index(request):
+    return HttpResponse("안녕하세요 커튼 콜에 오신 것을 환영합니다")
