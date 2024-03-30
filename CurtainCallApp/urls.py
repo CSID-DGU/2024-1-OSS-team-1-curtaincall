@@ -10,4 +10,5 @@ urlpatterns = [
     path('test/', TestView.as_view(), name='test'),
     path('POSTMAN/', FileUploadView.as_view(), name='POSTMAN'),
     path('', views.index, name='index'),
+    path('<int:file_id>/', views.detail)
 ]

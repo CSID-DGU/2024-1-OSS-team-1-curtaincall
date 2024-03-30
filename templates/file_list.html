@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if file_list %}
+    <ul>
+    {% for file in file_list %}
+        <li><a href="/pybo/{{ file.id }}/">{{ file.file }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>파일이 없습니다.</p>
+{% endif %}
+</body>
+</html>
