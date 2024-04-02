@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.shortcuts import redirect
 from .models import File
 from django.shortcuts import render, get_object_or_404
 
@@ -23,7 +24,9 @@ class FileUploadView(APIView):
     def post(self, request):  # request 객체를 통해 파일을 받아옴
         file = request.data.get('file')  # request 객체에서 파일을 가져옴
         File.objects.create(file=file)  # 파일을 DB에 저장
-        return Response("파일 업로드 성공")
+        #등록에 성공했으면 CurtainCallApp/로 이동하여 등록된 URL을 확인하
+        herf = '/CurtainCallApp/'
+        return redirect(herf)
 
 
 def index(request):
