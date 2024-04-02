@@ -2,6 +2,7 @@ from django.urls import path
 from CurtainCallApp.views import TestView, FileUploadView
 from . import views
 
+app_name = 'CurtainCallApp'
 # Create a router and register our viewsets with it.
 # router = DefaultRouter()
 
