@@ -8,12 +8,13 @@
 {% if file_list %}
     <ul>
     {% for file in file_list %}
-        <li><a href="/pybo/{{ file.id }}/">{{ file.file }}</a></li>
+        <li><a href="/CurtainCallApp/{{ file.id }}/">{{ file.file }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>파일이 없습니다.</p>
 {% endif %}
+<a class="nav-link" href="/CurtainCallLogin/login">로그인</a>
 <form action="/CurtainCallApp/POSTMAN/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 <input type="file" name="file" id="file" accept="*/*" value="image">
