@@ -4,8 +4,10 @@ from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.shortcuts import redirect
 from .models import File
 from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
 class TestView(APIView):
@@ -20,15 +22,20 @@ class FileUploadView(APIView):
     permission_classes = [permissions.AllowAny]  # 모든 사용자가 접근 가능
 
     def post(self, request):  # request 객체를 통해 파일을 받아옴
-        file = request.data['file']
+        file = request.data.get('file')  # request 객체에서 파일을 가져옴
         File.objects.create(file=file)  # 파일을 DB에 저장
-        return Response("파일 업로드 성공")
+        #등록에 성공했으면 CurtainCallApp/로 이동하여 등록된 URL을 확인하
+        herf = '/CurtainCallApp/'
+        return redirect(herf)
+
+
 def index(request):
     file_list = File.objects.order_by('-file')
     context = {'file_list': file_list}
     return render(request, 'file_list.html', context)
 
+
 def detail(request, file_id):
     file = get_object_or_404(File, pk=file_id)
     context = {'file': file}
-    return render(request, 'file_detail.html', context)
+    return render(request, 'file_detail.html', {'file': file})
