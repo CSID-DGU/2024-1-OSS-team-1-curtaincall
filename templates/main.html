@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+환영합니다 <span id="nickname"></span>님!
+</body>
+<script>
+    document.querySelector('#nickname').textContent = localStorage.getItem('nickname');
+</script>
+</html>

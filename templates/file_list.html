@@ -14,7 +14,7 @@
 {% else %}
     <p>파일이 없습니다.</p>
 {% endif %}
-<a class="nav-link" href="/CurtainCallLogin/login">로그인</a>
+<a class="nav-link" href="/CurtainCallApp/login">로그인</a>
 <form action="/CurtainCallApp/POSTMAN/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 <input type="file" name="file" id="file" accept="*/*" value="image">
