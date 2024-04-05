@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form action="loginattempt" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    <input type="text" name="nickname" id="nickname"/>
+    <input type="submit" value="닉네임 설정"/>
+</form>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e){
+        var nickname = document.querySelector('#nickname').value;
+        localStorage.setItem('nickname', nickname);
+    });
+</script>
+<script>
+    document.querySelector('#nickname').value = localStorage.getItem('nickname');
+</script>
+</body>
+</html>
