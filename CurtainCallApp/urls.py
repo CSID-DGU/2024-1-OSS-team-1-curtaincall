@@ -15,4 +15,5 @@ urlpatterns = [
     path('login/', views.login),
     path('login/loginattempt', CookieView.as_view()),
     path('main/', views.main),
+    path('image', views.Image.as_view(), name='image')
 ]

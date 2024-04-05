@@ -1,14 +1,14 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import redirect
-from .models import File
+from .models import File,test
 from django.shortcuts import render, get_object_or_404
 import CurtainCallApp.cookies as ck
-
+from .serializers import *
 
 # Create your views here.
 class TestView(APIView):
@@ -25,6 +25,7 @@ class FileUploadView(APIView):
     def post(self, request):  # request 객체를 통해 파일을 받아옴
         file = request.data.get('file')  # request 객체에서 파일을 가져옴
         File.objects.create(file=file)  # 파일을 DB에 저장
+        test.objects.create(photo=file)
         # 등록에 성공했으면 CurtainCallApp/로 이동하여 등록된 URL을 확인하
         herf = '/CurtainCallApp/'
         return redirect(herf)
@@ -60,3 +61,11 @@ class CookieView(APIView):
         guest_id = ck.get_guest_id(request)
         print(guest_id)
         return response
+
+class Image(APIView):
+    def post(self, request, format=None):
+        serializers = PhotoSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
