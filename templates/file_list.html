@@ -8,16 +8,17 @@
 {% if file_list %}
     <ul>
     {% for file in file_list %}
-        <li><a href="/CurtainCallApp/{{ file.id }}/">{{ file.file }}</a></li>
+        <li><a href="/CurtainCallApp/{{ file.stage }}/">{{ file.photo }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>파일이 없습니다.</p>
 {% endif %}
 <a class="nav-link" href="/CurtainCallApp/login">로그인</a>
-<form action="/CurtainCallApp/POSTMAN/" method="post" enctype="multipart/form-data">
+<form action="/CurtainCallApp/image/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-<input type="file" name="file" id="file" accept="*/*" value="image">
+<input type="file" name="photo" id="photo" accept="*/*" value="photo" multiple/>
+    <input type="text" name="host" name="host" value="imthehost" type: hidden>
 <input type="submit" value="업로드">
 </form>
 </body>

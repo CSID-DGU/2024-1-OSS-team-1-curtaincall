@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from CurtainCall.donotcommit.aws_s3 import s3_config as s3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -40,7 +41,23 @@ INSTALLED_APPS = [
     'CurtainCallApp.apps.CurtaincallappConfig',
     'rest_framework',
     'drf_yasg',
+    'storages',
 ]
+
+#set below setting value to False if you want to store images at s3 Server
+USE_LOCAL_IMAGES = True
+
+if(not USE_LOCAL_IMAGES):
+    AWS_ACCESS_KEY_ID = s3.AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = s3.AWS_SECRET_ACCESS_KEY
+    AWS_REGION = s3.AWS_REGION
+
+    AWS_STORAGE_BUCKET_NAME = s3.AWS_STORAGE_BUCKET_NAME
+    AWS_S3_CUSTOM_DOMAIN = s3.AWS_S3_CUSTOM_DOMAIN
+    AWS_S3_OBJECT_PARAMETERS = s3.AWS_S3_OBJECT_PARAMETERS
+    DEFAULT_FILE_STORAGE = s3.DEFAULT_FILE_STORAGE
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
