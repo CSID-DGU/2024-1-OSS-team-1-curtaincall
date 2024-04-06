@@ -9,9 +9,13 @@ class File(models.Model):
     def __str__(self):
         return self.file.name
 
+class Stage(models.Model):
+    host = models.CharField(max_length=20)
+    #user
 
-class test(models.Model):
-    testfield = models.CharField(max_length=200)
+class Photo(models.Model):
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     photo = models.FileField()
     def __str__(self):
-        return self.testfield
+        return self.photo.name
+

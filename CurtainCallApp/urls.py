@@ -1,10 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from CurtainCallApp.views import TestView, FileUploadView, CookieView
 from . import views
+from rest_framework.routers import DefaultRouter
 
 app_name = 'CurtainCallApp'
-# Create a router and register our viewsets with it.
-# router = DefaultRouter()
+
+#Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register('image', views.StageViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
@@ -15,5 +18,6 @@ urlpatterns = [
     path('login/', views.login),
     path('login/loginattempt', CookieView.as_view()),
     path('main/', views.main),
-    path('image', views.Image.as_view(), name='image')
+    #path('imagejj', views.Image.as_view()),
+    path('', include(router.urls)),
 ]
