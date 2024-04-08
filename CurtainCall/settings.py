@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-from CurtainCall.donotcommit.aws_s3 import s3_config as s3
+# from CurtainCall.donotcommit.aws_s3 import s3_config as s3
+from CurtainCall.donotcommit import postgre as pg
+from CurtainCall.donotcommit import aws_s3 as s3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'storages',
+    # "chat",
+    "channels",
 ]
 
 #set below setting value to False if you want to store images at s3 Server
@@ -94,13 +98,23 @@ WSGI_APPLICATION = 'CurtainCall.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': pg.database_name,
+        'USER': pg.database_user,
+        'PASSWORD': pg.PASSWORD,
+        'HOST': pg.HOST,
+        'PORT': pg.PORT,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -146,3 +160,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+# WebSocket 관련 설정
+ASGI_APPLICATION = 'your_project_name.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',  # 채널 레이어 설정 (실제 환경에서는 다른 백엔드를 사용할 수 있음)
+    },
+}
