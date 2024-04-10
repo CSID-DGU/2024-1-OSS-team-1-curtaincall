@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 app_name = 'CurtainCallApp'
 
-#Create a router and register our viewsets with it.
+# Create a router and register our viewsets with it.
 router = DefaultRouter()
 router.register('image', views.StageViewSet)
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('login/', views.login),
     path('login/loginattempt', CookieView.as_view()),
     path('main/', views.main),
-    #path('imagejj', views.Image.as_view()),
+    # path('imagejj', views.Image.as_view()),
     path('', include(router.urls)),
+    path('photos/', views.photo_list, name='photo_list'),
 ]
