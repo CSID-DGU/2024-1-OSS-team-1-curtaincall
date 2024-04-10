@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 import CurtainCallApp.cookies as ck
+from django.core.paginator import Paginator
 from .serializers import *
 from rest_framework.parsers import MultiPartParser, FormParser
 
@@ -66,12 +67,11 @@ class CookieView(APIView):
 
 
 class StageViewSet(ModelViewSet):
-    #permission_classes = [permissions.AllowAny]
-    #authentication_classes = []
+    # permission_classes = [permissions.AllowAny]
+    # authentication_classes = []
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
-    #copilot: redirect to href = '/CurtainCallApp/'
-
+    # copilot: redirect to href = '/CurtainCallApp/'
 
 
 class Image(APIView):
@@ -86,3 +86,13 @@ class Image(APIView):
             serializers.save()
             return response
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def photo_list(request):
+    photos_list = Photo.objects.all()
+    paginator = Paginator(photos_list, 4)  # 한 페이지당 4개의 사진
+
+    page_number = request.GET.get('page')
+    photos = paginator.get_page(page_number)
+
+    return render(request, 'four_pic_test.html', {'photos': photos})

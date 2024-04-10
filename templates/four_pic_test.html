@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .photo-container img {
+            cursor: pointer;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="picdiv"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var photos = [{% for photo in photos %}"{{ photo.photo.url }}",{% endfor %}];
+        var currentIndex = 0;
+
+        function showPhotos() {
+            var container = document.querySelector('.picdiv');
+            container.innerHTML = ''; // Clear current photos
+
+            for (var i = 0; i < 4; i++) {
+                if (currentIndex >= photos.length) break; // No more photos
+
+                var img = document.createElement('img');
+                img.src = photos[currentIndex++];
+                img.addEventListener('click', showPhotos);
+                container.appendChild(img);
+            }
+        }
+
+        showPhotos(); // Initial call to display the first 4 photos
+    });
+</script>
+
+</body>
+</html>

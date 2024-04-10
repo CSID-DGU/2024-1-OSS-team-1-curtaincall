@@ -18,4 +18,3 @@ class Photo(models.Model):
     photo = models.FileField()
     def __str__(self):
         return self.photo.name
-
