@@ -90,9 +90,10 @@ class Image(APIView):
 
 def photo_list(request):
     photos_list = Photo.objects.all()
-    paginator = Paginator(photos_list, 4)  # 한 페이지당 4개의 사진
+#    paginator = Paginator(photos_list, 4)  # 한 페이지당 4개의 사진
 
-    page_number = request.GET.get('page')
-    photos = paginator.get_page(page_number)
+#    page_number = request.GET.get('page')
+#    photos = paginator.get_page(page_number)
 
-    return render(request, 'four_pic_test.html', {'photos': photos})
+#    return render(request, 'four_pic_test.html', {'photos': photos})
+    return render(request, 'four_pic_test.html', {'photos': photos_list})

@@ -9,6 +9,11 @@
             width: 100px;
             height: auto;
         }
+        img {
+            cursor: pointer;
+            width: 400px;
+            height: 500px;
+        }
     </style>
 </head>
 <body>
@@ -21,18 +26,26 @@
         var currentIndex = 0;
 
         function showPhotos() {
+            if (currentIndex >= photos.length) {
+                console.log('No more photos to display');
+                return; // 이미 더 이상 표시할 사진이 없다면 함수 종료
+            }
+
             var container = document.querySelector('.picdiv');
             container.innerHTML = ''; // Clear current photos
 
-            for (var i = 0; i < 4; i++) {
-                if (currentIndex >= photos.length) break; // No more photos
-
+            for (var i = 0; i < 4 && currentIndex < photos.length; i++) {
                 var img = document.createElement('img');
                 img.src = photos[currentIndex++];
-                img.addEventListener('click', showPhotos);
                 container.appendChild(img);
             }
         }
+
+        document.querySelector('.picdiv').addEventListener('click', function(event) {
+            if (event.target.tagName === 'IMG') {
+                showPhotos();
+            }
+        });
 
         showPhotos(); // Initial call to display the first 4 photos
     });
