@@ -157,9 +157,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Media files
+# Media filesx
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # WebSocket 관련 설정
 ASGI_APPLICATION = 'your_project_name.asgi.application'
