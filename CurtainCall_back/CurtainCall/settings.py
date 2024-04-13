@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'storages',
     # "chat",
     "channels",
+    'corsheaders',
 ]
 
 #set below setting value to False if you want to store images at s3 Server
@@ -64,6 +65,8 @@ if(not USE_LOCAL_IMAGES):
 
 
 MIDDLEWARE = [
+    #corsheaders 맨 위에 둘 것 / CommonMiddleware은 이미 포함되어있어서 미추가했는데 추후에 필요하다면 밑 줄에 추가할 것.
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,6 +74,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
 ]
 
 ROOT_URLCONF = 'CurtainCall.urls'
