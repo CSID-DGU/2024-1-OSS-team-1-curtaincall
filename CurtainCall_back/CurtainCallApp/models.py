@@ -14,7 +14,13 @@ class Stage(models.Model):
     #user
 
 class Photo(models.Model):
+    """
+    DB 에서 사진 리스트를 가져옴
+    """
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     photo = models.FileField()
     def __str__(self):
+        """
+        return photo name list
+        """
         return self.photo.name
