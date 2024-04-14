@@ -11,6 +11,8 @@ import CurtainCallApp.cookies as ck
 from django.core.paginator import Paginator
 from .serializers import *
 from rest_framework.parsers import MultiPartParser, FormParser
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 
 
 # Create your views here.
@@ -23,6 +25,19 @@ class TestView(APIView):
 
 # File Upload View
 class FileUploadView(APIView):
+    """
+    파일 업로드 API
+    """
+    # @swagger_auto_schema(
+    #     request_body=openapi.Schema(
+    #         type=openapi.TYPE_OBJECT,
+    #         properties={
+    #             'file': openapi.Schema(type=openapi.TYPE_FILE, description='파일')
+    #         }
+    #     ),
+    #     responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+    #         'href': openapi.Schema(type=openapi.TYPE_STRING, description='이동할 URL')
+    #     })})
     permission_classes = [permissions.AllowAny]  # 모든 사용자가 접근 가능
 
     def post(self, request):  # request 객체를 통해 파일을 받아옴
@@ -88,12 +103,17 @@ class Image(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def photo_list(request):
-    photos_list = Photo.objects.all()
-#    paginator = Paginator(photos_list, 4)  # 한 페이지당 4개의 사진
-
-#    page_number = request.GET.get('page')
-#    photos = paginator.get_page(page_number)
-
-#    return render(request, 'four_pic_test.html', {'photos': photos})
-    return render(request, 'four_pic_test.html', {'photos': photos_list})
+class requestImage(APIView):
+    """
+    이미지 리스트 요청 API
+    """
+    @swagger_auto_schema(
+        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+            'imgeList': openapi.Schema(type=openapi.TYPE_STRING, description='이미지 리스트')
+        })})
+    def get(self, request):
+        photos_list = Photo.objects.all()
+        photos_list = list(photos_list)
+        return render(request, 'four_pic_test.html', {'imgeList': photos_list})
+        # request = {'imgeList': photos_list}
+        # return Response(request, status=status.HTTP_200_OK)
