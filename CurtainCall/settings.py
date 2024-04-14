@@ -46,11 +46,10 @@ INSTALLED_APPS = [
     'storages',
     # "chat",
     "channels",
-    'stage_admin',
 ]
 
 #set below setting value to False if you want to store images at s3 Server
-USE_LOCAL_IMAGES = False
+USE_LOCAL_IMAGES = True
 
 if(not USE_LOCAL_IMAGES):
     AWS_ACCESS_KEY_ID = s3.AWS_ACCESS_KEY_ID

@@ -4,5 +4,4 @@ import stage_admin.views as views
 
 urlpatterns = [
     path("hello/", views.helloAPI.as_view(), name="hello"),
-    path("creatStage/", views.creatStage.as_view(), name="createStage"),
 ]
