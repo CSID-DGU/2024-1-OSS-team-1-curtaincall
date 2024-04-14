@@ -20,5 +20,5 @@ urlpatterns = [
     path('main/', views.main),
     # path('imagejj', views.Image.as_view()),
     path('', include(router.urls)),
-    path('photos/', views.photo_list, name='photo_list'),
+    path('requestImage/', views.requestImage.as_view(), name='requestImage'),
 ]
