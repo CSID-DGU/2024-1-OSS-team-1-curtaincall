@@ -1,3 +1,23 @@
+.bg-body-tertiary {
+  background-color: #fff2e6;
+
+}
+
+.main-bg {
+  height : 500px;
+  background-image : url('./img/막이올려짐.webp');
+  background-size : cover;
+  background-position : center;
+}
+
+.sort-bg {
+  height : 400px;
+  background-image : url('./img/막이내려짐.webp');
+  background-size : cover;
+  background-position : center;
+}
+
+
 .App {
   text-align: center;
 }
@@ -14,7 +34,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #fff2e6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
