@@ -28,8 +28,10 @@ def create_s3_bucket(db_id, host):
     file_content += f"mack time: {datetime.now()}\n"
 
     try:
-        # 파일 업로드
+        # 정보 파일 업로드
         s3_client.put_object(Bucket=bucket_name, Key=file_key, Body=file_content)
+        # row 데이터 폴더 업로드
+        s3_client.put_object(Bucket=bucket_name, Key=folder_key + 'row_image/', Body='')
         # print(f"File '{file_key}' uploaded successfully.")
     except ClientError as e:
         # print(f"Error uploading file '{file_key}': {e}")
