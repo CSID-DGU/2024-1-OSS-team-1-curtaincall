@@ -7,9 +7,35 @@ from drf_yasg.utils import swagger_auto_schema
 from .models import Stage_list, User_list
 
 import boto3
+from botocore.exceptions import ClientError
+from datetime import datetime
 
-import CurtainCall.settings as settings
+from CurtainCall.settings import AWS_S3
 
+
+def create_s3_bucket(db_id, host):
+    session = boto3.Session(
+        aws_access_key_id=AWS_S3.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_S3.AWS_SECRET_ACCESS_KEY,
+    )
+
+    s3_client = session.client('s3')
+    bucket_name = AWS_S3.AWS_STORAGE_BUCKET_NAME
+    folder_key = str(db_id) + '/'
+
+    file_key = folder_key + 'info.txt'
+    file_content = f"mack host: {host}\n"
+    file_content += f"mack time: {datetime.now()}\n"
+
+    try:
+        # 파일 업로드
+        s3_client.put_object(Bucket=bucket_name, Key=file_key, Body=file_content)
+        # print(f"File '{file_key}' uploaded successfully.")
+    except ClientError as e:
+        # print(f"Error uploading file '{file_key}': {e}")
+        return False
+
+    return True
 
 class creatStage(APIView):
     """
@@ -40,21 +66,9 @@ class creatStage(APIView):
         user_id = new_user_list.id
         new_user_list.save()
 
-        # 3 mack S3 folder
-        session = boto3.Session(
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-        )
-
-        s3_client = session.client('s3')
-        bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-        folder_key = str(db_id) + '/'
-
-        try:
-            # s3 제작 예외처리 부
-            s3_client.put_object(Bucket=bucket_name, Key=(folder_key))
-        except Exception as e:
-            pass
+        if not create_s3_bucket(db_id, name):
+            request = {"status": "fail", "message": "s3 bucket create fail"}
+            return Response(request, status=status.HTTP_200_OK)
 
         # 5 response
         request = {"stageId": db_id, "userId": user_id}
