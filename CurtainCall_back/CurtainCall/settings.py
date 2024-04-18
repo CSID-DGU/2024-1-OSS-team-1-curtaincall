@@ -41,13 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CurtainCallApp.apps.CurtaincallappConfig',
+    'Stage.apps.StageConfig',
+    'Algorithm_cv2.apps.AlgorithmCv2Config',
     'rest_framework',
     'drf_yasg',
     'storages',
     # "chat",
     "channels",
     'corsheaders',
-    'stage_admin',
 ]
 
 #set below setting value to False if you want to store images at s3 Server

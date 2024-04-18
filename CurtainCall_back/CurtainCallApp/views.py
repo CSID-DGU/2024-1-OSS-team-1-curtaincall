@@ -107,13 +107,13 @@ class requestImage(APIView):
     """
     이미지 리스트 요청 API
     """
-    @swagger_auto_schema(
-        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-            'imgeList': openapi.Schema(type=openapi.TYPE_STRING, description='이미지 리스트')
-        })})
+    # @swagger_auto_schema(
+    #     responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+    #         'imgeList': openapi.Schema(type=openapi.TYPE_STRING, description='이미지 리스트')
+    #     })})
     def get(self, request):
         photos_list = Photo.objects.all()
-        photos_list = list(photos_list)
+        # photos_list = list(photos_list)
         return render(request, 'four_pic_test.html', {'imgeList': photos_list})
         # request = {'imgeList': photos_list}
         # return Response(request, status=status.HTTP_200_OK)

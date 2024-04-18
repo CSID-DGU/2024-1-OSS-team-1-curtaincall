@@ -17,8 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
-from CurtainCallApp.views import TestView
-import stage_admin.views as stage_admin_views
 from django.conf.urls.static import static
 
 from rest_framework import routers
@@ -54,5 +52,5 @@ if settings.DEBUG:
         re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
         re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         path('CurtainCallApp/', include('CurtainCallApp.urls')),
-        path('stage_admin/', include('stage_admin.urls'))
+        path('Stage/', include('Stage.urls')),
     ]
