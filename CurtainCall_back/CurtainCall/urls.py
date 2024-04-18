@@ -53,4 +53,5 @@ if settings.DEBUG:
         re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
         path('CurtainCallApp/', include('CurtainCallApp.urls')),
         path('Stage/', include('Stage.urls')),
+        path('Image/', include('Image.urls')),
     ]

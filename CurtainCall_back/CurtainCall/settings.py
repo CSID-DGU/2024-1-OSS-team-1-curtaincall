@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'CurtainCallApp.apps.CurtaincallappConfig',
     'Stage.apps.StageConfig',
+    'Image.apps.ImageConfig',
     'Algorithm_cv2.apps.AlgorithmCv2Config',
     'rest_framework',
     'drf_yasg',
