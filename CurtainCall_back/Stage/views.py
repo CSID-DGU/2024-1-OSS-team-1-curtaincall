@@ -166,12 +166,7 @@ class checkStage(APIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter(
-                name='stageId',
-                in_=openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                description='스테이지 ID'
-            )
+            openapi.Parameter('stageId', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='스테이지 ID', required=True)
         ],
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
