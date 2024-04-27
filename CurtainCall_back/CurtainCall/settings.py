@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CurtainCallApp.apps.CurtaincallappConfig',
+    'Algorithm_cv2.apps.AlgorithmCv2Config',
     'rest_framework',
     'drf_yasg',
     'storages',
@@ -79,6 +80,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    'http://localhost:8000',
 ]
 
 ROOT_URLCONF = 'CurtainCall.urls'
