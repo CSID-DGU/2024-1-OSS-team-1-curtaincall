@@ -19,7 +19,7 @@ function Choose(){
             {selectedImages.map((image, index) => (
                     <Col key={index}>
                         {console.log(index)}
-                        <img src={image.src} alt={`Your pick ${index + 1}`} />
+                        <img src={image.photo} alt={`Your pick ${index + 1}` } style={{ width: '100%', height: 'auto' }} />
                         <p>{index + 1}</p>
                     </Col>
                 ))}
