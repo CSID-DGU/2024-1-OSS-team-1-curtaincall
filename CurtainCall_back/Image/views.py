@@ -87,7 +87,7 @@ class findImageList(APIView):
             stage_id = request.get('stageId')
             folder_name = request.get('folderNum')
             stage_id_folder = stage_id + '/'
-            folder_name_folder = f"folder_{folder_name}/"
+            folder_name_folder = f"{folder_name}/"
 
             # 1 s3 client 생성
             session = boto3.Session(

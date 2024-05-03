@@ -39,7 +39,7 @@ def create_s3_bucket(db_id, host):
 
     return True
 
-class creatStage(APIView):
+class createStage(APIView):
     """
     스테이지 생성 후 스테이지 ID 반환
     """
