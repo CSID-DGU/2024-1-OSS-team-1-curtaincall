@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-
+# 삭제바람
 # Create your views here.
 class TestView(APIView):
     permission_classes = [permissions.AllowAny]
