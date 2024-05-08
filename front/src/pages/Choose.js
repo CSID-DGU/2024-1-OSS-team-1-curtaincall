@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, ButtonGroup, Row, Col, Dropdown, DropdownButton, } from 'react-bootstrap';
+import { Container, ButtonGroup, Navbar, Carousel, Dropdown, DropdownButton, } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
 function Choose(){
@@ -14,16 +14,29 @@ function Choose(){
 
     return (
         <Container>
-          <h3>{currentView}</h3>  
-          <Row>
+          <Navbar className="bg-body-tertiary" >
+              <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',backgroundColor: '#ff4d4d'}}>
+                  <Navbar.Brand style={{color: 'white' }}>{currentView}</Navbar.Brand>
+              </Container>
+        </Navbar>
+        
+        <Carousel>
             {selectedImages.map((image, index) => (
-                    <Col key={index}>
-                        {console.log(index)}
-                        <img src={image.photo} alt={`Your pick ${index + 1}` } style={{ width: '100%', height: 'auto' }} />
-                        <p>{index + 1}</p>
-                    </Col>
-                ))}
-          </Row>
+                <Carousel.Item key={index}>
+                    <img
+                        className="d-block w-100"
+                        src={image.src}
+                        alt={`Your pick ${index + 1}`}
+                    />
+                    <Carousel.Caption>
+                        <h3>Round {index + 1} Winner</h3>
+                        <p>This is your selection number {index + 1}.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            ))}
+        </Carousel>
+
+        <br/>
         <>
           <DropdownButton
             as={ButtonGroup}

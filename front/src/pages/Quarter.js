@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col ,Navbar} from 'react-bootstrap';
 //import data from './data.js'; 
 import localuri from './localuri.js';
 
@@ -85,14 +86,20 @@ function Quater() {
     
     return (
         <div>
-            <h2>Round {currentRound + 1}/{totalRounds}</h2> 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+            <Navbar className="bg-body-tertiary" >
+                <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',backgroundColor: '#ff4d4d'}}>
+                    <Navbar.Brand style={{color: 'white' }}>Round {currentRound + 1}/{totalRounds}</Navbar.Brand>
+                </Container>
+            </Navbar>
+            <Container fluid="md" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
                 {grouped(data, currentRound + 1).map((image) => (
-                    <div key={image.id} onClick={() => handleSelectImage(image)}>
-                        <img src={image.photo} alt={`Option ${image.id}`} style={{ width: '100%', height: 'auto' }} />
-                    </div>
+                    <Row>
+                        <Col key={image.id} onClick={() => handleSelectImage(image)}>
+                            <img src={image.src} alt={`Option ${image.id}`} style={{ width: '100%', height: 'auto' }} />
+                        </Col>
+                    </Row>
                 ))}
-            </div>
+            </Container>
         </div>
     );
     
