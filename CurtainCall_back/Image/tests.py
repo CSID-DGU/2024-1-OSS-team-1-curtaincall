@@ -25,21 +25,4 @@
 #
 #
 #
-#
-# whitelist = ('.png', '.jpg', '.jpeg', '.gif', '.bmp')
-# blacklist = ('.txt', '.pdf', '.doc')
-#
-# # 이미지 파일의 링크를 저장할 리스트 초기화
-# image_links = []
-#
-# # 객체 중 이미지 파일인 것만 필터링하여 리스트에 추가
-# for obj in response.get('Contents', []):
-#     key = obj['Key']
-#     # 이미지 파일인지 확인
-#     if key.lower().endswith(whitelist):
-#         if not key.lower().endswith(blacklist):
-#             # 이미지 파일의 링크 생성 및 리스트에 추가
-#             image_link = f"https://{bucket_name}.s3.amazonaws.com/{key}"
-#             image_links.append(image_link)
-#
-# print(image_links)
+
