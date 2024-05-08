@@ -55,4 +55,5 @@ if settings.DEBUG:
         path('CurtainCallApp/', include('CurtainCallApp.urls')),
         path('Stage/', include('Stage.urls')),
         path('Image/', include('Image.urls')),
+        path('Algorithm_cv2/', include('Algorithm_cv2.urls')),
     ]

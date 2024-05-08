@@ -115,5 +115,6 @@ class requestImage(APIView):
         photos_list = Photo.objects.all()
         # photos_list = list(photos_list)
         return render(request, 'four_pic_test.html', {'imgeList': photos_list})
+
         # request = {'imgeList': photos_list}
         # return Response(request, status=status.HTTP_200_OK)

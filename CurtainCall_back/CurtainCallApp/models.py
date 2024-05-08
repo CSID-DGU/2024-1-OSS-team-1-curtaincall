@@ -19,6 +19,8 @@ class Photo(models.Model):
     """
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     photo = models.FileField()
+    photo_keyword = models.TextField(null=True)
+    group_id = models.IntegerField(null=True)
     def __str__(self):
         """
         return photo name list
