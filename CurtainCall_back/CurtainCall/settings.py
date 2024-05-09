@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+#삭제바람
 
 from pathlib import Path
 import os
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CurtainCallApp.apps.CurtaincallappConfig',
+    'Stage.apps.StageConfig',
+    'Image.apps.ImageConfig',
     'Algorithm_cv2.apps.AlgorithmCv2Config',
     'rest_framework',
     'drf_yasg',
@@ -48,22 +51,22 @@ INSTALLED_APPS = [
     # "chat",
     "channels",
     'corsheaders',
-    'stage_admin',
 ]
 
 #set below setting value to False if you want to store images at s3 Server
 USE_LOCAL_IMAGES = False
 
 if(not USE_LOCAL_IMAGES):
-    AWS_ACCESS_KEY_ID = s3.AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY = s3.AWS_SECRET_ACCESS_KEY
-    AWS_REGION = s3.AWS_REGION
+    class AWS_S3:
+        AWS_ACCESS_KEY_ID = s3.AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY = s3.AWS_SECRET_ACCESS_KEY
+        AWS_REGION = s3.AWS_REGION
 
-    AWS_STORAGE_BUCKET_NAME = s3.AWS_STORAGE_BUCKET_NAME
-    AWS_S3_CUSTOM_DOMAIN = s3.AWS_S3_CUSTOM_DOMAIN
-    AWS_S3_OBJECT_PARAMETERS = s3.AWS_S3_OBJECT_PARAMETERS
-    DEFAULT_FILE_STORAGE = s3.DEFAULT_FILE_STORAGE
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+        AWS_STORAGE_BUCKET_NAME = s3.AWS_STORAGE_BUCKET_NAME
+        AWS_S3_CUSTOM_DOMAIN = s3.AWS_S3_CUSTOM_DOMAIN
+        AWS_S3_OBJECT_PARAMETERS = s3.AWS_S3_OBJECT_PARAMETERS
+        DEFAULT_FILE_STORAGE = s3.DEFAULT_FILE_STORAGE
+        MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 
 
 MIDDLEWARE = [
