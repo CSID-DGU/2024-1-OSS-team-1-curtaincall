@@ -1,16 +1,50 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useState } from 'react';
-import { Container, Navbar, Nav, Button, Row, Col } from 'react-bootstrap';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Start from './pages/Start';
 import Host from './pages/Host';
 import Guest from './pages/Guest';
 import Upload from './pages/Upload';
 import Sort from './pages/Sort';
-import Quater from './pages/Quarter';
 import Choose from './pages/Choose';
+import Quater from "./pages/Quarter";
 
+import {
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
+import NavigationBar from "./component/JS/NavigationBar";
+import SideDrawer from "./component/JS/SideDrawer";
+
+
+
+function App() {
+    const theme = useTheme();
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+    return (
+        <div className="App">
+            <Router>
+                <NavigationBar isMobile={isMobile} handleDrawerToggle={handleDrawerToggle} />
+                <SideDrawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+                <Routes>
+                    <Route path="/" element={<Start />} />
+                    <Route path="/host" element={<Host />} />
+                    <Route path="/guest" element={<Guest />} />
+                    <Route path="/upload" element={<Upload />} />
+                    <Route path="/sort" element={<Sort />} />
+                    <Route path="/quater" element={<Quater />} />
+                    <Route path="/choose" element={<Choose />} />
+                    <Route path="*" element={<div>404</div>} />
+                </Routes>
+            </Router>
+        </div>
+    );
+}
+/*
 function App() {
     return (
         <div className="App">
@@ -53,42 +87,6 @@ function App() {
         </div>
     );
 }
+*/
 
 export default App;
-
-
-//frontend/src/app.js
-// import React, { Component } from 'react';
-
-// class App extends Component {
-//     state = {
-//         posts: []
-//     };
-
-//     async componentDidMount() {
-//         try {
-//             const res = await fetch('http://127.0.0.1:8000/CurtainCallApp/image/');
-//             const posts = await res.json();
-//             this.setState({
-//                 posts
-//             });
-//         } catch (e) {
-//             console.log(e);
-//         }
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 {this.state.posts.map(item => (
-//                     <div key={item.id}>
-//                         <h1>{item.id}</h1>
-//                         <span>{item.host}</span>
-//                     </div>
-//                 ))}
-//             </div>
-//         );
-//     }
-// }
-
-// export default App;

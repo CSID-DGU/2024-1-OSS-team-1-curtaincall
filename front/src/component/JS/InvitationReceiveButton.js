@@ -8,7 +8,7 @@ const IRTheme = createTheme({
             styleOverrides: {
                 root: {
                     width: '33.33%',
-                    height: '100px',
+                    height: '70px',
                     borderRadius: '50px',
                     fontWeight: 'bold',
                     fontSize: '1.25rem',

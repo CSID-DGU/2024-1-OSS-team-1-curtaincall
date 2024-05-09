@@ -8,7 +8,7 @@ const RBTheme = createTheme({
             styleOverrides: {
                 root: {
                     width: '33.33%',
-                    height: '100px',
+                    height: '70px',
                     borderRadius: '50px',
                     fontWeight: 'bold',
                     fontSize: '1.25rem',
@@ -39,10 +39,10 @@ const RoomMakerButton = ({ children }) => {
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-                    backgroundColor: loading ? '#fd8064' : '#ff5838', // 로딩 상태에 따른 배경색 변경
+                    backgroundColor: loading ? '#ffa793' : '#ff5838', // 로딩 상태에 따른 배경색 변경
                     color: 'white',
                     '&:hover': {
-                        backgroundColor: loading ? '#fd8064' : '#fd8064' // 호버 상태에서의 배경색
+                        backgroundColor: loading ? '#ffa793' : '#ffa793' // 호버 상태에서의 배경색
                     }
                 }}
             >
