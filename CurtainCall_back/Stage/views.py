@@ -151,7 +151,7 @@ class seandImge(APIView):
             return Response(request, status=status.HTTP_200_OK)
 
         # 4 change sendImage
-        user.change_sendImage()
+        user.set_send_image_flag()
 
         # 5 response
         request = {"status": "success"}
@@ -159,9 +159,9 @@ class seandImge(APIView):
         return Response(request, status=status.HTTP_200_OK)
 
 
-class checkStage(APIView):
+class checkStageUsers(APIView):
     """
-    스테이지 상태 확인
+    스테이지 유저 상태 확인
     """
 
     @swagger_auto_schema(
@@ -191,5 +191,36 @@ class checkStage(APIView):
 
         # 4 response
         request = {"status": "success", "users": users_send_info}
+        # send response
+        return Response(request, status=status.HTTP_200_OK)
+
+class checkStage(APIView):
+    """
+    스테이지 상태 확인
+    """
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('stageId', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='스테이지 ID', required=True)
+        ],
+        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+            'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
+            'users': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 전송 정보')
+        })})
+    def get(self, request):
+
+        # 1 input data
+        data = request.GET
+        stageId = data.get('stageId')
+
+        # 2 check stage
+        try:
+            stage = Stage_list.objects.get(id=stageId)
+        except Stage_list.DoesNotExist:
+            request = {"status": "fail", "message": "stage not exist"}
+            return Response(request, status=status.HTTP_200_OK)
+
+        # 4 response
+        request = {"status": "success", "stage": stage}
         # send response
         return Response(request, status=status.HTTP_200_OK)
