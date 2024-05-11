@@ -7,10 +7,15 @@ class Stage_list(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     host = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    sort = models.BooleanField(default=False)
 
     @classmethod
     def create(cls, host_val):
         return cls(host=host_val)
+
+    def set_sort_flag(self):
+        self.sort = True
+        self.save()
 
 
 class User_list(models.Model):
@@ -25,6 +30,6 @@ class User_list(models.Model):
     def create(cls, stage_id_val, user_val):
         return cls(stage_id=stage_id_val, user=user_val)
 
-    def change_sendImage(self):
+    def set_send_image_flag(self):
         self.sendImage = True
         self.save()
