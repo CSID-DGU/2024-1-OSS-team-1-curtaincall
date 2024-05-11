@@ -55,5 +55,6 @@ if settings.DEBUG:
         path('CurtainCallApp/', include('CurtainCallApp.urls')),
         path('Stage/', include('Stage.urls')),
         path('Image/', include('Image.urls')),
+        path("photoGrouping/", include('Photo_Grouping.urls')),
         path('Algorithm_cv2/', include('Algorithm_cv2.urls')),
     ]

@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+import uuid
 
 
 import boto3
@@ -126,3 +127,102 @@ class findImageList(APIView):
 
             request = {"imageLen":len(image_links),'imageList': image_links}
             return Response(request, status=status.HTTP_200_OK)
+
+class uploadImage(APIView):
+    """
+    이미지 row 폴더 업로드
+    """
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID'),
+                'file': openapi.Schema(type=openapi.TYPE_FILE, description='이미지 파일')
+            }
+        ),
+    responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+        'status': openapi.Schema(type=openapi.TYPE_STRING, description='상태'),
+        'message': openapi.Schema(type=openapi.TYPE_STRING, description='메시지')
+    })})
+    def post(self, request):
+        stage_id = request.POST.get('stageId')
+        photos = request.FILES.getlist('file')
+
+        # 1 s3 client 생성
+        session = boto3.Session(
+            aws_access_key_id=AWS_S3.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_S3.AWS_SECRET_ACCESS_KEY,
+        )
+        s3_client = session.client('s3')
+
+        # 2 bucket name
+        bucket_name = AWS_S3.AWS_STORAGE_BUCKET_NAME
+
+        # 3 이미지 업로드
+        for photo in photos:
+            # 이미지 파일인지 확인
+            if photo.name.lower().endswith(whitelist):
+                if not photo.name.lower().endswith(blacklist):
+                    # 이미지 파일의 링크 생성 및 리스트에 추가
+                    file_ext = photo.name.split('.')[-1]
+                    # key = f"{stage_id}/row/{photo.name}"
+                    key = f"{stage_id}/row_image/{str(uuid.uuid4())+'.'+file_ext}"
+                    s3_client.upload_fileobj(photo, bucket_name, key)
+
+        return Response({"status": "success", "message": "image upload success"}, status=status.HTTP_200_OK)
+
+class bestImage(APIView):
+    """
+    가장 잘 나온 이미지 저장 API
+    """
+    @swagger_auto_schema(
+         request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID'),
+                'folderNum': openapi.Schema(type=openapi.TYPE_STRING, description='폴더 이름'),
+                'bestImage': openapi.Schema(type=openapi.TYPE_STRING, description='best 이미지 이름')
+            },
+        ),
+        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+            'status': openapi.Schema(type=openapi.TYPE_STRING, description='상태'),
+            'message': openapi.Schema(type=openapi.TYPE_STRING, description='메시지')
+        })})
+    def post(self, request):
+        stage_id = request.data.get('stageId')
+        folder_name = request.data.get('folderNum')
+        best_image = request.data.get('bestImage')
+
+        # 1 s3 client 생성
+        session = boto3.Session(
+            aws_access_key_id=AWS_S3.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_S3.AWS_SECRET_ACCESS_KEY,
+        )
+        s3_client = session.client('s3')
+
+        # 2 bucket name
+        bucket_name = AWS_S3.AWS_STORAGE_BUCKET_NAME
+
+        # 폴더 내부에 best.txt 파일 생성
+        key = f"{stage_id}/{folder_name}/best_image.txt"
+
+        try:
+            response = s3_client.get_object(Bucket=bucket_name, Key=key)
+        except ClientError as e:
+            s3_client.put_object(Bucket=bucket_name, Key=key, Body='')
+            response = s3_client.get_object(Bucket=bucket_name, Key=key)
+
+        info = response['Body'].read().decode('utf-8')
+        info += "\n"
+        info += best_image
+        s3_client.put_object(Bucket=bucket_name, Key=key, Body=info)
+
+        # # info.txt 파일 에 업데이트
+        # key = f"{stage_id}/info.txt"
+        # response = s3_client.get_object(Bucket=bucket_name, Key=key)
+        # info = response['Body'].read().decode('utf-8')
+        # info += "\n"
+        # info += f"best image : {folder_name} : {best_image}"
+        # s3_client.put_object(Bucket=bucket_name, Key=key, Body=info)
+
+        return Response({"status": "success", "message": "best image upload success"}, status=status.HTTP_200_OK)
