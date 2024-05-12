@@ -1,8 +1,7 @@
 import React from 'react';
-import {Container, Navbar, Nav, Button, Row, Col} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import RoomMakerButton from "../component/JS/RoomMakerButton";
-import InvitationReceiveButton from "../component/JS/InvitationReceiveButton";
+import RoomMakerButton from "../component/JS/StartPageComp/RoomMakerButton";
+import InvitationReceiveButton from "../component/JS/StartPageComp/InvitationReceiveButton";
 
 function Start(){
     const navigate = useNavigate();
@@ -11,7 +10,7 @@ function Start(){
 
           <div className="main-bg"></div>
           <br></br>
-          <div className="mb-2">
+          <div className="mb-2" style={{ display: 'flex', justifyContent: 'center' }} >
             <RoomMakerButton>
               방 만들기
             </RoomMakerButton>

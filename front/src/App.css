@@ -18,6 +18,14 @@
   padding: 8px;
 }
 
+@media (max-width: 768px) {
+  .mb-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+}
 
 /*이 아래는 효제코드*/
 .bg-body-tertiary {

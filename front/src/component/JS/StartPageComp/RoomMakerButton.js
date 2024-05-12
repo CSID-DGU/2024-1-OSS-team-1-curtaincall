@@ -1,24 +1,8 @@
 import React, { useState } from 'react';
 import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import {RBTheme} from "./Theme/RBTheme";
 
-const RBTheme = createTheme({
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    width: '33.33%',
-                    height: '70px',
-                    borderRadius: '50px',
-                    fontWeight: 'bold',
-                    fontSize: '1.25rem',
-                    position: 'relative',
-                    transition: 'background-color 0.5s ease',
-                },
-            }
-        }
-    }
-});
 
 const RoomMakerButton = ({ children }) => {
     const navigate = useNavigate();
