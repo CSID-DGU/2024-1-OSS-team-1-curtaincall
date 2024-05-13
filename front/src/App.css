@@ -1,3 +1,33 @@
+.appLink {
+  display: inline-flex;
+  alignItems: center;
+  color: inherit;
+  textDecoration: none;
+  padding: 0px;
+  marginRight: 5%;
+  marginLeft: 5%;
+}
+
+.appIconButton {
+  marginLeft: auto;
+}
+
+.navLinks {
+  display: flex;
+  justifyContent: center;
+  padding: 8px;
+}
+
+@media (max-width: 768px) {
+  .mb-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+}
+
+/*이 아래는 효제코드*/
 .bg-body-tertiary {
   background-color: #fff2e6;
 
