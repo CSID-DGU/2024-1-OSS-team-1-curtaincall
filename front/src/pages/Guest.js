@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import URLInputForm from "../component/JS/GusetPageComp/URLInputForm";
-import HostPageInputButton from "../component/JS/GusetPageComp/HostPageInputButton";
+import URLInputForm from "../component/GusetPageComp/URLInputForm";
+import HostPageInputButton from "../component/GusetPageComp/HostPageInputButton";
 
 function Guest() {
     const navigate = useNavigate();

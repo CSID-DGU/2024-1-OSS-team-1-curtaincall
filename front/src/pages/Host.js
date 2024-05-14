@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import guestData from './data.js'; // 실제 데이터 파일은 어떨까?
-import CopyButton from '../component/JS/HostPageComp/CopyButton';
-import GoToUploadButton from '../component/JS/HostPageComp/GoToUploadButton';
-import GuestList from "../component/JS/HostPageComp/GuestList";
+import CopyButton from '../component/HostPageComp/CopyButton';
+import GoToUploadButton from '../component/HostPageComp/GoToUploadButton';
+import GuestList from "../component/HostPageComp/GuestList";
 
 function Host() {
     const navigate = useNavigate();
