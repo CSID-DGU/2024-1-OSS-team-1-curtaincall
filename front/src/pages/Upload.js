@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import localuri from './localuri.js';
+import UploadButton from "../component/UploadPageComp/UploadButton";
+import FileInputButton from "../component/UploadPageComp/FileInputButton";
 
 function Upload(){
     const [files, setFiles] = useState([]);
@@ -14,6 +15,7 @@ function Upload(){
     };
   
     const handleSubmit = (event) => {
+        console.log('upload');
       event.preventDefault();
 
 
@@ -63,11 +65,10 @@ function Upload(){
     };
   
     return (
-      <form onSubmit={handleSubmit}>
-        {/* multiple 속성을 추가하여 여러 파일을 선택할 수 있도록 합니다. */}
-        <input type="file" onChange={handleFileChange} multiple />
-        <input type="submit" value="업로드"/>
-      </form>
+        <form onSubmit={handleSubmit}>
+            <FileInputButton onChange={handleFileChange} />
+            <UploadButton>업로드</UploadButton>
+        </form>
     );
 }
 
