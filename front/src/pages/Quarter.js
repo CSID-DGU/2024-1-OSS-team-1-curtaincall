@@ -15,7 +15,7 @@ function Quater() {
 
     useEffect(() => {
         // Django API 엔드포인트로부터 이미지 URL을 가져옵니다.
-        fetch('http://' + localuri + ':8000/CurtainCallApp/requestImage/')
+        fetch('http://' + localuri + '/CurtainCallApp/requestImage/')
           .then(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);

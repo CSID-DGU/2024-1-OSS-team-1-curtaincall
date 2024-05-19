@@ -13,7 +13,7 @@ function Upload(){
       // 선택된 모든 파일을 상태에 저장합니다.
       setFiles(event.target.files);
     };
-  
+
     const handleSubmit = (event) => {
         console.log('upload');
       event.preventDefault();
@@ -27,7 +27,7 @@ function Upload(){
 
       const xhr = new XMLHttpRequest();
       
-      xhr.open('POST', 'http://' + localuri + ':8000/CurtainCallApp/image/');
+      xhr.open('POST', 'http://' + localuri + '/CurtainCallApp/image/');
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           navigate('/Sort');

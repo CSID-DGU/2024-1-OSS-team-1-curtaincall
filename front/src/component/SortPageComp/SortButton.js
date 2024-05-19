@@ -12,7 +12,7 @@ const SortButton = ({ children }) => {
         if (loading) return;
         setLoading(true);
 
-        fetch('http://' + localuri + ':8000/Algorithm_cv2/test/', {
+        fetch('http://' + localuri + '/Algorithm_cv2/test/', {
             method: 'GET',
         })
             .then(response => {
