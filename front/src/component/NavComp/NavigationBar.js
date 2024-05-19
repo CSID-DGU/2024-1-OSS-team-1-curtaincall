@@ -55,6 +55,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                         <Link component={RouterLink} to="/sort" sx={LinkStyle}>정렬</Link>
                         <Link component={RouterLink} to="/quarter" sx={LinkStyle}>4분할</Link>
                         <Link component={RouterLink} to="/choose" sx={LinkStyle}>선택</Link>
+                        <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
                     </Box>
                 )}
             </Toolbar>

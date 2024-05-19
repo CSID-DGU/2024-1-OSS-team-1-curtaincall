@@ -16,6 +16,7 @@ function SideDrawer({ open, handleDrawerToggle }) {
                     <ListItemButton component={Link} to="/sort" onClick={handleDrawerToggle}><ListItemText primary="정렬" /></ListItemButton>
                     <ListItemButton component={Link} to="/quarter" onClick={handleDrawerToggle}><ListItemText primary="4분할" /></ListItemButton>
                     <ListItemButton component={Link} to="/choose" onClick={handleDrawerToggle}><ListItemText primary="선택" /></ListItemButton>
+                    <ListItemButton component={Link} to="/login" onClick={handleDrawerToggle}><ListItemText primary="로그인" /></ListItemButton>
                 </List>
             </Drawer>
         </ThemeProvider>
