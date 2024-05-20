@@ -7,15 +7,16 @@ import Host from './pages/Host';
 import Guest from './pages/Guest';
 import Upload from './pages/Upload';
 import Sort from './pages/Sort';
-import Choose from './pages/Choose';
+import Select from './pages/Select';
 import Quater from "./pages/Quarter";
+import Login from "./pages/Login";
 
 import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import NavigationBar from "./component/NavComp/NavigationBar";
-import SideDrawer from "./component/NavComp/SideDrawer";
+import NavigationBar from "./components/NavComp/NavigationBar";
+import SideDrawer from "./components/NavComp/SideDrawer";
 
 
 
@@ -37,7 +38,8 @@ function App() {
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/sort" element={<Sort />} />
                     <Route path="/quater" element={<Quater />} />
-                    <Route path="/choose" element={<Choose />} />
+                    <Route path="/choose" element={<Select />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
             </Router>
