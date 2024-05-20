@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Box, Button, styled, ThemeProvider} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import {FIBTheme} from "./Theme/FIBTheme";
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -23,13 +23,20 @@ const FileInputButton = ({ onChange }) => {
     };
 
     return (
-        <ThemeProvider theme={FIBTheme}>
+        <ThemeProvider theme={ButtonTheme}>
         <Button
             component="label"
             role={undefined}
             variant="contained"
             tabIndex={-1}
             startIcon={<CloudUploadIcon />}
+            sx={{
+                backgroundColor: '#595959',
+                color: 'white',
+                '&:hover': {
+                    backgroundColor: '#adadad'
+                }
+            }}
         >
             Upload file
             <VisuallyHiddenInput type="file" multiple onChange={handleFileChange}/>

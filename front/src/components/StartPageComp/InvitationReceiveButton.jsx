@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { IRTheme } from './Theme/IRTheme';
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 const InvitationReceiveButton = ({ children }) => {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const InvitationReceiveButton = ({ children }) => {
     };
 
     return (
-        <ThemeProvider theme={IRTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button
                 //variant="contained"
                 onClick={handleClick}

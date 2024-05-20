@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import {RBTheme} from "./Theme/RBTheme";
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 
 const RoomMakerButton = ({ children }) => {
@@ -17,7 +17,7 @@ const RoomMakerButton = ({ children }) => {
     };
 
     return (
-        <ThemeProvider theme={RBTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button
                 //variant="contained"
                 onClick={handleClick}

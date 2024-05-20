@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress, ThemeProvider } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { LBTheme } from './Theme/LBTheme'; // Import the custom theme for LoginButton
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // Import the custom theme for LoginButton
 
 function LoginButton({ onClick, children }) {
     const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ function LoginButton({ onClick, children }) {
     };
 
     return (
-        <ThemeProvider theme={LBTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button variant="contained" color="primary" onClick={handleClick}
                     disabled={loading}
                     sx={{

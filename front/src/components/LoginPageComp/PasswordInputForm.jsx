@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextField, ThemeProvider } from '@mui/material';
-import { PWDTheme } from './Theme/PWDTheme'; // Import the custom theme for PasswordInput
+import { InputFormTheme } from '../.PublicTheme/InputForm'
 
 function PasswordInputForm({ password, onPasswordChange }) {
     return (
-        <ThemeProvider theme={PWDTheme}>
+        <ThemeProvider theme={InputFormTheme}>
             <TextField
                 hiddenLabel
                 type="password"

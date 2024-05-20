@@ -1,11 +1,10 @@
 import React from 'react';
 import { TextField, ThemeProvider } from '@mui/material';
-
-import { URLTheme } from './Theme/URLTheme'; // Import the custom theme for URLInput
+import { InputFormTheme } from '../.PublicTheme/InputForm'
 
 function URLInputForm({ url, onUrlChange }) {
     return (
-        <ThemeProvider theme={URLTheme}>
+        <ThemeProvider theme={InputFormTheme}>
             <TextField
                 hiddenLabel
                 variant="outlined"

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, CircularProgress, ThemeProvider} from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { HPTheme } from './Theme/HPTheme'; // Import the custom theme for NavigateButton
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // Import the custom theme for NavigateButton
 
 function HosPageInputButton({ url, children }) {
     const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ function HosPageInputButton({ url, children }) {
     };
 
     return (
-        <ThemeProvider theme={HPTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button variant="contained" color="primary" onClick={handleClick}
                     disabled={loading}
                     sx={{

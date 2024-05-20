@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextField, ThemeProvider } from '@mui/material';
-import { IIFTheme } from './Theme/IIFTheme'; // Import the custom theme for UsernameInput
+import { InputFormTheme } from '../.PublicTheme/InputForm'
 
 function IDInputForm({ username, onUsernameChange }) {
     return (
-        <ThemeProvider theme={IIFTheme}>
+        <ThemeProvider theme={InputFormTheme}>
             <TextField
                 hiddenLabel
                 variant="outlined"

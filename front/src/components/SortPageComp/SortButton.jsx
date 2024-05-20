@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { SBTheme } from './Theme/SBTheme';
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 import localuri from '../../pages/localuri.jsx';
 
 const SortButton = ({ children }) => {
@@ -30,7 +30,7 @@ const SortButton = ({ children }) => {
     };
 
     return (
-        <ThemeProvider theme={SBTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button
                 onClick={handleClick}
                 disabled={loading}

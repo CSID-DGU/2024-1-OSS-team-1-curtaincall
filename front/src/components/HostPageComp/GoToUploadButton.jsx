@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import {GTUTheme} from "./Theme/GTUTheme";
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 const GoToUploadButton = ({ children }) => {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const GoToUploadButton = ({ children }) => {
     };
 
     return (
-        <ThemeProvider theme={GTUTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button
                 //variant="contained"
                 onClick={handleClick}

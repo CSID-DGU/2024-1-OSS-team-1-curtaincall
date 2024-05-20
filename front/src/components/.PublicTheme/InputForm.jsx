@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const URLTheme = createTheme({
+export const InputFormTheme = createTheme({
     components: {
         MuiOutlinedInput: {
             styleOverrides: {
@@ -13,9 +13,9 @@ export const URLTheme = createTheme({
                     position: 'relative',
                     transition: 'background-color 0.5s ease',
                     margin: 'auto',
+                    marginTop: '0.25%',
                     '@media (max-width: 768px)': {
                         width: '100%',
-                        marginTop: '0.25%',
                     },
                 },
                 notchedOutline: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Button, ThemeProvider, createTheme, CircularProgress, styled} from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import {UPTheme} from "./Theme/UPTheme";
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 
     const UploadButton = ({ children }) => {
@@ -26,7 +26,7 @@ import {UPTheme} from "./Theme/UPTheme";
         width: 1,
     });
     return (
-        <ThemeProvider theme={UPTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button
                 //variant="contained"
                 onClick={handleClick}

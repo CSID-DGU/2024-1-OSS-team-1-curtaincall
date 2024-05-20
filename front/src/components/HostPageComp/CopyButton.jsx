@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress, ThemeProvider } from '@mui/material';
-import {CPYTheme} from "./Theme/CPYTheme";
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 
 
@@ -21,7 +21,7 @@ const CopyButton = ({ url, children }) => {
     };
 
     return (
-        <ThemeProvider theme={CPYTheme}>
+        <ThemeProvider theme={ButtonTheme}>
             <Button variant="contained"
                     onClick={copyToClipboard}
                     disabled={loading}

@@ -1,6 +1,6 @@
-import {createTheme} from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 
-export const UPTheme = createTheme({
+export const ButtonTheme = createTheme({
     components: {
         MuiButton: {
             styleOverrides: {
@@ -17,7 +17,7 @@ export const UPTheme = createTheme({
                         width: '66.6%',
                         marginTop: '0.25%',
                     }
-                },
+                }
             }
         }
     }
