@@ -15,8 +15,8 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import NavigationBar from "./component/NavComp/NavigationBar";
-import SideDrawer from "./component/NavComp/SideDrawer";
+import NavigationBar from "./components/NavComp/NavigationBar";
+import SideDrawer from "./components/NavComp/SideDrawer";
 
 
 

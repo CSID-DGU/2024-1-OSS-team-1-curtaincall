@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SBTheme } from './Theme/SBTheme';
-import localuri from '../../pages/localuri.js';
+import localuri from '../../pages/localuri.jsx';
 
 const SortButton = ({ children }) => {
     const [loading, setLoading] = useState(false);

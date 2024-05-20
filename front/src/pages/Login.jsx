@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import LoginButton from '../component/LoginPageComp/LoginButton'; // Adjust the path accordingly
-import UsernameInputForm from '../component/LoginPageComp/IDInputForm'; // Adjust the path accordingly
-import PasswordInputForm from '../component/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
+import LoginButton from '../components/LoginPageComp/LoginButton'; // Adjust the path accordingly
+import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
+import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
 
 function Login() {
     const navigate = useNavigate();

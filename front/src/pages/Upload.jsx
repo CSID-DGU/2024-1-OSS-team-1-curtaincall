@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import localuri from './localuri.js';
-import UploadButton from "../component/UploadPageComp/UploadButton";
-import FileInputButton from "../component/UploadPageComp/FileInputButton";
+import localuri from './localuri.jsx';
+import UploadButton from "../components/UploadPageComp/UploadButton";
+import FileInputButton from "../components/UploadPageComp/FileInputButton";
 
 function Upload(){
     const [files, setFiles] = useState([]);

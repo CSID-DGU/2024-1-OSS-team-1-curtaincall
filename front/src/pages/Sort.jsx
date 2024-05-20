@@ -1,5 +1,5 @@
 import React from 'react';
-import SortButton from '../component/SortPageComp/SortButton'; // 적절한 경로로 변경
+import SortButton from '../components/SortPageComp/SortButton'; // 적절한 경로로 변경
 
 function Sort() {
     return (

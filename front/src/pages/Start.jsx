@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import RoomMakerButton from "../component/StartPageComp/RoomMakerButton";
-import InvitationReceiveButton from "../component/StartPageComp/InvitationReceiveButton";
+import RoomMakerButton from "../components/StartPageComp/RoomMakerButton";
+import InvitationReceiveButton from "../components/StartPageComp/InvitationReceiveButton";
 
 function Start(){
     const navigate = useNavigate();
