@@ -29,7 +29,15 @@ export const InputFormTheme = createTheme({
                     fontWeight: 'bold',
                     fontSize: '1.25vw',
                     '@media (max-width: 1000px)': {
-                        fontSize: '2.0vw',
+                        fontSize: '1.5vw',
+                    },
+                    '@media (max-width: 900px)': {
+                        fontSize: '2.5vw',
+                    },
+                    '@media (max-width: 768px)': {
+                        fontSize: '3.5vw',
+                    },'@media (max-width: 600px)': {
+                        fontSize: '4.5vw',
                     },
                 }
             }

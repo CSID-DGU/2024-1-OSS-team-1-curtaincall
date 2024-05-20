@@ -7,7 +7,7 @@ import Host from './pages/Host';
 import Guest from './pages/Guest';
 import Upload from './pages/Upload';
 import Sort from './pages/Sort';
-import Choose from './pages/Choose';
+import Select from './pages/Select';
 import Quater from "./pages/Quarter";
 import Login from "./pages/Login";
 
@@ -38,7 +38,7 @@ function App() {
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/sort" element={<Sort />} />
                     <Route path="/quater" element={<Quater />} />
-                    <Route path="/choose" element={<Choose />} />
+                    <Route path="/choose" element={<Select />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>

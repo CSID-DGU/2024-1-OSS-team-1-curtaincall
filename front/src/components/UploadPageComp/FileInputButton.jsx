@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {Box, Button, styled, ThemeProvider} from "@mui/material";
+import React, { useState } from 'react';
+import { Box, Button, styled, ThemeProvider } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // 경로를 실제로 맞추세요.
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -19,28 +19,34 @@ const FileInputButton = ({ onChange }) => {
     const [fileList, setFileList] = useState([]);
 
     const handleFileChange = (event) => {
-        setFileList(Array.from(event.target.files));
+        const filesArray = Array.from(event.target.files);
+        const renamedFiles = filesArray.map((file, index) => {
+            const newFileName = `${index + 1}${file.name.substring(file.name.lastIndexOf('.'))}`;
+            return new File([file], newFileName, { type: file.type });
+        });
+        setFileList(renamedFiles);
+        onChange(renamedFiles); // onChange prop을 통해 부모 컴포넌트에 변경된 파일 목록 전달
     };
 
     return (
         <ThemeProvider theme={ButtonTheme}>
-        <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-            sx={{
-                backgroundColor: '#595959',
-                color: 'white',
-                '&:hover': {
-                    backgroundColor: '#adadad'
-                }
-            }}
-        >
-            Upload file
-            <VisuallyHiddenInput type="file" multiple onChange={handleFileChange}/>
-        </Button>
+            <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+                sx={{
+                    backgroundColor: '#595959',
+                    color: 'white',
+                    '&:hover': {
+                        backgroundColor: '#adadad'
+                    }
+                }}
+            >
+                Upload file
+                <VisuallyHiddenInput type="file" multiple onChange={handleFileChange} />
+            </Button>
             <Box id="fileList">
                 {fileList.map((file, index) => (
                     <Box key={index}>{file.name}</Box>

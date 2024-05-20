@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import ChooseNavBar from '../components/ChoosPageComp/ChooseNavBar'; // 실제 경로로 수정
-import IMGCarousel from '../components/ChoosPageComp/IMGCarousel'; // 실제 경로로 수정
-import DropDownButton from '../components/ChoosPageComp/DropDownButton'; // 실제 경로로 수정
+import SelectNavBar from '../components/SelectPageComp/SelectNavBar'; // 실제 경로로 수정
+import IMGCarousel from '../components/SelectPageComp/IMGCarousel'; // 실제 경로로 수정
+import DropDownButton from '../components/SelectPageComp/DropDownButton'; // 실제 경로로 수정
 
-function Choose() {
+function Select() {
     const location = useLocation();
     const selectedImages = location.state?.selectedImages;
     const [currentView, setCurrentView] = useState('Your Picks');
@@ -21,11 +21,11 @@ function Choose() {
 
     return (
         <Container>
-            <ChooseNavBar currentView={currentView} />
+            <SelectNavBar currentView={currentView} />
             <IMGCarousel images={selectedImages} />
             <DropDownButton value={dropdownValue} onChange={handleDropdownChange} />
         </Container>
     );
 }
 
-export default Choose;
+export default Select;

@@ -10,8 +10,6 @@ function Quater() {
     const [selectedImages, setSelectedImages] = useState([]); // 선택된 이미지들의 상태 관리 (초기값 빈 배열)
     
     const [data, setData] = useState([]);
-    //let data = [];
-    //let roundImagesize = data.slice(currentRound * 4, (currentRound + 1) * 4);
 
     useEffect(() => {
         // Django API 엔드포인트로부터 이미지 URL을 가져옵니다.
@@ -36,14 +34,6 @@ function Quater() {
     let group_data = data.map((image) => (image.group_id));
     const totalRounds = Math.max(...group_data); // 전체 라운드 수 계산 (데이터 길이를 4로 나눈 후 올림)
 
-    // const handleSelectImage = (image) => {
-    //     setSelectedImages(prevSelectedImages => [...prevSelectedImages, image]);// 이전에 선택된 이미지 배열에 새 이미지 추가
-    //     if (currentRound < totalRounds - 1) {
-    //         setCurrentRound(currentRound + 1); // 현재 라운드 업데이트 (다음 라운드로)
-    //     } else {
-    //         navigate('/choose', { state: { selectedImages } }); // 마지막 라운드인 경우, 선택된 이미지들을 상태로 '/choose' 페이지로 이동
-    //     }
-    // };
 
     const handleSelectImage = (image) => {
         setSelectedImages(prevSelectedImages => {
@@ -57,19 +47,7 @@ function Quater() {
             return newSelectedImages;
         });
     };
-    
 
-    // 현재 라운드의 이미지들 계산
-    //const roundImages = data.slice(currentRound * 4, (currentRound + 1) * 4);
-    /*
-    return (
-        <div>
-          {photos.map(photo => (
-            <img src={photo.photo} alt="Photo" key={photo.id} />
-          ))}
-        </div>
-      );
-      */
     function grouped(data, num) {
         return data.reduce((groups, item) => {
 

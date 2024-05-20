@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { CNBTheme } from './Theme/CNBTheme'; // Custom theme 파일
 
-const ChooseNavBar = ({ currentView }) => {
+const SelectNavBar = ({ currentView }) => {
     return (
         <ThemeProvider theme={CNBTheme}>
             <AppBar position="static" style={{ backgroundColor: '#ff4d4d' }}>
@@ -19,4 +19,4 @@ const ChooseNavBar = ({ currentView }) => {
     );
 };
 
-export default ChooseNavBar;
+export default SelectNavBar;
