@@ -38,7 +38,7 @@ function App() {
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/sort" element={<Sort />} />
                     <Route path="/quarter" element={<Quarter />} />
-                    <Route path="/choose" element={<Select />} />
+                    <Route path="/select" element={<Select />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>

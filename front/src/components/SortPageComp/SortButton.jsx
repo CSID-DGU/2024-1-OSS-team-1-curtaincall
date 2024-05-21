@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
-import localuri from '../../pages/localuri.jsx';
+import api from "../../axios";
 
 const SortButton = ({ children }) => {
     const [loading, setLoading] = useState(false);
@@ -11,21 +11,14 @@ const SortButton = ({ children }) => {
     const handleClick = () => {
         if (loading) return;
         setLoading(true);
-
-        fetch('http://' + localuri + '/Algorithm_cv2/test/', {
-            method: 'GET',
-        })
-            .then(response => {
-                setLoading(false);
-                if (response.ok) {
-                    navigate('/quater');
-                } else {
-                    throw new Error('Something went wrong during the upload.');
-                }
+        console.log('api 호출');
+        api.get('/Algorithm_cv2/test/')
+            .then(() => {
+                navigate('/quarter');
             })
-            .catch(error => {
+            .catch(() => {
+                console.error('Error fetching data');
                 setLoading(false);
-                console.error('An error occurred:', error);
             });
     };
 
