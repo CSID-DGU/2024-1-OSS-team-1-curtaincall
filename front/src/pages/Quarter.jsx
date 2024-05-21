@@ -1,86 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col ,Navbar} from 'react-bootstrap';
-//import data from './data.js'; 
-import localuri from './localuri.jsx';
+import { Container, Row, Col, Navbar } from 'react-bootstrap';
+import api from '../axios';
+import RoundNavBar from "../components/QuarterPageComp/RoundNavBar";
+import Tournament from "../components/QuarterPageComp/Tournament";
+import RoundContainer from "../components/QuarterPageComp/RoundContainer";
 
-function Quater() {
-    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 사용
-    const [currentRound, setCurrentRound] = useState(0);// 현재 라운드 상태 관리 (초기값 0)
-    const [selectedImages, setSelectedImages] = useState([]); // 선택된 이미지들의 상태 관리 (초기값 빈 배열)
-    
-    const [data, setData] = useState([]);
+function Quarter() {
+    const navigate = useNavigate();
+    const [currentRound, setCurrentRound] = useState(0);
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [groups, setGroups] = useState([]);
+    const [totalRounds, setTotalRounds] = useState(0);
 
-    useEffect(() => {
-        // Django API 엔드포인트로부터 이미지 URL을 가져옵니다.
-        fetch('http://' + localuri + '/CurtainCallApp/requestImage/')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(_data => {
-            //setSelectSize()
-            setData(_data);
-            //data = _data;
-          })
-          .catch(error => {
-            console.error("Error fetching data: ", error);
-          });
-      }, []);
-    
-    
-    let group_data = data.map((image) => (image.group_id));
-    const totalRounds = Math.max(...group_data); // 전체 라운드 수 계산 (데이터 길이를 4로 나눈 후 올림)
+    const handleRoundsReady = (loadedGroups, rounds) => {
+        setGroups(loadedGroups);
+        setTotalRounds(rounds);
+    };
 
-
-    const handleSelectImage = (image) => {
+    const handleImageSelect = (image, roundIndex) => {
         setSelectedImages(prevSelectedImages => {
             const newSelectedImages = [...prevSelectedImages, image];
             if (currentRound < totalRounds - 1) {
-                setCurrentRound(currentRound + 1); // 다음 라운드로 이동
+                setCurrentRound(currentRound + 1);
+                const nextRoundIndex = roundIndex + 1;
+                const nextRound = groups[nextRoundIndex] || [];
+                const newGroups = [...groups];
+                newGroups[nextRoundIndex] = [...(newGroups[nextRoundIndex] || []), image];
+                setGroups(newGroups);
             } else {
-                // 마지막 라운드이면, 이미지 배열 업데이트 후 navigate 호출
                 navigate('/choose', { state: { selectedImages: newSelectedImages } });
             }
             return newSelectedImages;
         });
     };
 
-    function grouped(data, num) {
-        return data.reduce((groups, item) => {
-
-          if (item.group_id == num) {
-            groups.push(item);
-          }
-          // 현재 항목을 해당 keyword 배열에 푸시합니다.
-          
-          console.log(groups);
-          
-          return groups;
-        }, []); // 초기값으로 빈 객체를 전달합니다.
-    }
-    
     return (
         <div>
-            <Navbar className="bg-body-tertiary" >
-                <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',backgroundColor: '#ff4d4d'}}>
-                    <Navbar.Brand style={{color: 'white' }}>Round {currentRound + 1}/{totalRounds}</Navbar.Brand>
-                </Container>
-            </Navbar>
-            <Container fluid="md" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
-                {grouped(data, currentRound + 1).map((image) => (
-                    <Row>
-                        <Col key={image.id} onClick={() => handleSelectImage(image)}>
-                            <img src={image.src} alt={`Option ${image.id}`} style={{ width: '100%', height: 'auto' }} />
-                        </Col>
-                    </Row>
-                ))}
-            </Container>
+            <RoundNavBar currentRound={currentRound} totalRounds={totalRounds} />
+            <Tournament stageId={0} folderNum={0} onRoundsReady={handleRoundsReady} />
+            {groups.length > 0 && (
+                <RoundContainer
+                    round={groups[currentRound]}
+                    onImageSelect={handleImageSelect}
+                    roundIndex={currentRound}
+                />
+            )}
         </div>
     );
-    
 }
 
-export default Quater;
+
+export default Quarter;

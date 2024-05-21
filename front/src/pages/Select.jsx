@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import SelectNavBar from '../components/SelectPageComp/SelectNavBar'; // 실제 경로로 수정
-import IMGCarousel from '../components/SelectPageComp/IMGCarousel'; // 실제 경로로 수정
-import DropDownButton from '../components/SelectPageComp/DropDownButton'; // 실제 경로로 수정
+import SelectNavBar from '../components/SelectPageComp/SelectNavBar';
+import IMGCarousel from '../components/SelectPageComp/IMGCarousel';
+import DropDownButton from '../components/SelectPageComp/DropDownButton';
 
 function Select() {
     const location = useLocation();
