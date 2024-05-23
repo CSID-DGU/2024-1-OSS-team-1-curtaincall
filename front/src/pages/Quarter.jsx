@@ -5,6 +5,8 @@ import api from '../axios';
 import RoundNavBar from "../components/QuarterPageComp/RoundNavBar";
 import Tournament from "../components/QuarterPageComp/Tournament";
 import RoundContainer from "../components/QuarterPageComp/RoundContainer";
+import {useRecoilState} from "recoil";
+import {stageState} from "../atom/atom";
 
 function Quarter() {
     const navigate = useNavigate();
@@ -12,6 +14,7 @@ function Quarter() {
     const [selectedImages, setSelectedImages] = useState([]);
     const [groups, setGroups] = useState([]);
     const [totalRounds, setTotalRounds] = useState(0);
+    const [stageId, setStageId] = useRecoilState(stageState);
 
     const handleRoundsReady = (loadedGroups, rounds) => {
         setGroups(loadedGroups);
@@ -38,7 +41,7 @@ function Quarter() {
     return (
         <div>
             <RoundNavBar currentRound={currentRound} totalRounds={totalRounds} />
-            <Tournament stageId={0} folderNum={0} onRoundsReady={handleRoundsReady} />
+            <Tournament stageId={stageId} folderNum={0} onRoundsReady={handleRoundsReady} />
             {groups.length > 0 && (
                 <RoundContainer
                     round={groups[currentRound]}
