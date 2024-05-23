@@ -1,32 +1,44 @@
 import React, { useState } from 'react';
-import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
+import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
-
+import api from '../../axios';
 
 const RoomMakerButton = ({ children }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const handleClick = () => {
+
+    const handleClick = async () => {
         if (loading) return;
         setLoading(true);
-        setTimeout(() => {
+
+        try {
+            const response = await api.post('/Stage/createStage/', {
+                name: '이동현의 임시 이름'
+            });
+
+            if (response.status === 200) {
+                const { stageId, userId } = response.data;
+                console.log('Stage created successfully', { stageId, userId });
+                navigate('/host');
+            }
+        } catch (error) {
+            console.error('Error creating stage:', error);
+        } finally {
             setLoading(false);
-            navigate('/host');
-        }, 700);
+        }
     };
 
     return (
         <ThemeProvider theme={ButtonTheme}>
             <Button
-                //variant="contained"
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-                    backgroundColor: loading ? '#ffa793' : '#ff5838', // 로딩 상태에 따른 배경색 변경
+                    backgroundColor: loading ? '#ffa793' : '#ff5838',
                     color: 'white',
                     '&:hover': {
-                        backgroundColor: loading ? '#ffa793' : '#ffa793' // 호버 상태에서의 배경색
+                        backgroundColor: loading ? '#ffa793' : '#ffa793'
                     }
                 }}
             >

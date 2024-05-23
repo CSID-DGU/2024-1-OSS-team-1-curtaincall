@@ -8,7 +8,7 @@ import Guest from './pages/Guest';
 import Upload from './pages/Upload';
 import Sort from './pages/Sort';
 import Select from './pages/Select';
-import Quater from "./pages/Quarter";
+import Quarter from "./pages/Quarter";
 import Login from "./pages/Login";
 
 import {
@@ -37,8 +37,8 @@ function App() {
                     <Route path="/guest" element={<Guest />} />
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/sort" element={<Sort />} />
-                    <Route path="/quater" element={<Quater />} />
-                    <Route path="/choose" element={<Select />} />
+                    <Route path="/quarter" element={<Quarter />} />
+                    <Route path="/select" element={<Select />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
