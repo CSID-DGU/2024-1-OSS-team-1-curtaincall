@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from Image.certificate import PresignedURLSerializer as PresignedURLSerializer
 import uuid
 
 
@@ -127,6 +128,16 @@ class findImageList(APIView):
 
             request = {"imageLen":len(image_links),'imageList': image_links}
             return Response(request, status=status.HTTP_200_OK)
+
+
+class PresignedURLView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = PresignedURLSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class uploadImage(APIView):
     """
