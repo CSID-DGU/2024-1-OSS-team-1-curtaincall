@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, CircularProgress, ThemeProvider } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // Import the custom theme for NavigateButton
 import api from '../../axios';
+import {useRecoilState} from "recoil";
+import {stageState} from "../../atom/atom";
 
-function HosPageInputButton({ stageId, name, url, children }) {
+function HosPageInputButton({ name,conststageId, children }) {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [stageId, setStageId] = useRecoilState(stageState);
+
+
+    setStageId(conststageId);
+
+    useEffect(() => {
+        console.log('스테이지 id', stageId);
+    }, [setStageId]);
 
     const handleClick = async () => {
         if (loading) return;
@@ -15,12 +25,14 @@ function HosPageInputButton({ stageId, name, url, children }) {
         try {
             const response = await api.post('/Stage/joinStage/', {
                 stageId: stageId,
-                name: name
+                name: name,
             });
 
             if (response.status === 200 && response.data.status === 'success') {
+
                 console.log('Stage joined successfully', response.data);
-                navigate(url);
+
+                navigate('/upload');
             } else {
                 console.error('Failed to join stage');
                 alert('Failed to join stage');

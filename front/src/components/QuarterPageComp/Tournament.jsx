@@ -6,7 +6,7 @@ const Tournament = ({ stageId, folderNum, onRoundsReady }) => {
     const CallImage = () => {
         api.get('/Image/findImageList', {
             params: {
-                stageId: stageId, //실제 스테이지 ID를 설정
+                stageId: stageId,
                 folderNum: folderNum //실제 폴더 번호를 설정
             }
         })
@@ -44,7 +44,7 @@ const Tournament = ({ stageId, folderNum, onRoundsReady }) => {
         });
     };
 
-    return null; // 이 컴포넌트는 데이터를 로드하고 부모 컴포넌트로 전달하기 위한 용도
+    return null;
 }
 
 export default Tournament;
