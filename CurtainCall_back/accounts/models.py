@@ -22,8 +22,8 @@ class User(AbstractBaseUser):
     app_label = 'accounts'
     id = models.CharField(max_length=100)
     stage_uuid = models.ForeignKey(Stage_list, on_delete=models.CASCADE, null=True)
-    username = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(max_length=30, unique=True, null=False, blank=False, primary_key=True)
+    username = models.CharField(max_length=100, primary_key=True)
+    email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
     user_nickname = models.CharField(max_length=100)
     user_ready = models.BooleanField(default=False)
 
