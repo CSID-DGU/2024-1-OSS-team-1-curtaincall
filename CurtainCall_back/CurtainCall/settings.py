@@ -16,6 +16,9 @@ import os
 # from CurtainCall.donotcommit.aws_s3 import s3_config as s3
 from CurtainCall.donotcommit import postgre as pg
 from CurtainCall.donotcommit import aws_s3 as s3
+from CurtainCall.donotcommit import oauth2 as oa
+
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,17 +44,103 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+#    'allauth.socialaccount',
+#    'allauth.socialaccount.providers.google',
+
+
+    'rest_framework',
+    #'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+
+    'drf_yasg',
+    'storages',
+    "channels",
+    'corsheaders',
+
     'CurtainCallApp.apps.CurtaincallappConfig',
     'Stage.apps.StageConfig',
     'Image.apps.ImageConfig',
     'Algorithm_cv2.apps.AlgorithmCv2Config',
-    'rest_framework',
-    'drf_yasg',
-    'storages',
-    # "chat",
-    "channels",
-    'corsheaders',
+    'accounts',
+
+
+
 ]
+
+
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'SESSION_LOGIN': False,
+    'JWT_AUTH_HTTPONLY': False,
+}
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 개발 중에는 콘솔 백엔드 사용
+
+#AUTHENTICATION_BACKENDS = [
+#    'django.contrib.auth.backends.ModelBackend',
+#    'allauth.account.auth_backends.AuthenticationBackend',
+#]
+
+REST_USE_JWT = True
+
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근
+        # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근
+        #'rest_framework.permissions.AllowAny',  # 누구나 접근
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
+
+
+REST_AUTH_TOKEN_MODEL = None
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.JWTSerializer',
+}
+
+#LOGIN_URL = '/'
+#LOGIN_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
+#SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = oa.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = oa.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+
+
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "https://localhost:8000"]
 
 #set below setting value to False if you want to store images at s3 Server
 USE_LOCAL_IMAGES = False
@@ -78,7 +167,14 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    'http://localhost:8000',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -101,10 +197,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+# settings.py
+
+
+
+#LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'CurtainCall.wsgi.application'
 
@@ -182,3 +285,4 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',  # 채널 레이어 설정 (실제 환경에서는 다른 백엔드를 사용할 수 있음)
     },
 }
+

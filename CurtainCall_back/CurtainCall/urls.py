@@ -44,6 +44,9 @@ urlpatterns = [
     path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
     path('CurtainCallApp/', include('CurtainCallApp.urls')),
     path('admin/', admin.site.urls),
+    #path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
+    #path('logout/', auth_views.LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
 ]
 
 if settings.DEBUG:
