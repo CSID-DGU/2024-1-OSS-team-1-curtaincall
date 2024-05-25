@@ -10,6 +10,7 @@ import Sort from './pages/Sort';
 import Select from './pages/Select';
 import Quarter from "./pages/Quarter";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 import {
     useMediaQuery,
@@ -40,6 +41,7 @@ function App() {
                     <Route path="/quarter" element={<Quarter />} />
                     <Route path="/select" element={<Select />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
             </Router>

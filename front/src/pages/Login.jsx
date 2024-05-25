@@ -9,12 +9,26 @@ import api from '../axios'
 
 function Login() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
+    const [userId, setuserId] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
-    const handleLogin = () => {
-        console.log('Logging in with:', { username, password });
-        navigate('/');
+    const handleLogin = async () => {
+        console.log('Logging in with:', { userId, password });
+
+        try {
+            const response = await api.post('accounts/dj-rest-auth/login/', {
+                username: 'ryu',
+                email: userId,
+                password: password
+            });
+            console.log('Login successful:', response.data);
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            navigate('/');
+        } catch (error) {
+            console.error('Login failed:', error.response.data);
+        }
     };
 
     const handleGoogleLoginSuccess = async (response) => {
@@ -37,7 +51,7 @@ function Login() {
     return (
         <Container>
             <br/>
-            <UsernameInputForm username={username} onUsernameChange={setUsername} />
+            <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="ID" />
             <br/>
             <PasswordInputForm password={password} onPasswordChange={setPassword} />
             <br/>
