@@ -7,6 +7,9 @@ from drf_yasg.utils import swagger_auto_schema
 from Image.certificate import PresignedURLSerializer as PresignedURLSerializer
 import uuid
 
+#models
+from Stage.models import Stage_list as Stage_list
+
 
 import boto3
 from botocore.exceptions import ClientError
@@ -132,7 +135,18 @@ class findImageList(APIView):
 
 class PresignedURLView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = PresignedURLSerializer(data=request.data)
+        stageId = request.user.stage_uuid_id
+        if stageId is None:
+            return Response({"status": "fail", "message": "user has no stageId"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            Stage_list.objects.get(id=stageId)
+        except Stage_list.DoesNotExist:
+            return Response({"status": "fail", "message": "stageId not found"}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = PresignedURLSerializer(data=request.data,
+                                            username=request.user.username,
+                                            stage_id=request.user.stage_uuid_id)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

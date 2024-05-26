@@ -11,7 +11,7 @@ const GuestList = ({ guests }) => {
                         <Grid item xs={12} sm={6} md={4} lg={3} key={guest.id}>
                             <Paper elevation={2}>
                                 <Typography variant="subtitle1" component="h2">
-                                    게스트: {guest.name}
+                                    {guest.username}: {guest.user_ready}
                                 </Typography>
                             </Paper>
                         </Grid>
