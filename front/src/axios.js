@@ -19,7 +19,7 @@ api.interceptors.request.use((config) => {
 const reissueAccessToken = async () => {
     try {
         const refreshToken = localStorage.getItem('refresh_token');
-        const response = await axios.post('/auth/customers/reissue', null, {
+        const response = await axios.post('/accounts/dj-rest-auth/token/refresh/', null, {
             headers: {
                 'Authorization': `Bearer ${refreshToken}`
             }
@@ -41,7 +41,7 @@ api.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config;
-        if (error.response && error.response.status === 433 && !originalRequest._retry) {
+        if (error.response && error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             await reissueAccessToken();
             return api(originalRequest);
