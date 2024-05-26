@@ -16,9 +16,7 @@ const RoomMakerButton = ({ children }) => {
         setLoading(true);
 
         try {
-            const response = await api.post('/Stage/createStage/', {
-                name: '이동현의 임시 이름'
-            });
+            const response = await api.post('/Stage/createStage/');
 
             if (response.status === 200) {
                 setStageId(response.data.stageId);
