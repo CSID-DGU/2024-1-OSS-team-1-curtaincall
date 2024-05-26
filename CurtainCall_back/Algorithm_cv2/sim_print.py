@@ -10,6 +10,13 @@ from io import BytesIO
 from PIL import Image
 from CurtainCall.settings import BASE_DIR
 
+import os
+import ssl
+import certifi
+
+os.environ['SSL_CERT_FILE'] = certifi.where()
+ssl._create_default_https_context = ssl._create_unverified_context
+
 # 사전 훈련된 MobileNetV2 모델 로드
 model = EfficientNetV2B2(weights='imagenet')
 
