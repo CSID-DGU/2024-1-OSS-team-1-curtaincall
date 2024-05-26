@@ -19,3 +19,8 @@ export const currentRoundState = atom({
     key: 'currentRoundState',
     default: 0,
 });
+
+export const guestState = atom({
+    key: 'guestslist',
+    default: [],
+});

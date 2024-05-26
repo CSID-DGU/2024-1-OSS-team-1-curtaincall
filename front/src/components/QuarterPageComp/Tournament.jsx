@@ -8,7 +8,7 @@ const Tournament = ({onRoundsReady}) => {
     const [currentRound, setCurrentRound] = useRecoilState(currentRoundState);
     const [selectedImages, setSelectedImages] = useState([]);
     const [groups, setGroups] = useState([]);
-    const [totalRounds, setTotalRounds] = useState(0);
+    const [totalRounds, setTotalRounds] = useRecoilState(totalRoundsState);
 
     useEffect(() => {
         if (Object.keys(sortedImages).length > 0) {
@@ -17,6 +17,7 @@ const Tournament = ({onRoundsReady}) => {
                 images: images.map(src => ({ src }))
             }));
             const adjustedGroups = adjustGroups(newGroups);
+            console.log(adjustedGroups.length);
             setGroups(adjustedGroups);
             setTotalRounds(adjustedGroups.length);
         }
@@ -28,7 +29,7 @@ const Tournament = ({onRoundsReady}) => {
             const remainder = length % 4;
             if (remainder !== 0) {
                 const fillers = Array(4 - remainder).fill({
-                    src: 'path/to/placeholder/image.jpg',
+                    src: '../../img/curtainCall.png',
                     group_id: group.group_id,
                     isDummy: true
                 });
