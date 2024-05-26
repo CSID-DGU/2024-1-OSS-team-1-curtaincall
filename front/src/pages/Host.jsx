@@ -31,8 +31,8 @@ function Host() {
 
             if (response.status === 200) {
                 const guestData = response.data.users.map(user => ({
-                    name: user.user,
-                    sendImage: user.sendImage
+                    username: user.username,
+                    user_ready: user.user_ready
                 }));
                 setGuests(guestData);
             } else {
