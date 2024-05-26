@@ -12,7 +12,7 @@ const SortButton = ({ children }) => {
         if (loading) return;
         setLoading(true);
         console.log('api 호출');
-        api.get('/Algorithm_cv2/test/')
+        api.get('/Algorithm_cv2/sort/')
             .then(() => {
                 navigate('/quarter');
             })
