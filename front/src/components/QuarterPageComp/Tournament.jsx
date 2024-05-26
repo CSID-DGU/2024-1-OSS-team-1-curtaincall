@@ -1,50 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../axios';
+import {useRecoilState, useRecoilValue} from "recoil";
+import {currentRoundState, sortedImageDataState, totalRoundsState} from "../../atom/atom";
+import RoundContainer from "./RoundContainer";
 
-const Tournament = ({ stageId, folderNum, onRoundsReady }) => {
-
-    const CallImage = () => {
-        api.get('/Image/findImageList', {
-            params: {
-                stageId: stageId,
-                folderNum: folderNum //실제 폴더 번호를 설정
-            }
-        })
-            .then(response => {
-                const images = response.data.imageList || [];
-                const groupedData = groupBy(images, 'group_id');
-                const adjustedGroups = adjustGroups(groupedData);
-                onRoundsReady(adjustedGroups, adjustedGroups.length);
-            })
-            .catch(error => {
-                console.error("Error fetching data: ", error);
-            });
-    };
+const Tournament = ({onRoundsReady}) => {
+    const sortedImages = useRecoilValue(sortedImageDataState);
+    const [currentRound, setCurrentRound] = useRecoilState(currentRoundState);
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [groups, setGroups] = useState([]);
+    const [totalRounds, setTotalRounds] = useState(0);
 
     useEffect(() => {
-        CallImage();
-    }, [stageId, folderNum]);
+        if (Object.keys(sortedImages).length > 0) {
+            const newGroups = Object.entries(sortedImages).map(([group_id, images]) => ({
+                group_id,
+                images: images.map(src => ({ src }))
+            }));
+            const adjustedGroups = adjustGroups(newGroups);
+            setGroups(adjustedGroups);
+            setTotalRounds(adjustedGroups.length);
+        }
+    }, [sortedImages]);
 
-    const groupBy = (array, key) => {
-        return array.reduce((result, currentValue) => {
-            (result[currentValue[key]] = result[currentValue[key]] || []).push(currentValue);
-            return result;
-        }, {});
-    };
-
-    const adjustGroups = (groupedData) => {
-        return Object.values(groupedData).map(group => {
-            const length = group.length;
+    const adjustGroups = (groups) => {
+        return groups.map(group => {
+            const length = group.images.length;
             const remainder = length % 4;
             if (remainder !== 0) {
-                const fillers = Array(4 - remainder).fill({ src: 'path/to/placeholder/image.jpg', group_id: group[0].group_id, isDummy: true });
-                return [...group, ...fillers];
+                const fillers = Array(4 - remainder).fill({
+                    src: 'path/to/placeholder/image.jpg',
+                    group_id: group.group_id,
+                    isDummy: true
+                });
+                return { ...group, images: [...group.images, ...fillers] };
             }
             return group;
         });
     };
 
-    return null;
-}
+    const handleImageSelect = (image, roundIndex) => {
+        setSelectedImages(prevSelectedImages => {
+            const newSelectedImages = [...prevSelectedImages, image];
+            if (roundIndex < totalRounds - 1) {
+                setCurrentRound(roundIndex + 1);
+            } else {
+                onRoundsReady(newSelectedImages);
+            }
+            return newSelectedImages;
+        });
+    };
+
+    return (
+        <div>
+            {groups.map((group, index) => (
+                <RoundContainer
+                    key={index}
+                    group={group}
+                    onImageSelect={handleImageSelect}
+                />
+            ))}
+        </div>
+    );
+};
 
 export default Tournament;

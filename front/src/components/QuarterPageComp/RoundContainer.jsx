@@ -1,29 +1,18 @@
 import React from 'react';
 import { Container, Grid, Card, CardMedia } from '@mui/material';
 
-const RoundContainer = ({ round, roundIndex, onImageSelect }) => {
-    const handleSelectImage = (image) => {
-        onImageSelect(image, roundIndex);
-    };
-
+const RoundContainer = ({ group, onImageSelect }) => {
     return (
-        <Container>
-            <Grid container spacing={2}>
-                {round.map((image, index) => (
-                    <Grid item xs={6} key={index}>
-                        <Card onClick={() => handleSelectImage(image)}>
-                            <CardMedia
-                                component="img"
-                                alt={`Option ${index}`}
-                                image={image.src}
-                                title={`Option ${index}`}
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                        </Card>
-                    </Grid>
+        <div>
+            <h3>Group {group.group_id}</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+                {group.images.map((image, idx) => (
+                    <img key={idx} src={image.src} alt={`Image ${idx}`}
+                         style={{ width: '100px', margin: '5px' }}
+                         onClick={() => onImageSelect(image, group.group_id)} />
                 ))}
-            </Grid>
-        </Container>
+            </div>
+        </div>
     );
 };
 

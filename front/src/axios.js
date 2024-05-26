@@ -41,10 +41,16 @@ api.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config;
-        if (error.response && error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-            await reissueAccessToken();
-            return api(originalRequest);
+        if (error.response && error.response.status === 401) {
+            if (!originalRequest._retry) {
+                originalRequest._retry = true;
+                const tokenRefreshed = await reissueAccessToken();
+                if (tokenRefreshed) {
+                    return api(originalRequest);
+                }
+            }
+            alert('로그인이 필요합니다.');
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
