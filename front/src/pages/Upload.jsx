@@ -55,13 +55,19 @@ function Upload() {
 
                 if (uploadResponse.status === 200) {
                     console.log(`File ${file.name} uploaded successfully.`);
+                    // 모든 파일 업로드 후 페이지 이동 등 추가 작업 수행
+                    navigate('/Sort');  // 성공적으로 업로드 후 리다이렉트할 경로
+
+                    /*
+                    원래는 Polling을 하고 서버에서 모든 이들이 READY상태가 되었을 때 다음으로 넘어 갈 수 있다.
+                    */
                 } else {
                     console.log(`File ${file.name} upload failed.`);
+                    alert('파일 업로드에 실패하였습니다. 관리자에게 문의하세요.');
                 }
             }
 
-            // 모든 파일 업로드 후 페이지 이동 등 추가 작업 수행
-            navigate('/Sort');  // 성공적으로 업로드 후 리다이렉트할 경로
+            
         } catch (error) {
             console.error('Error during file upload:', error);
         }
