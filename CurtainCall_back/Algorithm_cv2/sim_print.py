@@ -8,7 +8,8 @@ from CurtainCallApp.models import Photo
 import requests
 from io import BytesIO
 from PIL import Image
-from CurtainCall.settings import BASE_DIR
+
+from .fetch_image import fetch_image
 
 import os
 import ssl
@@ -18,10 +19,13 @@ os.environ['SSL_CERT_FILE'] = certifi.where()
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # 사전 훈련된 MobileNetV2 모델 로드
-model = EfficientNetV2B2(weights='imagenet')
+model = None
+
+def load_model():
+    global model
+    model = EfficientNetV2B2(weights='imagenet')
 
 def get_single_keyword(fileurl):
-
     # 이미지 로드 및 전처리
     preprocessed_image = load_and_prepare_image_from_url(fileurl)
 
@@ -36,13 +40,13 @@ def get_single_keyword(fileurl):
     return labels
 
 
-
 def load_and_prepare_image(filepath):
     # 이미지 파일을 로드하고 모델에 맞게 전처리
     img = image.load_img(filepath, target_size=(260, 260))
     img_array = image.img_to_array(img)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return preprocess_input(img_array_expanded_dims)
+
 
 def load_and_prepare_image_from_url(fileurl):
     # 이미지 데이터를 웹에서 받아옵니다.
@@ -62,9 +66,10 @@ def load_and_prepare_image_from_url(fileurl):
     # 모델 입력 전처리
     return preprocess_input(img_array_expanded_dims)
 
+
 def predict_image_keywords(fileurl):
     # 사전 훈련된 MobileNetV2 모델 로드
-    #model = EfficientNetV2B2(weights='imagenet')
+    # model = EfficientNetV2B2(weights='imagenet')
 
     # 이미지 로드 및 전처리
     preprocessed_image = load_and_prepare_image_from_url(fileurl)
@@ -79,14 +84,16 @@ def predict_image_keywords(fileurl):
         print(f"{i + 1}: {label} ({score * 100:.2f}%)")
 
 
-def getsim():
-    all_photos = Photo.objects.all()
+def getsim(stage_id):
+    all_photos = fetch_image(stage_id)
     keyword_to_group = {}
+    group_to_image = {}
     i = 0
-    for single_photo in all_photos:
-        filename = single_photo.photo.url
+    for filename in all_photos:
+        # single_photo = {}
+        # single_photo['photo_url'] = filename
         keywords = get_single_keyword(filename)
-        single_photo.photo_keyword = keywords
+        # single_photo['keywords'] = keywords
         final_result = None
         leftover_keyword = []
         for keyword in keywords:
@@ -99,11 +106,14 @@ def getsim():
         if final_result is None:
             i += 1
             final_result = i
+            group_to_image[final_result] = set()
             for keyword in leftover_keyword:
                 keyword_to_group[keyword] = final_result
-        single_photo.group_id = final_result
-        single_photo.save()
-        #predict_image_keywords(filename)
+        # single_photo.group_id = final_result
+        # single_photo.save()
+        group_to_image[final_result].add(filename)
+
+        # predict_image_keywords(filename)
         print(filename)
 
-    return "completed"
+    return group_to_image
