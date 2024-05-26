@@ -15,11 +15,25 @@ class PresignedURLSerializer(serializers.Serializer):
     url = serializers.ListSerializer(read_only=True, child=serializers.URLField(read_only=True))
     image_list = serializers.ListSerializer(write_only=True, child=serializers.CharField(write_only=True))
 
+
+    # 유저이름과 스테이지 아이디 저장 후 기본 생성자 호출
+    def __init__(self, *args, **kwargs):
+        self.username = kwargs.pop("username")
+        self.stage_id = kwargs.pop("stage_id")
+
+        super().__init__(*args, **kwargs)
+
+
     def validate(self, attrs):
         url_list = []
 
+        username = self.username
+        stage_id = self.stage_id
+
+        print(attrs)
+
         for image in attrs.get("image_list"):
-            url = self.create_presigned_url(image=image)
+            url = self.create_presigned_url(image=image, username=username, stage_id=stage_id)
             url_list.append(url)
 
         attrs["url"] = url_list
@@ -27,8 +41,10 @@ class PresignedURLSerializer(serializers.Serializer):
 
     @staticmethod
     def create_presigned_url(
-            image, content_type="images", expiration=3600
+            image, username, stage_id
     ):
+        #content_type = "images"
+        expiration = 3600
         aws_access_key_id = s3.AWS_ACCESS_KEY_ID
         aws_secret_access_key = s3.AWS_SECRET_ACCESS_KEY
 
@@ -43,7 +59,8 @@ class PresignedURLSerializer(serializers.Serializer):
             # 프론트로부터 받은 "이미지 이름.이미지 확장자"
             # formData가 아닌 string
             name = image.split(".")
-            object_key = "/".join([f"media/{content_type}", f"{str(uuid.uuid4())}.{name[-1]}"])
+            #object_key = "/".join([f"{stage_id}", f"{str(uuid.uuid4())}.{name[-1]}"])
+            object_key = "/".join([f"{stage_id}", f"{username}_{image}"])
 
             url = s3_client.generate_presigned_url(
                 "put_object",
