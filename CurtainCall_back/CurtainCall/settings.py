@@ -16,7 +16,7 @@ import os
 # from CurtainCall.donotcommit.aws_s3 import s3_config as s3
 from CurtainCall.donotcommit import postgre as pg
 from CurtainCall.donotcommit import aws_s3 as s3
-from CurtainCall.donotcommit import oauth2 as oa
+# from CurtainCall.donotcommit import oauth2 as oa
 
 from datetime import timedelta
 
@@ -175,13 +175,25 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://localhost:8000',
+    'http://0.0.0.0:8000',
+    'http://0.0.0.0:3000',
+    'http://3.131.38.82:3000'
 ]
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     'http://localhost:8000',
-    'http://localhost:3001'
+    "http://0.0.0.0:3000",
+    'http://0.0.0.0:8000',
+    'http://3.131.38.82:3000'
 ]
+
+# CORS_ORIGIN_WHITELIST = [
+#     'http://127.0.0.1:3000',
+#     'http://localhost:3000',
+#     'http://3.131.38.82:3000'
+# ]
+# CORS_ALLOW_ALL_ORIGINS = True #(모든 포트 허용)
 
 ROOT_URLCONF = 'CurtainCall.urls'
 
