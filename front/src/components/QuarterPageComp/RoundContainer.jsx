@@ -1,29 +1,26 @@
 import React from 'react';
-import { Container, Grid, Card, CardMedia } from '@mui/material';
+import { Grid, Card, CardActionArea, CardMedia } from '@mui/material';
 
-const RoundContainer = ({ round, roundIndex, onImageSelect }) => {
-    const handleSelectImage = (image) => {
-        onImageSelect(image, roundIndex);
-    };
-
+const RoundContainer = ({ group, onImageSelect }) => {
     return (
-        <Container>
-            <Grid container spacing={2}>
-                {round.map((image, index) => (
-                    <Grid item xs={6} key={index}>
-                        <Card onClick={() => handleSelectImage(image)}>
-                            <CardMedia
-                                component="img"
-                                alt={`Option ${index}`}
-                                image={image.src}
-                                title={`Option ${index}`}
-                                style={{ width: '100%', height: 'auto' }}
-                            />
+        <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0 }}>
+            <Grid container spacing={0} style={{ height: '100%' }}>
+                {group.images.map((image, idx) => (
+                    <Grid item xs={6} style={{ height: '50%' }} key={idx}>
+                        <Card style={{ height: '100%', margin: 0, display: 'flex' }}>
+                            <CardActionArea style={{ height: '100%', width: '100%' }} onClick={() => onImageSelect(image, group.group_id)}>
+                                <CardMedia
+                                    component="img"
+                                    alt={`Image ${idx}`}
+                                    style={{ height: '100%', width: '100%', objectFit: 'contain' }}
+                                    image={image.src}
+                                />
+                            </CardActionArea>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
-        </Container>
+        </div>
     );
 };
 

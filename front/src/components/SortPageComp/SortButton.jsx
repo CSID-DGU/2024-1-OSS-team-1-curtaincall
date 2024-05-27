@@ -3,23 +3,28 @@ import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 import api from "../../axios";
+import {useSetRecoilState} from "recoil";
+import {sortedImageDataState} from "../../atom/atom";
 
 const SortButton = ({ children }) => {
+    const setSortedImages = useSetRecoilState(sortedImageDataState);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (loading) return;
         setLoading(true);
         console.log('api 호출');
-        api.get('/Algorithm_cv2/test/')
-            .then(() => {
-                navigate('/quarter');
-            })
-            .catch(() => {
-                console.error('Error fetching data');
-                setLoading(false);
-            });
+        try {
+            const response = await api.get('/Algorithm_cv2/sort/');
+            setSortedImages(response.data);
+            console.log(response.data);
+            setLoading(false);
+            navigate('/quarter');
+        } catch (error) {
+            console.error('Error fetching data', error);
+            setLoading(false);
+        }
     };
 
     return (

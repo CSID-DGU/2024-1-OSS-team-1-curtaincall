@@ -1,9 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Container } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container, LinearProgress } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import RNBTheme from './Theme/RNBTheme';
 
 const RoundNavBar = ({ currentRound, totalRounds }) => {
+    const progress = (currentRound / totalRounds) * 100;
+
     return (
         <ThemeProvider theme={RNBTheme}>
             <AppBar position="static">
@@ -12,6 +14,7 @@ const RoundNavBar = ({ currentRound, totalRounds }) => {
                         <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
                             Round {currentRound + 1}/{totalRounds}
                         </Typography>
+                        {/*<LinearProgress variant="determinate" value={progress} sx={{ width: '100%' }} /> 이건 나중에 넣으려고 주석처리 해놓음*/}
                     </Toolbar>
                 </Container>
             </AppBar>

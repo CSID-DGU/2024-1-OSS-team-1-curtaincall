@@ -7,7 +7,7 @@ import GuestList from '../components/HostPageComp/GuestList';
 import api from '../axios';
 import HostPageInputButton from "../components/GusetPageComp/HostPageInputButton";
 import {useRecoilState} from "recoil";
-import {gusetInstate, stageState} from "../atom/atom";
+import {stageState} from "../atom/atom";
 
 function Host() {
     const navigate = useNavigate();
@@ -16,11 +16,6 @@ function Host() {
     const [stageId, setStageId] = useRecoilState(stageState);
     const [name, setName] = useState('호스트');
 
-    // 무작위 URL 생성 함수
-    useEffect(() => {
-        const randomUrl = 'https://yourapp.com/' + Math.random().toString(36).substring(2, 15);
-        setUrl(randomUrl);
-    }, []);
     const fetchGuests = async () => {
         try {
             const response = await api.get('/Stage/checkStageUsers/', {
@@ -31,8 +26,8 @@ function Host() {
 
             if (response.status === 200) {
                 const guestData = response.data.users.map(user => ({
-                    name: user.user,
-                    sendImage: user.sendImage
+                    username: user.username,
+                    user_ready: user.user_ready
                 }));
                 setGuests(guestData);
             } else {
