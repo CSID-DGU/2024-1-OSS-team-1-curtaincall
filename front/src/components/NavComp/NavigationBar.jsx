@@ -6,12 +6,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NVTheme } from './Theme/NavigationBarTheme';
 import Devnavlinkcomplex from "./devnavlinkcomplex";
-import {isdevState} from "../../atom/atom";
 import Usernavlinkcomplex from "./usernavlinkomplex";
 import {useRecoilState} from "recoil";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
-    const isdev = useRecoilState(isdevState);
+    const isdev = true;
 
     return (
         <ThemeProvider theme={NVTheme}>

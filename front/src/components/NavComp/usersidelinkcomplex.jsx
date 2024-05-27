@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {Link, ListItemButton, ListItemText} from '@mui/material';
-import {loginState} from '../../atoms/loginState';
+import {loginState} from '../../atom/atom';
 import {useRecoilState} from "recoil";
 
 function Usersidelinkcomplex({handleDrawerToggle}) {
