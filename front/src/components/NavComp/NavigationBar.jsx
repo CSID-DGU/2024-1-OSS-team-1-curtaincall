@@ -6,18 +6,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NVTheme } from './Theme/NavigationBarTheme';
 import Devnavlinkcomplex from "./devnavlinkcomplex";
+import {isdevState} from "../../atom/atom";
+import Usernavlinkcomplex from "./usernavlinkomplex";
+import {useRecoilState} from "recoil";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
-
-    const LinkStyle = {
-        padding: 1,
-        color: 'inherit',
-        textDecoration: 'none',
-        transition: 'color 0.3s ease',
-        '&:hover': {
-            color: '#999999'
-        }
-    };
+    const isdev = useRecoilState(isdevState);
 
     return (
         <ThemeProvider theme={NVTheme}>
@@ -49,7 +43,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Devnavlinkcomplex />
+                        {isdev ? <Devnavlinkcomplex /> : <Usernavlinkcomplex/>}
                     </Box>
                 )}
             </Toolbar>

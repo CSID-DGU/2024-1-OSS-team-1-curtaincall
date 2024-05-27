@@ -1,4 +1,6 @@
 import axios from "axios";
+import loginState from "./atom/atom";
+import {useRecoilState} from "recoil";
 
 const api = axios.create({
     //baseURL: 'http://3.131.38.82:8000', //API의 기본 URL 설정
@@ -10,6 +12,8 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('access_token');
+    const [login, setlogin] = useRecoilState(loginState);
+    setlogin(!!token);
     if (token && !config.url.endsWith('/login/') && !config.url.endsWith('/registration/')) {
         config.headers['Authorization'] = `Bearer ${token}`;
     }
