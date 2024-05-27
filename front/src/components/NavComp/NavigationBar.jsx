@@ -5,6 +5,7 @@ import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NVTheme } from './Theme/NavigationBarTheme';
+import Devnavlinkcomplex from "./devnavlinkcomplex";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
 
@@ -48,14 +49,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Link component={RouterLink} to="/" sx={LinkStyle}>초기 화면</Link>
-                        <Link component={RouterLink} to="/host" sx={LinkStyle}>호스트 방</Link>
-                        <Link component={RouterLink} to="/guest" sx={LinkStyle}>게스트 방</Link>
-                        <Link component={RouterLink} to="/upload" sx={LinkStyle}>업로드</Link>
-                        <Link component={RouterLink} to="/sort" sx={LinkStyle}>정렬</Link>
-                        <Link component={RouterLink} to="/quarter" sx={LinkStyle}>4분할</Link>
-                        <Link component={RouterLink} to="/select" sx={LinkStyle}>선택</Link>
-                        <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
+                        <Devnavlinkcomplex />
                     </Box>
                 )}
             </Toolbar>

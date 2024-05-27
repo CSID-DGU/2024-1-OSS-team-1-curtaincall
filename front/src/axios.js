@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://3.131.38.82:8000', //API의 기본 URL 설정
+    //baseURL: 'http://3.131.38.82:8000', //API의 기본 URL 설정
+    baseURL: 'http://127.0.0.0:8000',
     headers: {
         'Content-Type': 'application/json'
     },
