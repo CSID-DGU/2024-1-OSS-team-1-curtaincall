@@ -16,7 +16,7 @@ function SideDrawer({ open, handleDrawerToggle }) {
         <ThemeProvider theme={SDTheme}>
             <Drawer anchor="right" open={open} onClose={handleDrawerToggle}>
                 <List>
-                    {isdev ? (<Devsidelinkcomplex handleDrawerToggle={handleDrawerToggle}/>) : (<Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>)}
+                    {isdev ? (<Devsidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>) : (<Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>)}
                 </List>
             </Drawer>
         </ThemeProvider>

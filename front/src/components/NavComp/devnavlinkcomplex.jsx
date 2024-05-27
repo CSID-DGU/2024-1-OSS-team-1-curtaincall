@@ -12,7 +12,7 @@ const LinkStyle = {
     }
 };
 
-function Devnavlinkcomplex() {
+function Devnavlinkcomplex({username}) {
     return (
         <>
             <Link component={RouterLink} to="/" sx={LinkStyle}>초기 화면</Link>
@@ -24,6 +24,7 @@ function Devnavlinkcomplex() {
             <Link component={RouterLink} to="/select" sx={LinkStyle}>선택</Link>
             <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
             <Link component={RouterLink} to="/signup" sx={LinkStyle}>회원가입</Link>
+            {username}
         </>
     );
 }

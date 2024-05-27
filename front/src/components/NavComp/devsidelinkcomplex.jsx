@@ -12,7 +12,7 @@ const LinkStyle = {
     }
 };
 
-function Devsidelinkcomplex({handleDrawerToggle}) {
+function Devsidelinkcomplex({handleDrawerToggle, username}) {
     return (
         <>
             <ListItemButton component={Link} to="/" onClick={handleDrawerToggle}><ListItemText primary="초기 화면" /></ListItemButton>
@@ -24,6 +24,7 @@ function Devsidelinkcomplex({handleDrawerToggle}) {
             <ListItemButton component={Link} to="/select" onClick={handleDrawerToggle}><ListItemText primary="선택" /></ListItemButton>
             <ListItemButton component={Link} to="/login" onClick={handleDrawerToggle}><ListItemText primary="로그인" /></ListItemButton>
             <ListItemButton component={Link} to="/signup" onClick={handleDrawerToggle}><ListItemText primary="회원가입" /></ListItemButton>
+            {username}
         </>
     );
 }

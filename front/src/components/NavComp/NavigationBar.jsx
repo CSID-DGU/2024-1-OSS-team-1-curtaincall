@@ -14,11 +14,12 @@ import {useRecoilValue} from "recoil";
 import {usernameState} from "../../atom/atom";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
+    const login = useRecoilValue(loginState);
     const isdev = true;
     const [username, setUsername] = useRecoilState(usernameState);
 
     const fetchUsername = async () => {
-        if(loginState){
+        if(login){
             try {
                 const response = await api.get('/accounts/dj-rest-auth/user/');
                 setUsername(response.data.pk);
@@ -67,7 +68,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {isdev ? <Devnavlinkcomplex /> : <Usernavlinkcomplex username={username}/>}
+                        {isdev ? <Devnavlinkcomplex username={username}/> : <Usernavlinkcomplex username={username}/>}
                     </Box>
                 )}
             </Toolbar>
