@@ -6,25 +6,27 @@ import LoginButton from '../components/LoginPageComp/LoginButton'; // Adjust the
 import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
 import api from '../axios'
+import {useRecoilState} from "recoil";
+import {loginState} from "../atom/atom";
 
 function Login() {
     const navigate = useNavigate();
     const [userId, setuserId] = useState('');
     const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
+    const [login, setLogin] = useRecoilState(loginState);
 
     const handleLogin = async () => {
         console.log('Logging in with:', { userId, password });
 
         try {
             const response = await api.post('accounts/dj-rest-auth/login/', {
-                username: 'ryu',
                 email: userId,
                 password: password
             });
             console.log('Login successful:', response.data);
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
+            setLogin(true);
             navigate('/');
         } catch (error) {
             console.error('Login failed:', error.response.data);

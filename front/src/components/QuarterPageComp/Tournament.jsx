@@ -3,12 +3,13 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import {currentRoundState, sortedImageDataState, totalRoundsState} from "../../atom/atom";
 import RoundContainer from "./RoundContainer";
 
-const Tournament = ({onRoundsReady}) => {
+const Tournament = ({ onRoundsReady }) => {
     const sortedImages = useRecoilValue(sortedImageDataState);
     const [currentRound, setCurrentRound] = useRecoilState(currentRoundState);
     const [selectedImages, setSelectedImages] = useState([]);
     const [groups, setGroups] = useState([]);
     const [totalRounds, setTotalRounds] = useRecoilState(totalRoundsState);
+    const [activeGroupIndex, setActiveGroupIndex] = useState(0);  // 현재 활성화된 그룹의 인덱스
 
     useEffect(() => {
         if (Object.keys(sortedImages).length > 0) {
@@ -17,9 +18,8 @@ const Tournament = ({onRoundsReady}) => {
                 images: images.map(src => ({ src }))
             }));
             const adjustedGroups = adjustGroups(newGroups);
-            console.log(adjustedGroups.length);
             setGroups(adjustedGroups);
-            setTotalRounds(adjustedGroups.length);
+            setTotalRounds(adjustedGroups.map(group => group.images.length / 4)); // 각 그룹의 라운드 수
         }
     }, [sortedImages]);
 
@@ -39,27 +39,34 @@ const Tournament = ({onRoundsReady}) => {
         });
     };
 
-    const handleImageSelect = (image, roundIndex) => {
-        setSelectedImages(prevSelectedImages => {
-            const newSelectedImages = [...prevSelectedImages, image];
-            if (roundIndex < totalRounds - 1) {
-                setCurrentRound(roundIndex + 1);
-            } else {
-                onRoundsReady(newSelectedImages);
-            }
-            return newSelectedImages;
-        });
+    const handleImageSelect = (image) => {
+        setSelectedImages(prevSelectedImages => [...prevSelectedImages, image]);
+
+        const currentGroup = groups[activeGroupIndex];
+        const currentGroupRounds = totalRounds[activeGroupIndex];
+        const currentGroupRound = currentRound[currentGroup.group_id] || 0;
+
+        if (currentGroupRound < currentGroupRounds - 1) {
+            setCurrentRound(prevCurrentRound => ({
+                ...prevCurrentRound,
+                [currentGroup.group_id]: currentGroupRound + 1
+            }));
+        } else if (activeGroupIndex < groups.length - 1) {
+            setActiveGroupIndex(prevIndex => prevIndex + 1); // 다음 그룹으로 이동
+        } else {
+            onRoundsReady(selectedImages); // 모든 토너먼트 완료
+        }
     };
 
     return (
         <div>
-            {groups.map((group, index) => (
+            {groups.length > 0 && (
                 <RoundContainer
-                    key={index}
-                    group={group}
+                    key={groups[activeGroupIndex].group_id}
+                    group={groups[activeGroupIndex]}
                     onImageSelect={handleImageSelect}
                 />
-            ))}
+            )}
         </div>
     );
 };

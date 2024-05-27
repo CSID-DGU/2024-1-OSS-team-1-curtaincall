@@ -1,22 +1,42 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { NVTheme } from './Theme/NavigationBarTheme';
+import Devnavlinkcomplex from "./devnavlinkcomplex";
+import Usernavlinkcomplex from "./usernavlinkomplex";
+import {useRecoilState} from "recoil";
+import {loginState} from '../../atom/atom';
+import api from "../../axios";
+import {useRecoilValue} from "recoil";
+import {usernameState} from "../../atom/atom";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
+    const login = useRecoilValue(loginState);
+    const isdev = true;
+    const [username, setUsername] = useRecoilState(usernameState);
 
-    const LinkStyle = {
-        padding: 1,
-        color: 'inherit',
-        textDecoration: 'none',
-        transition: 'color 0.3s ease',
-        '&:hover': {
-            color: '#999999'
+    const fetchUsername = async () => {
+        if(login){
+            try {
+                const response = await api.get('/accounts/dj-rest-auth/user/');
+                setUsername(response.data.pk);
+            } catch (error) {
+                console.error('Failed to fetch username:', error);
+            }
         }
-    };
+
+    }
+
+    useEffect(() => {
+        fetchUsername();
+    }, []);
+
+    useEffect(() => {
+        console.log(username);
+    }, [username]);
 
     return (
         <ThemeProvider theme={NVTheme}>
@@ -48,14 +68,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Link component={RouterLink} to="/" sx={LinkStyle}>초기 화면</Link>
-                        <Link component={RouterLink} to="/host" sx={LinkStyle}>호스트 방</Link>
-                        <Link component={RouterLink} to="/guest" sx={LinkStyle}>게스트 방</Link>
-                        <Link component={RouterLink} to="/upload" sx={LinkStyle}>업로드</Link>
-                        <Link component={RouterLink} to="/sort" sx={LinkStyle}>정렬</Link>
-                        <Link component={RouterLink} to="/quarter" sx={LinkStyle}>4분할</Link>
-                        <Link component={RouterLink} to="/select" sx={LinkStyle}>선택</Link>
-                        <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
+                        {isdev ? <Devnavlinkcomplex username={username}/> : <Usernavlinkcomplex username={username}/>}
                     </Box>
                 )}
             </Toolbar>
