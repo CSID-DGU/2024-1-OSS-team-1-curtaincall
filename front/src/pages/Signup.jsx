@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container } from '@mui/material';
 import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
-import { ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import LoginButton from "../components/LoginPageComp/LoginButton";
 import api from "../axios";
@@ -44,7 +43,9 @@ function SignUp() {
                 password1: password1,
                 password2: password2
             });
-            navigate('/login');
+                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem('refresh_token', response.data.refresh);
+                navigate('/');
             } catch (error) {
                 console.error('Sign up failed:', error.response.data);
         }

@@ -10,6 +10,7 @@ const IMGCarousel = ({ images }) => {
                         className="d-block w-100"
                         src={image.src}
                         alt={`Your pick ${index + 1}`}
+                        style={{ height: '60vh', objectFit: 'contain' }}
                     />
                     <Carousel.Caption>
                         <h3>Round {index + 1} Winner</h3>

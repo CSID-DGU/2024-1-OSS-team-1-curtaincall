@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { CNBTheme } from './Theme/CNBTheme'; // Custom theme 파일
+import { CNBTheme } from './Theme/CNBTheme';
 
 const SelectNavBar = ({ currentView }) => {
     return (

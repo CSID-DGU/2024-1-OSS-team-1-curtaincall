@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { DBTheme } from './Theme/DBTheme'; // Custom theme 파일
+import { DBTheme } from './Theme/DBTheme';
 
 const DropDownButton = ({ value, onChange }) => {
     return (
