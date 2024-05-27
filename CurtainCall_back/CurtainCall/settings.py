@@ -32,7 +32,8 @@ SECRET_KEY = 'django-insecure-0d(z=n2&n22ha7#a_)z2i^n0t1o5t1=5z%kmps7rh##%cd7la9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',
+                 "3.131.38.82"]
 
 
 # Application definition
@@ -142,7 +143,7 @@ REST_AUTH_SERIALIZERS = {
 #SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = oa.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
 
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "https://localhost:8000"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "https://localhost:8000","http://0.0.0.0:8000"]
 
 #set below setting value to False if you want to store images at s3 Server
 USE_LOCAL_IMAGES = False
