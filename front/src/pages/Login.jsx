@@ -5,6 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import LoginButton from '../components/LoginPageComp/LoginButton'; // Adjust the path accordingly
 import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
+import PasswordChangeForm from '../components/LoginPageComp/PasswordChangeForm'; // 비밀번호변경폼
 import api from '../axios'
 import {useRecoilState} from "recoil";
 import {loginState} from "../atom/atom";
@@ -63,6 +64,8 @@ function Login() {
                 onSuccess={handleGoogleLoginSuccess}
                 onFailure={(response) => console.error('Google login failed:', response)}
             />
+            <br/>
+            <PasswordChangeForm />
         </Container>
     );
 }
