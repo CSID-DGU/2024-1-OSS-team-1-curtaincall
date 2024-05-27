@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 import {loginState} from '../../atom/atom';
-import {useRecoilState, useRecoilValue} from "recoil";
+import {useRecoilValue} from "recoil";
 
 const LinkStyle = {
     padding: 1,
@@ -14,14 +14,14 @@ const LinkStyle = {
     }
 };
 
-function Usernavlinkcomplex() {
+function Usernavlinkcomplex({username}) {
     const login = useRecoilValue(loginState);
 
     return (
-        login ? (<> 로그인 됨! </>) :
+        login ? (<> {username} </>) :
             (<>
                 <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
-                <Link component={RouterLink} to="/singup" sx={LinkStyle}>회원가입</Link>
+                <Link component={RouterLink} to="/signup" sx={LinkStyle}>회원가입</Link>
             </>)
     );
 }

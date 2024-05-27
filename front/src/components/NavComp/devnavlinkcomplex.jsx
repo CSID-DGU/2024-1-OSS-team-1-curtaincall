@@ -23,7 +23,7 @@ function Devnavlinkcomplex() {
             <Link component={RouterLink} to="/quarter" sx={LinkStyle}>4분할</Link>
             <Link component={RouterLink} to="/select" sx={LinkStyle}>선택</Link>
             <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
-            <Link component={RouterLink} to="/singup" sx={LinkStyle}>회원가입</Link>
+            <Link component={RouterLink} to="/signup" sx={LinkStyle}>회원가입</Link>
         </>
     );
 }

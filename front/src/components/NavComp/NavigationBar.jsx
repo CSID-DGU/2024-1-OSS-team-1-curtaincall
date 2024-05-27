@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
@@ -8,9 +8,34 @@ import { NVTheme } from './Theme/NavigationBarTheme';
 import Devnavlinkcomplex from "./devnavlinkcomplex";
 import Usernavlinkcomplex from "./usernavlinkomplex";
 import {useRecoilState} from "recoil";
+import {loginState} from '../../atom/atom';
+import api from "../../axios";
+import {useRecoilValue} from "recoil";
+import {usernameState} from "../../atom/atom";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
     const isdev = true;
+    const [username, setUsername] = useRecoilState(usernameState);
+
+    const fetchUsername = async () => {
+        if(loginState){
+            try {
+                const response = await api.get('/accounts/dj-rest-auth/user/');
+                setUsername(response.data.pk);
+            } catch (error) {
+                console.error('Failed to fetch username:', error);
+            }
+        }
+
+    }
+
+    useEffect(() => {
+        fetchUsername();
+    }, []);
+
+    useEffect(() => {
+        console.log(username);
+    }, [username]);
 
     return (
         <ThemeProvider theme={NVTheme}>
@@ -42,7 +67,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {isdev ? <Devnavlinkcomplex /> : <Usernavlinkcomplex/>}
+                        {isdev ? <Devnavlinkcomplex /> : <Usernavlinkcomplex username={username}/>}
                     </Box>
                 )}
             </Toolbar>

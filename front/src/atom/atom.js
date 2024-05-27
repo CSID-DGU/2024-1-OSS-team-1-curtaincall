@@ -29,3 +29,8 @@ export const loginState = atom({
     key: 'loginState',
     default: false,
 });
+
+export const usernameState = atom({
+    key: 'usernameState',
+    default: '',
+});
