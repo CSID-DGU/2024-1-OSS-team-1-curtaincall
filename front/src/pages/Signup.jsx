@@ -59,10 +59,11 @@ function SignUp() {
             {!ispwnull(password1) && !checkPasswordLength(password1) && <p style={{ color: 'red' }}>비밀번호는 최소 8글자 이상이어야 합니다!</p>}
             {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <p style={{ color: 'red' }}>비밀번호는 특수문자를 포함해야 합니다!</p>}
             <PasswordInputForm password={password2} onPasswordChange={setPassword2}/>
+            {!checkPasswordMatch() && <p style={{ color: 'red' }}>비밀번호가 다릅니다!</p>}
             <LoginButton onClick={handleSignUp} disabled={!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1)}>
                 Sign Up
             </LoginButton>
-            {!checkPasswordMatch() && <p style={{ color: 'red' }}>비밀번호가 다릅니다!</p>}
+
         </Container>
     );
 }

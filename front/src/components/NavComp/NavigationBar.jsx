@@ -13,6 +13,7 @@ import api from "../../axios";
 import {useRecoilValue} from "recoil";
 import {usernameState} from "../../atom/atom";
 import UserModal from "../Modal/UserModal";
+import LogoutButton from "./LogoutButton";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
     const login = useRecoilValue(loginState);
@@ -65,9 +66,12 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             {login && !isdev ? (
-                                <Typography sx={{ cursor: 'pointer' }} onClick={handleOpenModal}>
-                                    {username}
-                                </Typography>
+                                <>
+                                    <Typography sx={{ cursor: 'pointer' }} onClick={handleOpenModal}>
+                                        {username}
+                                    </Typography>
+                                    <LogoutButton>logout</LogoutButton>
+                                </>
                             ) : (
                                 isdev ? (
                                     <Devnavlinkcomplex username={username}/>
