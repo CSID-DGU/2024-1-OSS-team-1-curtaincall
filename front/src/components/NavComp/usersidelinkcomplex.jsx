@@ -8,8 +8,7 @@ function Usersidelinkcomplex({handleDrawerToggle, username}) {
     const login = useRecoilValue(loginState);
 
     return (
-        login ? (<> {username} </>) :
-            (<>
+        !login && (<>
                 <ListItemButton component={Link} to="/login" onClick={handleDrawerToggle}><ListItemText primary="로그인" /></ListItemButton>
                 <ListItemButton component={Link} to="/signup" onClick={handleDrawerToggle}><ListItemText primary="회원가입" /></ListItemButton>
             </>)
