@@ -18,11 +18,10 @@ function Usernavlinkcomplex({username}) {
     const login = useRecoilValue(loginState);
 
     return (
-        login ? (<> {username} </>) :
-            (<>
+            <>
                 <Link component={RouterLink} to="/login" sx={LinkStyle}>로그인</Link>
                 <Link component={RouterLink} to="/signup" sx={LinkStyle}>회원가입</Link>
-            </>)
+            </>
     );
 }
 

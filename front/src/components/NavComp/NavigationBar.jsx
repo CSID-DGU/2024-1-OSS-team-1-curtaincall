@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material';
+import {Link, Typography} from '@mui/material';
 import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
@@ -8,35 +8,30 @@ import { NVTheme } from './Theme/NavigationBarTheme';
 import Devnavlinkcomplex from "./devnavlinkcomplex";
 import Usernavlinkcomplex from "./usernavlinkomplex";
 import {useRecoilState} from "recoil";
-import {loginState} from '../../atom/atom';
+import {loginState, modalState} from '../../atom/atom';
 import api from "../../axios";
 import {useRecoilValue} from "recoil";
 import {usernameState} from "../../atom/atom";
+import UserModal from "../Modal/UserModal";
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
     const login = useRecoilValue(loginState);
-    const isdev = true;
+    const isdev = false;
     const [username, setUsername] = useRecoilState(usernameState);
+    const [isOpen, setIsOpen] = useRecoilState(modalState);
 
-    const fetchUsername = async () => {
-        if(login){
-            try {
-                const response = await api.get('/accounts/dj-rest-auth/user/');
-                setUsername(response.data.pk);
-            } catch (error) {
-                console.error('Failed to fetch username:', error);
-            }
-        }
-
-    }
-
-    useEffect(() => {
-        fetchUsername();
-    }, []);
+    const handleOpenModal = () => {
+        console.log('Opening modal...');
+        setIsOpen(true);
+    };
 
     useEffect(() => {
         console.log(username);
     }, [username]);
+
+    useEffect(() => {
+        console.log('isOpen:', isOpen);
+    }, [isOpen]);
 
     return (
         <ThemeProvider theme={NVTheme}>
@@ -68,11 +63,24 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                     </IconButton>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {isdev ? <Devnavlinkcomplex username={username}/> : <Usernavlinkcomplex username={username}/>}
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            {login && !isdev ? (
+                                <Typography sx={{ cursor: 'pointer' }} onClick={handleOpenModal}>
+                                    {username}
+                                </Typography>
+                            ) : (
+                                isdev ? (
+                                    <Devnavlinkcomplex username={username}/>
+                                ) : (
+                                    <Usernavlinkcomplex username={username}/>
+                                )
+                            )}
+                        </Box>
                     </Box>
                 )}
             </Toolbar>
         </AppBar>
+            <UserModal username={username} />
         </ThemeProvider>
     );
 }
