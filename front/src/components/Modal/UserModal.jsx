@@ -15,7 +15,7 @@ function UserModal({ username }) {
     const [password2, setPassword2] = useState('');
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [mode, setMode] = useState('');
-    const islogin = useRecoilValue(loginState);
+    const [islogin, setislogin] = useRecoilState(loginState);
 
     const checkPasswordMatch = () => {
         return password1 === password2;
@@ -61,7 +61,7 @@ function UserModal({ username }) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 setIsOpen(false);
-                islogin(false);
+                setislogin(false);
                 navigate('/login');
             }
 
@@ -69,6 +69,32 @@ function UserModal({ username }) {
             console.error('Change failed:', error.response.data);
         }
     }
+
+    const handleNicknameChange = async () => {
+        console.log('Attempting to Change Nickname with:', { varusername });
+        try {
+            const response = await api.patch('accounts/dj-rest-auth/user/', {
+                user_nickname: varusername  // 닉네임 변경 대상 필드 수정
+            });
+            if (response.status === 200) {
+                console.log('Nickname changed:', response.data);
+                alert('닉네임이 변경되었습니다. 로그아웃합니다.');
+                await api.post('accounts/dj-rest-auth/logout/');
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                setIsOpen(false);
+                setislogin(false);
+                navigate('/login');
+            }
+        } catch (error) {
+            if (error.response) {
+                console.error('Change failed:', error.response.data);
+            } else {
+                console.error('Change failed:', error.message);
+            }
+        }
+    };
+
     return (
         <Modal
             open={isOpen}
@@ -106,7 +132,7 @@ function UserModal({ username }) {
                 {mode === 'nickname' && (
                     <>
                         <IDInputFormMini username={varusername} onUsernameChange={setvarUsername} placeholder="새 닉네임"/>
-                        <ConfirmButtonMini onClick={() => {}} disabled={isnicknull(varusername)}>닉네임 수정</ConfirmButtonMini>
+                        <ConfirmButtonMini onClick={handleNicknameChange} disabled={isnicknull(varusername)}>닉네임 수정</ConfirmButtonMini>
                     </>
                 )}
                 {mode === 'password' && (
