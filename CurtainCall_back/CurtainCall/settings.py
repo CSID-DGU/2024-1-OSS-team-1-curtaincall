@@ -180,8 +180,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://0.0.0.0:8000',
     'http://0.0.0.0:3000',
-    'http://3.131.38.82:3000',
-    'http://3.131.38.82:8000',
+    'http://54.180.118.53:3000',
+    'http://54.180.118.53:8000',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -189,8 +189,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     "http://0.0.0.0:3000",
     'http://0.0.0.0:8000',
-    'http://3.131.38.82:3000',
-    'http://3.131.38.82:8000',
+    'http://54.180.118.53:3000',
+    'http://54.180.118.53:8000',
 ]
 
 # CORS_ORIGIN_WHITELIST = [
