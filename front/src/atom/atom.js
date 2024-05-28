@@ -34,3 +34,8 @@ export const usernameState = atom({
     key: 'usernameState',
     default: '',
 });
+
+export const modalState = atom({
+    key: 'modalState',
+    default: false,
+});

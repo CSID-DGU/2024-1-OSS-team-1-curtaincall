@@ -1,24 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Drawer, List, ListItemButton, ListItemText} from '@mui/material';
+import { Drawer, List, ListItemButton, ListItemText, Typography, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { SDTheme } from './Theme/SideDrawerTheme';
 import Devsidelinkcomplex from "./devsidelinkcomplex";
-import {useRecoilState} from "recoil";
 import Usersidelinkcomplex from "./usersidelinkcomplex";
-import {usernameState} from "../../atom/atom";
-
+import { useRecoilState, useRecoilValue } from "recoil";
+import { loginState, usernameState, modalState } from "../../atom/atom";
+import UserModal from "../Modal/UserModal";
+import LogoutButton from "./LogoutButton";
+import SideLogoutButton from "./SideLogoutButton";
 
 function SideDrawer({ open, handleDrawerToggle }) {
-    const isdev = true;
-    const [username, setUsername] = useRecoilState(usernameState);
+    const login = useRecoilValue(loginState); // 로그인 상태를 Recoil에서 가져옴
+    const username = useRecoilValue(usernameState); // 사용자 이름을 Recoil에서 가져옴
+    const isdev = false; // 개발자 모드 상태
+    const [isOpen, setIsOpen] = useRecoilState(modalState); // 모달 상태
+
+    const handleOpenModal = () => {
+        setIsOpen(true);
+    };
+
     return (
         <ThemeProvider theme={SDTheme}>
             <Drawer anchor="right" open={open} onClose={handleDrawerToggle}>
                 <List>
-                    {isdev ? (<Devsidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>) : (<Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>)}
+                    {login ? (
+                        <>
+                            {isdev ? (
+                                <Devsidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>
+                            ) : (
+                                <Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>
+                            )}
+                            <ListItemButton onClick={handleOpenModal}>
+                                <ListItemText primary={username} />
+                            </ListItemButton>
+                            <SideLogoutButton>Logout</SideLogoutButton>
+                        </>
+                    ) : (
+                        <Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>
+                    )}
                 </List>
             </Drawer>
+            <UserModal username={username} />
         </ThemeProvider>
     );
 }

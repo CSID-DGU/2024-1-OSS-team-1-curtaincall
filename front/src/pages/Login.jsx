@@ -7,13 +7,24 @@ import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adju
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
 import api from '../axios'
 import {useRecoilState} from "recoil";
-import {loginState} from "../atom/atom";
+import {loginState, usernameState} from "../atom/atom";
 
 function Login() {
     const navigate = useNavigate();
     const [userId, setuserId] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useRecoilState(loginState);
+    const [username, setUsername] = useRecoilState(usernameState);
+
+    const fetchUsername = async () => {
+            try {
+                const response = await api.get('/accounts/dj-rest-auth/user/');
+                console.log('API Response:', response.data);
+                setUsername(response.data.pk);
+            } catch (error) {
+                console.error('Failed to fetch username:', error);
+            }
+    };
 
     const handleLogin = async () => {
         console.log('Logging in with:', { userId, password });
@@ -26,6 +37,7 @@ function Login() {
             console.log('Login successful:', response.data);
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
+            fetchUsername();
             setLogin(true);
             navigate('/');
         } catch (error) {
