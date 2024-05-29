@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, styled, ThemeProvider } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // 경로를 실제로 맞추세요.
+import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
