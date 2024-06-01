@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoundNavBar from "../components/QuarterPageComp/RoundNavBar";
 import Tournament from "../components/QuarterPageComp/Tournament";
@@ -11,14 +11,30 @@ function Quarter() {
     const currentRound = useRecoilValue(currentRoundState);
     const totalRounds = useRecoilValue(totalRoundsState);
 
+    const [currentGroup, setCurrentGroup] = useState({});
+    const [groupRound, setGroupRound] = useState(1);
+    const [groupTotalRounds, setGroupTotalRounds] = useState(1);
+
     const handleRoundsComplete = (selectedImages) => {
         navigate('/select', { state: { selectedImages } });
     };
 
+    const handleGroupChange = (group, round, totalRounds) => {
+        setCurrentGroup(group);
+        setGroupRound(round);
+        setGroupTotalRounds(totalRounds);
+    };
+
     return (
         <div>
-            <RoundNavBar currentRound={currentRound} totalRounds={totalRounds} />
-            <TournamentTest onRoundsReady={handleRoundsComplete} />
+            <RoundNavBar
+                currentRound={currentRound}
+                totalRounds={totalRounds}
+                currentGroup={currentGroup}
+                groupRound={groupRound}
+                groupTotalRounds={groupTotalRounds}
+            />
+            <TournamentTest onRoundsReady={handleRoundsComplete} onGroupChange={handleGroupChange} />
         </div>
     );
 }
