@@ -20,6 +20,7 @@ const Tournament = ({ onRoundsReady }) => {
             const adjustedGroups = adjustGroups(newGroups);
             setGroups(adjustedGroups);
             setTotalRounds(adjustedGroups.map(group => group.images.length / 4)); // 각 그룹의 라운드 수
+            console.log(adjustedGroups)
         }
     }, [sortedImages]);
 
