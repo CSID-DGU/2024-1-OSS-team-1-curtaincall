@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Container, LinearProgress } from '@mui/mat
 import { ThemeProvider } from '@mui/material/styles';
 import RNBTheme from './Theme/RNBTheme';
 
-const RoundNavBar = ({ currentRound, totalRounds }) => {
+const RoundNavBar = ({ currentRound, totalRounds, currentGroup, groupRound, groupTotalRounds }) => {
     const progress = (currentRound / totalRounds) * 100;
 
     return (
@@ -12,7 +12,7 @@ const RoundNavBar = ({ currentRound, totalRounds }) => {
                 <Container>
                     <Toolbar>
                         <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
-                            Round {currentRound + 1}/{totalRounds}
+                            Group {currentGroup.group_id} | Round {groupRound}/{groupTotalRounds}
                         </Typography>
                         {/*<LinearProgress variant="determinate" value={progress} sx={{ width: '100%' }} /> 이건 나중에 넣으려고 주석처리 해놓음*/}
                     </Toolbar>

@@ -76,7 +76,7 @@ function Upload() {
     return (
         <form onSubmit={handleSubmit}>
             <FileInputButton onChange={handleFileChange} />
-            <input type="submit" value="Upload" />
+            <UploadButton>Upload</UploadButton>
         </form>
     );
 }

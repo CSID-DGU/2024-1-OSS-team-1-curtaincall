@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import NavigationBar from "./components/NavComp/NavigationBar";
 import SideDrawer from "./components/NavComp/SideDrawer";
+import Testpage from "./pages/Testpage";
 
 
 
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/select" element={<Select />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/test" element={<Testpage />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
             </Router>
