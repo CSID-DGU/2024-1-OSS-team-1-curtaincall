@@ -35,10 +35,11 @@ const RoomMakerButton = ({ children }) => {
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-                    backgroundColor: loading ? '#ffa793' : '#ff5838',
-                    color: 'white',
+
+                    backgroundColor: loading ? '#E3E3E3' : '#F5F5F5',
+                    color: '#7D7D7D',
                     '&:hover': {
-                        backgroundColor: loading ? '#ffa793' : '#ffa793'
+                        backgroundColor: loading ? '#E3E3E3' : '#F5F5F5',
                     }
                 }}
             >
