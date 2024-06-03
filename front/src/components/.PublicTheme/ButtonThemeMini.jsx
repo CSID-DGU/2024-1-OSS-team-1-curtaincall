@@ -1,14 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 
 export const ButtonThemeMini = createTheme({
+    typography: {
+        fontFamily: 'Playfair Display', 
+    },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     width: '33.33vw',
                     height: '8vh',
-                    borderRadius: '50px',
-                    fontWeight: 'bold',
+                    borderRadius: '0px',
                     fontSize: '1.25vw',
                     position: 'relative',
                     transition: 'background-color 0.5s ease',

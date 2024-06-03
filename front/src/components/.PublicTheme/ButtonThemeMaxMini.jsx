@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
 export const ButtonThemeMaxMini = createTheme({
+    typography: {
+        fontFamily: 'Playfair Display', 
+    },
     components: {
         MuiButton: {
             styleOverrides: {
