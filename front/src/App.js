@@ -19,6 +19,7 @@ import {
 import NavigationBar from "./components/NavComp/NavigationBar";
 import SideDrawer from "./components/NavComp/SideDrawer";
 import Testpage from "./pages/Testpage";
+import Footer from "./components/FooterComp/footer";
 
 
 
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/test" element={<Testpage />} />
                     <Route path="*" element={<div>404</div>} />
                 </Routes>
+                <Footer />
             </Router>
         </div>
     );
