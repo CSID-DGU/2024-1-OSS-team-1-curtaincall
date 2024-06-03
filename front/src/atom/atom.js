@@ -25,14 +25,31 @@ export const guestState = atom({
     default: [],
 });
 
+const localStorageEffect = key => ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+        setSelf(JSON.parse(savedValue));
+    }
+
+    onSet(newValue => {
+        localStorage.setItem(key, JSON.stringify(newValue));
+    });
+};
+
 export const loginState = atom({
     key: 'loginState',
     default: false,
+    effects_UNSTABLE: [
+        localStorageEffect('loginState')
+    ],
 });
 
 export const usernameState = atom({
     key: 'usernameState',
     default: '',
+    effects_UNSTABLE: [
+        localStorageEffect('usernameState')
+    ],
 });
 
 export const modalState = atom({
