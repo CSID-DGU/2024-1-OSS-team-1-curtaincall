@@ -4,6 +4,7 @@ import {Link, Typography} from '@mui/material';
 import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import DehazeSharpIcon from '@mui/icons-material/DehazeSharp';
 import { NVTheme } from './Theme/NavigationBarTheme';
 import Devnavlinkcomplex from "./devnavlinkcomplex";
 import Usernavlinkcomplex from "./usernavlinkomplex";
@@ -21,7 +22,17 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
     const [username, setUsername] = useRecoilState(usernameState);
     const [isOpen, setIsOpen] = useRecoilState(modalState);
 
+
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('usernameState');
+        if (savedUsername) {
+            setUsername(JSON.parse(savedUsername));
+        }
+    }, [setUsername]);
+
     const handleOpenModal = () => {
+
+
         console.log('Opening modal...');
         setIsOpen(true);
     };
@@ -36,55 +47,74 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
 
     return (
         <ThemeProvider theme={NVTheme}>
-        <AppBar position="static" elevation={0}>
-            <Toolbar style={{ display: 'flex' }}>
-                <Link component={RouterLink} to="/" sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    padding: '0px',
-                    marginRight: '5%',
-                    marginLeft: '5%',
-                    transition: 'color 0.3s ease',
-                    '&:hover': {
-                        color: '#999999',
-                        cursor: 'pointer'
-                    },
-                    '@media (max-width: 768px)': {
-                        margin: '0',
-                    }
-                }}>
-                    <img alt="" src="/transparentCc.png" width="30" height="30" style={{ verticalAlign: 'middle' }} />
-                    𝑪𝒖𝒓𝒕𝒂𝒊𝒏𝑪𝒂𝒍𝒍
-                </Link>
-                {isMobile ? (
-                    <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={handleDrawerToggle} sx={{ marginLeft: 'auto' }}>
-                        <MenuRoundedIcon fontSize={"large"}/>
-                    </IconButton>
-                ) : (
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            {login && !isdev ? (
-                                <>
-                                    <Typography sx={{ cursor: 'pointer' }} onClick={handleOpenModal}>
-                                        {username}
-                                    </Typography>
-                                    <LogoutButton>logout</LogoutButton>
-                                </>
-                            ) : (
-                                isdev ? (
-                                    <Devnavlinkcomplex username={username}/>
-                                ) : (
-                                    <Usernavlinkcomplex username={username}/>
-                                )
-                            )}
-                        </Box>
+            <AppBar position="static" elevation={0} sx={{ height: '10vh' }}>
+                <Toolbar sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                        <Link
+                            component={RouterLink}
+                            to="/"
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: '100%',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                                transition: 'color 0.3s ease',
+                                '&:hover': {
+                                    color: '#999999',
+                                    cursor: 'pointer',
+                                },
+                                '@media (max-width: 768px)': {
+                                    margin: '0',
+                                },
+                            }}
+                        >
+                            <img
+                                alt=""
+                                src="/logo.svg"
+                                style={{
+                                    height: '51%', // 부모 컴포넌트의 70% 높이 설정
+                                    verticalAlign: 'middle',
+                                    horizontalAlign: 'middle',
+                                }}
+                            />
+                        </Link>
                     </Box>
-                )}
-            </Toolbar>
-        </AppBar>
+                    {isMobile ? (
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerToggle}
+                            sx={{ marginLeft: 'auto' }}
+                        >
+                            <DehazeSharpIcon fontSize="large" />
+                        </IconButton>
+                    ) : (
+                        <Box sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' , flexGrow: 1 }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                {login && !isdev ? (
+                                    <>
+                                        <Typography sx={{ cursor: 'pointer', fontFamily: 'Playfair Display' }} onClick={handleOpenModal}>
+                                            {username}
+                                        </Typography>
+                                        <LogoutButton>Logout</LogoutButton>
+                                    </>
+                                ) : (
+                                    isdev ? (
+                                        <Devnavlinkcomplex username={username} />
+                                    ) : (
+                                        <Usernavlinkcomplex username={username} />
+                                    )
+                                )}
+                            </Box>
+                        </Box>
+                    )}
+                </Toolbar>
+            </AppBar>
             <UserModal username={username} />
+            <div className="divline" style={{ backgroundColor: "#000000", width: '100%', height:'2px', marginBottom:'1%'}}></div>
         </ThemeProvider>
     );
 }
