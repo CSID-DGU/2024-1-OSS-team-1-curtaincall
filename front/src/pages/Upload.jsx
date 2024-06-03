@@ -4,6 +4,7 @@ import axios from 'axios'
 import api from '../axios.js'
 import UploadButton from "../components/UploadPageComp/UploadButton";
 import FileInputButton from "../components/UploadPageComp/FileInputButton";
+import CustomContainer from "../components/CustomContainer";
 
 function Upload() {
     const [files, setFiles] = useState([]);
@@ -74,10 +75,12 @@ function Upload() {
     };
 
     return (
+        <CustomContainer>
         <form onSubmit={handleSubmit}>
             <FileInputButton onChange={handleFileChange} />
             <UploadButton>Upload</UploadButton>
         </form>
+        </CustomContainer>
     );
 }
 

@@ -5,8 +5,10 @@ const Foottheme = createTheme({
     typography: {
         fontFamily: 'Roboto, Arial, sans-serif',
     },
-    background: {
-        default: '#ff0000',
+    palette: {
+        background: {
+            default: '#7f7f7f',
+        },
     },
 });
 

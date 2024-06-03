@@ -5,6 +5,7 @@ import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; /
 import { useNavigate } from 'react-router-dom';
 import LoginButton from "../components/LoginPageComp/LoginButton";
 import api from "../axios";
+import CustomContainer from "../components/CustomContainer";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -52,6 +53,7 @@ function SignUp() {
     };
 
     return (
+        <CustomContainer>
         <Container>
             <UsernameInputForm username={username} onUsernameChange={setUsername} placeholder="Username"/>
             <UsernameInputForm username={email} onUsernameChange={setEmail} placeholder="Email"/>
@@ -65,6 +67,7 @@ function SignUp() {
             </LoginButton>
 
         </Container>
+        </CustomContainer>
     );
 }
 

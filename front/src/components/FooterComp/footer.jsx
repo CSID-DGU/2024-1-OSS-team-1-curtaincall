@@ -1,16 +1,26 @@
 // Footer.jsx
 import React from 'react';
-import { ThemeProvider, Box, Typography } from '@mui/material';
-import theme from './Theme/FootTheme';
+import {ThemeProvider, Box, Typography, styled} from '@mui/material';
+import Foottheme from './Theme/FootTheme';
+
+
+const StyledBox = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(2),
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+    fontFamily: theme.typography.fontFamily,
+}));
 
 function Footer() {
     return (
-        <ThemeProvider theme={theme}>
-            <Box sx={{bgcolor:'black', color: 'white', p: 2, textAlign: 'center' }}>
-                <Typography variant="h6">
+        <ThemeProvider theme={Foottheme}>
+            <StyledBox>
+                <StyledTypography variant="h6">
                     FOOTER
-                </Typography>
-            </Box>
+                </StyledTypography>
+            </StyledBox>
         </ThemeProvider>
     );
 }

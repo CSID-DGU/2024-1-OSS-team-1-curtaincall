@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import SelectNavBar from '../components/SelectPageComp/SelectNavBar';
 import IMGCarousel from '../components/SelectPageComp/IMGCarousel';
 import DropDownButton from '../components/SelectPageComp/DropDownButton';
+import CustomContainer from "../components/CustomContainer";
 
 function Select() {
     const location = useLocation();
@@ -20,11 +21,13 @@ function Select() {
     };
 
     return (
+        <CustomContainer>
         <Container>
             <SelectNavBar currentView="Your Picks" />
             <IMGCarousel images={selectedImages} />
             <DropDownButton value={dropdownValue} onChange={handleDropdownChange} />
         </Container>
+        </CustomContainer>
     );
 }
 

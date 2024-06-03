@@ -8,6 +8,7 @@ import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; /
 import api from '../axios'
 import {useRecoilState} from "recoil";
 import {loginState, usernameState} from "../atom/atom";
+import CustomContainer from "../components/CustomContainer";
 
 function Login() {
     const navigate = useNavigate();
@@ -63,6 +64,7 @@ function Login() {
     };
 
     return (
+        <CustomContainer>
         <Container>
             <br/>
             <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="ID" />
@@ -76,6 +78,7 @@ function Login() {
                 onFailure={(response) => console.error('Google login failed:', response)}
             />
         </Container>
+        </CustomContainer>
     );
 }
 
