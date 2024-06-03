@@ -41,4 +41,8 @@ class User(AbstractBaseUser):
     def set_send_image_flag(self):
         self.sendImage = True
         self.save()
+
+    def replace_username(self, username):
+        self.username = username
+        self.save()
 # Create your models here.
