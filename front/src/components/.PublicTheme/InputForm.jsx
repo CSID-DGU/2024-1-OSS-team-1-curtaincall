@@ -1,22 +1,28 @@
 import { createTheme } from '@mui/material/styles';
 
 export const InputFormTheme = createTheme({
+    typography: {
+        fontFamily: 'Playfair Display',
+    },
     components: {
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    width: '66.66vw',
+                    width: '80%',
+                    maxWidth: '900px',
                     height: '8vh',
-                    borderRadius: '50px',
+                    borderRadius: '0px',
                     fontWeight: 'bold',
                     fontSize: '1.25vw',
                     position: 'relative',
                     transition: 'background-color 0.5s ease',
-                    margin: 'auto',
+                    margin: '0px 0px 0px 0px',
                     marginTop: '0.25vw',
-                    '@media (max-width: 768px)': {
-                        width: '100vw',
-                    },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    
                 },
                 notchedOutline: {
                     borderColor: 'black',

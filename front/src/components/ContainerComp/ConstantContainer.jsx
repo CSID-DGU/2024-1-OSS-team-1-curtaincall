@@ -2,20 +2,14 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import { ContainerTheme } from './.PublicTheme/ContainerTheme';
-import { useRecoilValue } from 'recoil';
+import { ContainerTheme } from '../.PublicTheme/ContainerTheme';
 
 import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
 
-export default function CustomContainer({ children, style }) {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    const flexDirection = isMobile ? 'column': 'row';
-    const justifyContent = isMobile ? 'flex-start' : 'space-evenly';
-    const alignItems = isMobile ? 'center' : 'flex-start';
+export default function ConstantContainer({ children, style }) {
 
     return (
         <ThemeProvider theme={ContainerTheme}>
@@ -29,9 +23,9 @@ export default function CustomContainer({ children, style }) {
                     padding: '4px',
                     marginTop: '0px',
                     display: 'flex',
-                    flexDirection: flexDirection,
-                    justifyContent: justifyContent,
-                    alignItems: alignItems,
+                    flexDirection: 'column',
+                    justifyContent: 'self-start',
+                    alignItems: 'center',
                     minHeight: '100%',
                     ...style
                 }}

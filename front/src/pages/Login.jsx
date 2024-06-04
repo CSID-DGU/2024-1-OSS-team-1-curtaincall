@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from '@mui/material';
+import CustomContainer from '../components/ContainerComp/CustomContainer';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import LoginButton from '../components/LoginPageComp/LoginButton'; // Adjust the path accordingly
@@ -9,12 +9,29 @@ import api from '../axios'
 import {useRecoilState} from "recoil";
 import {loginState, usernameState} from "../atom/atom";
 
+import ImageSlider from '../components/StartPageComp/ImageSlider';
+
+import slide1 from '../img/slide1.jpg';
+import slide2 from '../img/slide2.jpg';
+
+import {
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
+
+
 function Login() {
     const navigate = useNavigate();
     const [userId, setuserId] = useState('');
     const [password, setPassword] = useState('');
     const [login, setLogin] = useRecoilState(loginState);
     const [username, setUsername] = useRecoilState(usernameState);
+
+    const images = [
+        slide1,
+        slide2,
+        // 추가 이미지 경로를 여기에 입력하세요.
+      ];
 
     const fetchUsername = async () => {
             try {
@@ -62,20 +79,30 @@ function Login() {
         }
     };
 
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const maxhe_ = isMobile ? '20%': '67%';
+
     return (
-        <Container>
-            <br/>
-            <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="ID" />
-            <br/>
-            <PasswordInputForm password={password} onPasswordChange={setPassword} />
-            <br/>
-            <LoginButton onClick={handleLogin}>Login</LoginButton>
-            <br/>
-            <GoogleLogin
-                onSuccess={handleGoogleLoginSuccess}
-                onFailure={(response) => console.error('Google login failed:', response)}
-            />
-        </Container>
+        <CustomContainer>
+            <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
+            <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
+                <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
+                <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="Email" />
+                <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
+                <PasswordInputForm password={password} onPasswordChange={setPassword} placeholder="비밀번호" />
+                <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
+
+                <LoginButton onClick={handleLogin}>Login</LoginButton>
+                <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
+
+                <GoogleLogin
+                    onSuccess={handleGoogleLoginSuccess}
+                    onFailure={(response) => console.error('Google login failed:', response)}
+                />
+            </div>
+
+        </CustomContainer>
     );
 }
 
