@@ -3,14 +3,15 @@ import { TextField, ThemeProvider } from '@mui/material';
 import { InputFormTheme } from '../.PublicTheme/InputForm'
 import Form from 'react-bootstrap/Form';
 
-function PasswordInputForm({ password, onPasswordChange }) {
+function PasswordInputForm({ password, onPasswordChange, placeholder }) {
     return (
         <ThemeProvider theme={InputFormTheme}>
             <div className="emailInputWrapper" style={{ width: '100%', display: 'flex', justifyContent: 'self-start', flexDirection: 'column', alignItems: 'self-start' }}>
-            <Form.Label htmlFor="inputPassword5" style={{fontFamily: 'RIDIBatang'}}>비밀번호</Form.Label>
+            <Form.Label htmlFor="inputPassword5" style={{fontFamily: 'RIDIBatang'}}>{placeholder}</Form.Label>
             <Form.Control
                 type="password"
                 id="inputPassword5"
+                onChange={(e) => onPasswordChange(e.target.value)}
                 aria-describedby="passwordHelpBlock"
             />
             </div>

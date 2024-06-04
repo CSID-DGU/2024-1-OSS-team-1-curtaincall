@@ -7,11 +7,12 @@ function IDInputForm({ username, onUsernameChange, placeholder }) {
     return (
         <ThemeProvider theme={InputFormTheme}>
             <div className="emailInputWrapper" style={{width: '100%', display: 'flex', justifyContent: 'self-start', flexDirection: 'column', alignItems: 'self-start' }}>
-            <Form.Label htmlFor="inputPassword5">Email</Form.Label>
+            <Form.Label htmlFor="inputPassword5">{placeholder}</Form.Label>
             <Form.Control
                 type="input"
                 id="inputPassword5"
                 aria-describedby="passwordHelpBlock"
+                onChange={(e) => onUsernameChange(e.target.value)}
                 style={{ width: '100%' }}
             />
             </div>

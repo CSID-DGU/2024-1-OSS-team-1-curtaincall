@@ -10,17 +10,18 @@ export const ButtonTheme = createTheme({
                 root: {
                     border: '1px solid black',
                     width: '40vw',
-                    height: '8vh',
+                    maxWidth: '600px',
+                    height: '6vh',
                     borderRadius: '0px',
-                    fontSize: '3.0vh',
+                    fontSize: '2.5vh',
                     position: 'relative',
                     transition: 'background-color 0.5s ease',
                     marginLeft: '0.25vw',
-                    '@media (max-width: 1000px)': {
-                        fontSize: '1.5vh',
+                    '@media (max-width: 1920px)': {
+                        fontSize: '2.5vh',
                         marginTop: '0.25vw',
                     },
-                    '@media (max-width: 768px)': {
+                    '@media (max-width: 900px)': {
                         fontSize: '2.0vh',
                         height: '5.4vh',
                         width: '66.6vw',
