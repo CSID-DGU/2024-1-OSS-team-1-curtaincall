@@ -28,7 +28,6 @@ export default function CustomContainer({ children, style }) {
                     height: '80%',
                     padding: '4px',
                     marginTop: '0px',
-                    display: 'flex',
                     flexDirection: flexDirection,
                     justifyContent: justifyContent,
                     alignItems: alignItems,

@@ -8,6 +8,7 @@ import api from '../axios';
 import HostPageInputButton from "../components/GusetPageComp/HostPageInputButton";
 import {useRecoilState} from "recoil";
 import {stageState} from "../atom/atom";
+import CustomContainer2 from "../components/CustomContainer2";
 
 function Host() {
     const navigate = useNavigate();
@@ -50,14 +51,14 @@ function Host() {
     }, []);
 
     return (
-        <>
+        <CustomContainer2>
             <br/>
             <h2><CopyButton url={stageId}>복사</CopyButton></h2>
             <br/>
             <GuestList guests={guests}/>
             <br/>
             <HostPageInputButton name={name} conststageId={stageId}>업로드 페이지 입장</HostPageInputButton>
-        </>
+        </CustomContainer2>
     );
 }
 
