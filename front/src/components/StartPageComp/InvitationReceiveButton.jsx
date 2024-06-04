@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Button, ThemeProvider, createTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
+import { isHostState } from "../../atom/atom";
+import {useRecoilState} from "recoil";
 
 const InvitationReceiveButton = ({ children }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [isHost, setIsHost] = useRecoilState(isHostState);
+
     const handleClick = () => {
         if (loading) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
+            setIsHost(false);
             navigate('/guest');
         }, 700);
     };

@@ -3,13 +3,14 @@ import { Button, ThemeProvider, CircularProgress } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
 import api from '../../axios';
-import {stageState} from "../../atom/atom";
+import {stageState, isHostState} from "../../atom/atom";
 import {useRecoilState} from "recoil";
 
 const RoomMakerButton = ({ children }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [stageId, setStageId] = useRecoilState(stageState);
+    const [isHost, setIsHost] = useRecoilState(isHostState);
 
     const handleClick = async () => {
         if (loading) return;
@@ -20,6 +21,7 @@ const RoomMakerButton = ({ children }) => {
 
             if (response.status === 200) {
                 setStageId(response.data.stageId);
+                setIsHost(true);
                 navigate('/host');
             }
         } catch (error) {
