@@ -32,6 +32,7 @@ function App() {
 
     return (
         <div className="App">
+            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
             <Router>
                 <NavigationBar isMobile={isMobile} handleDrawerToggle={handleDrawerToggle} />
                 <SideDrawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
