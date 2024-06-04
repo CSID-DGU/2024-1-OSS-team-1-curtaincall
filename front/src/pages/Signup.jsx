@@ -7,6 +7,15 @@ import LoginButton from "../components/LoginPageComp/LoginButton";
 import api from "../axios";
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 
+import ImageSlider from '../components/StartPageComp/ImageSlider';
+
+import slide1 from '../img/slide1.jpg';
+import slide2 from '../img/slide2.jpg';
+
+import {
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -53,22 +62,39 @@ function SignUp() {
         }
     };
 
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const maxhe_ = isMobile ? '20%': '67%';
+
+    const images = [
+        slide1,
+        slide2,
+        // 추가 이미지 경로를 여기에 입력하세요.
+      ];
+
     return (
         <CustomContainer>
-        <Container>
+        <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
+        <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
+        <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
             <UsernameInputForm username={username} onUsernameChange={setUsername} placeholder="Username"/>
+            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
             <UsernameInputForm username={email} onUsernameChange={setEmail} placeholder="Email"/>
-            <PasswordInputForm password={password1} onPasswordChange={setPassword1}/>
+            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
+            <PasswordInputForm password={password1} onPasswordChange={setPassword1} placeholder="비밀번호"/>
+            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
             {!ispwnull(password1) && !checkPasswordLength(password1) && <p style={{ color: 'red' }}>비밀번호는 최소 8글자 이상이어야 합니다!</p>}
             {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <p style={{ color: 'red' }}>비밀번호는 특수문자를 포함해야 합니다!</p>}
-            <PasswordInputForm password={password2} onPasswordChange={setPassword2}/>
+            <PasswordInputForm password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
             {!checkPasswordMatch() && <p style={{ color: 'red' }}>비밀번호가 다릅니다!</p>}
+            <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
             <LoginButton onClick={handleSignUp} disabled={!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1)}>
                 Sign Up
             </LoginButton>
+        </div>
 
-        </Container>
         </CustomContainer>
+
     );
 }
 

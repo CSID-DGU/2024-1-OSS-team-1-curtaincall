@@ -88,10 +88,10 @@ function Login() {
             <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
             <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
                 <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
-                <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="ID" />
+                <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="Email" />
                 <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
-                <PasswordInputForm password={password} onPasswordChange={setPassword} />
-                <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
+                <PasswordInputForm password={password} onPasswordChange={setPassword} placeholder="비밀번호" />
+                <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
 
                 <LoginButton onClick={handleLogin}>Login</LoginButton>
                 <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
