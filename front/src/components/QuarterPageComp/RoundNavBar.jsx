@@ -12,7 +12,7 @@ const RoundNavBar = ({ currentRound, totalRounds, currentGroup, groupRound, grou
                 <Container>
                     <Toolbar>
                         <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
-                            Group {currentGroup.group_id} | Round {groupRound}/{groupTotalRounds}
+                            CGroup {currentGroup.group_id} | Round {groupRound}/{groupTotalRounds}
                         </Typography>
                         {/*<LinearProgress variant="determinate" value={progress} sx={{ width: '100%' }} /> 이건 나중에 넣으려고 주석처리 해놓음*/}
                     </Toolbar>
