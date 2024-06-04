@@ -14,7 +14,7 @@ export default function CustomContainer({ children, style }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const flexDirection = isMobile ? 'column': 'row';
-    const justifyContent = isMobile ? 'flex-start' : 'space-evenly';
+    const justifyContent = isMobile ? 'flex-start' : 'space-around';
     const alignItems = isMobile ? 'center' : 'flex-start';
 
     return (
@@ -28,6 +28,7 @@ export default function CustomContainer({ children, style }) {
                     height: '80%',
                     padding: '4px',
                     marginTop: '0px',
+                    display: 'flex',
                     flexDirection: flexDirection,
                     justifyContent: justifyContent,
                     alignItems: alignItems,
