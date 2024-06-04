@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import SelectNavBar from '../components/SelectPageComp/SelectNavBar';
 import IMGCarousel from '../components/SelectPageComp/IMGCarousel';
 import DropDownButton from '../components/SelectPageComp/DropDownButton';
-import CustomContainer from "../components/CustomContainer";
+import CustomContainer from "../components/ContainerComp/CustomContainer";
 
 function Select() {
     const location = useLocation();
