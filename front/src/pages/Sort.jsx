@@ -1,6 +1,6 @@
 import React from 'react';
 import SortButton from '../components/SortPageComp/SortButton';
-import CustomContainer from "../components/CustomContainer"; // 적절한 경로로 변경
+import CustomContainer from "../components/ContainerComp/CustomContainer";
 
 function Sort() {
     return (

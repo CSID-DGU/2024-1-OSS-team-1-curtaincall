@@ -4,7 +4,7 @@ import axios from 'axios'
 import api from '../axios.js'
 import UploadButton from "../components/UploadPageComp/UploadButton";
 import FileInputButton from "../components/UploadPageComp/FileInputButton";
-import CustomContainer from "../components/CustomContainer";
+import CustomContainer from "../components/ContainerComp/CustomContainer";
 
 function Upload() {
     const [files, setFiles] = useState([]);

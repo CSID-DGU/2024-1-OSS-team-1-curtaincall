@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import URLInputForm from "../components/GusetPageComp/URLInputForm";
 import HostPageInputButton from "../components/GusetPageComp/HostPageInputButton";
-import CustomContainer from "../components/CustomContainer";
+import CustomContainer from "../components/ContainerComp/CustomContainer";
 
 function Guest() {
     const navigate = useNavigate();

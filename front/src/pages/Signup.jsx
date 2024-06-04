@@ -5,7 +5,8 @@ import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; /
 import { useNavigate } from 'react-router-dom';
 import LoginButton from "../components/LoginPageComp/LoginButton";
 import api from "../axios";
-import CustomContainer from "../components/CustomContainer";
+import CustomContainer from "../components/ContainerComp/CustomContainer";
+
 
 function SignUp() {
     const navigate = useNavigate();

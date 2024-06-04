@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ImageSlider.css';
 
-const ImageSlider = ({ images, interval = 3000 }) => {
+const ImageSlider = ({ images, interval = 3000, maxhe = '67%' }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const ImageSlider = ({ images, interval = 3000 }) => {
     }, [images.length, interval]);
 
     return (
-        <div className="slider-container">
+        <div className="slider-container" style={{maxHeight: maxhe }}>
             {images.map((image, index) => (
                 <img
                     key={index}
