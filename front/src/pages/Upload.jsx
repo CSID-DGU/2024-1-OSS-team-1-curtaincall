@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import api from '../axios';
 import CopyButton from '../components/HostPageComp/CopyButton';
 import GoToUploadButton from '../components/HostPageComp/GoToUploadButton';
 import GuestList from '../components/HostPageComp/GuestList';
-import api from '../axios';
 import HostPageInputButton from "../components/GusetPageComp/HostPageInputButton";
-import {useRecoilState, useRecoilValue} from "recoil";
-import {stageState, isHostState} from "../atom/atom";
-import CustomContainer2 from "../components/CustomContainer2";
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 import FileInputButton from "../components/UploadPageComp/FileInputButton";
 import UploadButton from "../components/UploadPageComp/UploadButton";
-import axios from "axios";
+import { stageState, isHostState } from "../atom/atom";
+import {Paper, useMediaQuery, useTheme} from "@mui/material";
 
 function Upload() {
     const navigate = useNavigate();
@@ -20,11 +19,12 @@ function Upload() {
     const [stageId, setStageId] = useRecoilState(stageState);
     const [files, setFiles] = useState([]);
     const isHost = useRecoilValue(isHostState);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         console.log("isHost : ", isHost);
-    }
-    , [isHost]);
+    }, [isHost]);
 
     useEffect(() => {
         console.log('Stage ID:', stageId);
@@ -42,7 +42,6 @@ function Upload() {
             return;
         }
 
-        // 파일 이름 배열 생성
         const imageList = files.map(file => file.name);
 
         try {
@@ -50,7 +49,6 @@ function Upload() {
                 image_list: imageList
             });
 
-            // S3에 파일 업로드
             const presignedUrls = response.data.url;
 
             console.log('Received presigned URLs:', presignedUrls);
@@ -66,19 +64,16 @@ function Upload() {
 
                 if (uploadResponse.status === 200) {
                     console.log(`File ${file.name} uploaded successfully.`);
-                    if(isHost === true) {
+                    if(isHost) {
                         navigate('/Sort');
-                    }
-                    else {
-                        navigate('/await')// 성공적으로 업로드 후 리다이렉트할 경로
+                    } else {
+                        navigate('/await');
                     }
                 } else {
                     console.log(`File ${file.name} upload failed.`);
                     alert('파일 업로드에 실패하였습니다. 관리자에게 문의하세요.');
                 }
             }
-
-
         } catch (error) {
             console.error('Error during file upload:', error);
         }
@@ -106,9 +101,7 @@ function Upload() {
         }
     };
 
-
     useEffect(() => {
-
         fetchGuests();
     }, []);
 
@@ -118,16 +111,35 @@ function Upload() {
     }, []);
 
     return (
-        <CustomContainer>
-
-            <GuestList guests={guests}/>
-            <br/>
-            <br/>
-            {isHost === true ? (<h2><CopyButton url={stageId}>복사</CopyButton></h2>) : null}
-            <form onSubmit={handleSubmit}>
-                <FileInputButton onChange={handleFileChange}/>
-                <UploadButton>Upload</UploadButton>
-            </form>
+        <CustomContainer style={{ flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'center' : 'flex-start' }}>
+            <Paper elevation={3} style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'row',
+                backgroundColor: '#f0f0f0',
+                padding: '16px',
+                margin: '8px',
+                width: '100%',
+                height: isMobile ? '40vh' : '60vh',
+                borderRadius: '0',
+                overflow: 'auto'
+            }}>
+                <GuestList guests={guests} />
+            </Paper>
+            <div style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '16px',
+                margin: '8px'
+            }}>
+                {isHost && <h2><CopyButton url={stageId}>복사</CopyButton></h2>}
+                <form onSubmit={handleSubmit}>
+                    <FileInputButton onChange={handleFileChange}/>
+                    <UploadButton>Upload</UploadButton>
+                </form>
+            </div>
         </CustomContainer>
     );
 }
