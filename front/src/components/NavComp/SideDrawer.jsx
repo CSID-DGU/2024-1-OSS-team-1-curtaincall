@@ -36,6 +36,10 @@ function SideDrawer({ open, handleDrawerToggle }) {
                                               primaryTypographyProps={{
                                                   style: {
                                                       fontFamily: 'RIDIBatang',
+                                                      whiteSpace: 'nowrap',
+                                                      overflow: 'hidden',
+                                                      textOverflow: 'ellipsis',
+                                                      maxWidth: '20vw'
                                                   },
                                               }}/>
                             </ListItemButton>

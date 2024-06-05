@@ -14,30 +14,26 @@ export const SideButtonThemeMaxMini = createTheme({
                     },
                     borderRadius: '0',
                     border: '1px solid black',
-                    width: '10vw',
                     height: '4vh',
                     position: 'relative',
                     transition: 'background-color 0.5s ease',
                     marginLeft: '0.25vw',
                     fontSize: '1vw',
+                    width: '98%', // 부모 요소의 너비에 맞춤
                     '@media (max-width: 1200px)': {
                         fontSize: '1.5vw',
                     },
                     '@media (max-width: 1100px)': {
-                        fontSize: '1,7vw',
-                        width: '15vw',
+                        fontSize: '1.7vw',
                     },
                     '@media (max-width: 900px)': {
                         fontSize: '2vw',
-                        width: '20vw',
                     },
                     '@media (max-width: 600px)': {
                         fontSize: '2.5vw',
-                        width: '30vw',
                     },
                     '@media (max-width: 400px)': {
                         fontSize: '3vw',
-                        width: '40vw',
                     },
                 }
             }

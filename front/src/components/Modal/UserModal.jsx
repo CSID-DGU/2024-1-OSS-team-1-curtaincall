@@ -58,14 +58,14 @@ function UserModal({ username }) {
                 new_password1: password1,
                 new_password2: password2
             });
+            setPassword1('');
+            setPassword2('');
             if(response.status === 200) {
                 alert('비밀번호가 변경되었습니다. 로그아웃합니다.');
                 await api.post('accounts/logout/');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 setMode('');
-                setPassword1('');
-                setPassword2('');
                 setIsOpen(false);
                 setislogin(false);
                 navigate('/login');
@@ -81,6 +81,7 @@ function UserModal({ username }) {
             const response = await api.post('accounts/replaceUsername/', {
                 username: varusername  // 닉네임 변경 대상 필드 수정
             });
+            setvarUsername('');
             if (response.status === 200) {
                 console.log('Nickname changed:', response.data);
                 alert('닉네임이 변경되었습니다. 로그아웃합니다.');
@@ -88,7 +89,6 @@ function UserModal({ username }) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 setMode('');
-                setvarUsername('');
                 setIsOpen(false);
                 setislogin(false);
                 navigate('/login');
