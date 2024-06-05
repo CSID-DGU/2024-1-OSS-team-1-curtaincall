@@ -25,14 +25,14 @@ export default function CustomContainer({ children, style }) {
                 disableGutters // 기본 패딩을 제거
                 style={{
                     width: '100%',
-                    height: '80%',
+                    height: '100%',
                     padding: '4px',
                     marginTop: '0px',
                     display: 'flex',
                     flexDirection: flexDirection,
                     justifyContent: justifyContent,
                     alignItems: alignItems,
-                    minHeight: '80%',
+                    minHeight: '100%',
                     ...style
                 }}
             >

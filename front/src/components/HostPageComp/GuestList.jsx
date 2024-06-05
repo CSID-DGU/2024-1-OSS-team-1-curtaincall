@@ -9,9 +9,9 @@ const GuestList = ({ guests }) => {
                 <Grid container spacing={2}>
                     {guests.map(guest => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={guest.id}>
-                            <Paper elevation={2}>
+                            <Paper elevation={0} style={{ padding: '16px', border: '1px solid #ccc', borderRadius: '0' }}>
                                 <Typography variant="subtitle1" component="h2">
-                                    {guest.username}: {guest.user_ready}
+                                    {guest.username}
                                 </Typography>
                             </Paper>
                         </Grid>
