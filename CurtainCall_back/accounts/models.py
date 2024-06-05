@@ -1,6 +1,7 @@
 from django.db import models
 from Stage.models import Stage_list
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from uuid import uuid4
 
 class UserManager(BaseUserManager):
 
@@ -20,11 +21,10 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     app_label = 'accounts'
-    id = models.CharField(max_length=100)
+    id = models.uuidField(primary_key=True, default=uuid4, editable=False)
     stage_uuid = models.ForeignKey(Stage_list, on_delete=models.CASCADE, null=True)
-    username = models.CharField(max_length=100, primary_key=True)
+    username = models.CharField(max_length=100, unique=True, null=False, blank=False)
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
-    user_nickname = models.CharField(max_length=100)
     user_ready = models.BooleanField(default=False)
 
     objects = UserManager()
