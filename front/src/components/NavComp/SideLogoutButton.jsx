@@ -14,7 +14,7 @@ function LogoutButton({ onClick, children, disabled }) {
     const handleClick = async () => {
         if (loading) return;
         setLoading(true);
-        await api.post('accounts/dj-rest-auth/logout/');
+        await api.post('accounts/logout/');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         setislogin(false);

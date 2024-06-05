@@ -16,13 +16,28 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import {useRecoilState} from "recoil";
+import {loginState, usernameState} from "../atom/atom";
 
 function SignUp() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
+    const [constusername, setConstUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+
+    const [login, setLogin] = useRecoilState(loginState);
+    const [username, setUsername] = useRecoilState(usernameState);
+
+    const fetchUsername = async () => {
+        try {
+            const response = await api.get('/accounts/user/');
+            console.log('API Response:', response.data);
+            setUsername(response.data.pk);
+        } catch (error) {
+            console.error('Failed to fetch username:', error);
+        }
+    };
 
     const checkPasswordMatch = () => {
         return password1 === password2;
@@ -46,16 +61,19 @@ function SignUp() {
     };
 
     const handleSignUp = async () => {
-        console.log('Attempting to sign up with:', { username, email, password1, password2 });
+        console.log('Attempting to sign up with:', { constusername, email, password1, password2 });
         try {
-            const response = await api.post('accounts/dj-rest-auth/registration/', {
-                username: username,
+            const response = await api.post('accounts/', {
+                username: constusername,
                 email: email,
                 password1: password1,
                 password2: password2
             });
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
+                fetchUsername();
+                setLogin(true);
+
                 navigate('/');
             } catch (error) {
                 console.error('Sign up failed:', error.response.data);
@@ -77,7 +95,7 @@ function SignUp() {
         <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
         <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
         <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
-            <UsernameInputForm username={username} onUsernameChange={setUsername} placeholder="Username"/>
+            <UsernameInputForm username={constusername} onUsernameChange={setConstUsername} placeholder="Username"/>
             <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
             <UsernameInputForm username={email} onUsernameChange={setEmail} placeholder="Email"/>
             <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>

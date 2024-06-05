@@ -35,7 +35,7 @@ function Login() {
 
     const fetchUsername = async () => {
             try {
-                const response = await api.get('/accounts/dj-rest-auth/user/');
+                const response = await api.get('/accounts/user/');
                 console.log('API Response:', response.data);
                 setUsername(response.data.pk);
             } catch (error) {
@@ -47,7 +47,7 @@ function Login() {
         console.log('Logging in with:', { userId, password });
 
         try {
-            const response = await api.post('accounts/dj-rest-auth/login/', {
+            const response = await api.post('accounts/login/', {
                 email: userId,
                 password: password
             });
