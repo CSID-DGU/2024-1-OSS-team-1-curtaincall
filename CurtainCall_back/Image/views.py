@@ -134,6 +134,19 @@ class findImageList(APIView):
 
 
 class PresignedURLView(APIView):
+    """
+    S3에 이미지 업로드를 위한 presigned URL 생성 API
+    """
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('Authorization', openapi.IN_HEADER, description='JWT token', type=openapi.TYPE_STRING)
+        ],
+        responses={201: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+            'url': openapi.Schema(type=openapi.TYPE_STRING, description='presigned URL'),
+            'fields': openapi.Schema(type=openapi.TYPE_OBJECT, description='form fields')
+        })}
+    )
+
     def post(self, request, *args, **kwargs):
         stageId = request.user.stage_uuid_id
         if stageId is None:
