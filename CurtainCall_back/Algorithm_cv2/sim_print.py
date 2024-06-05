@@ -9,6 +9,8 @@ import requests
 from io import BytesIO
 from PIL import Image
 
+from Stage.models import Stage_list
+
 from .fetch_image import fetch_image
 
 import os
@@ -116,4 +118,5 @@ def getsim(stage_id):
         # predict_image_keywords(filename)
         print(filename)
 
+    Stage_list.objects.get(id=stage_id).set_sort_flag()
     return group_to_image
