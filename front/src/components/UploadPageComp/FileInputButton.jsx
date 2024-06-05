@@ -48,9 +48,9 @@ const FileInputButton = ({ onChange }) => {
                 <VisuallyHiddenInput type="file" multiple onChange={handleFileChange} />
             </Button>
             <Box id="fileList">
-                {fileList.map((file, index) => (
-                    <Box key={index}>{file.name}</Box>
-                ))}
+                {fileList.length > 0 && (
+                    <Box>{fileList.length} 장의 사진 업로드</Box>
+                )}
             </Box>
         </ThemeProvider>
     );

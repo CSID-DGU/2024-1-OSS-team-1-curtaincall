@@ -1,8 +1,25 @@
 import axios from "axios";
 
+function getLoginStateFromLocalStorage() {
+    return localStorage.getItem('loginState') === 'true';
+}
+
+function getUsernameFromLocalStorage() {
+    return localStorage.getItem('username') || '';
+}
+
+function setLoginStateToLocalStorage(isLoggedIn) {
+    localStorage.setItem('loginState', isLoggedIn.toString());
+}
+
+function setUsernameToLocalStorage(username) {
+    localStorage.setItem('username', username);
+}
+
+
 const api = axios.create({
-    baseURL: 'http://54.180.118.53:8000',
-    // baseURL: 'http://0.0.0.0:8000',
+    baseURL: 'http://43.201.36.193:8000',
+    //baseURL: 'http://127.0.0.1:8000',
     headers: {
         'Content-Type': 'application/json'
     },
@@ -50,11 +67,17 @@ api.interceptors.response.use(
                     return api(originalRequest);
                 }
             }
+            // 로그아웃 처리
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            setLoginStateToLocalStorage(false);
+            setUsernameToLocalStorage('');
             alert('로그인이 필요합니다.');
             window.location.href = '/login';
         }
         return Promise.reject(error);
     }
 );
+
 
 export default api;

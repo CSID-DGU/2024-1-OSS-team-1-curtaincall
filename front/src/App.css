@@ -72,12 +72,7 @@ html, body {
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('https://fonts.gstatic.com/s/playfairdisplay/v20/nuFvD-vYSZviVYUb_rj3ij__anPXDTzYh_1jmY2Jmz3l7ucTjA.woff2') format('woff2');
-  font-weight: 400 900;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 
 .App-header {

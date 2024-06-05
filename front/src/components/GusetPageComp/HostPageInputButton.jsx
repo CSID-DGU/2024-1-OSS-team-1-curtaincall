@@ -32,7 +32,7 @@ function HosPageInputButton({ name,conststageId, children }) {
 
                 console.log('Stage joined successfully', response.data);
 
-                navigate('/upload');
+                navigate('/host');
             } else {
                 console.error('Failed to join stage');
                 alert('Failed to join stage');
