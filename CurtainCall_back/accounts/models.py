@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     app_label = 'accounts'
-    id = models.uuidField(primary_key=True, default=uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     stage_uuid = models.ForeignKey(Stage_list, on_delete=models.CASCADE, null=True)
     username = models.CharField(max_length=100, unique=True, null=False, blank=False)
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)

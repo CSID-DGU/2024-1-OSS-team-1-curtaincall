@@ -8,6 +8,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from threading import Thread
 
+
 class AlgoView(APIView):
     """
     이미지 그룹화 알고리즘을 실행하는 API / 비동기 처리
@@ -24,7 +25,7 @@ class AlgoView(APIView):
     def get(self, request):
         # return Response(sp.getsim(stage_id=request.user.stage_uuid_id), status=status.HTTP_200_OK)
 
-        stageId = request.user.stage_uuid_id
+        stageId = request.user.stage_uuid
         Thread(target=sp.getsim, args=stageId).start()
         return Response({'result': 'success'})
 # Create your views here.
