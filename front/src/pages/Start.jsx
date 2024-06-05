@@ -5,7 +5,7 @@ import InvitationReceiveButton from "../components/StartPageComp/InvitationRecei
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 import ImageSlider from '../components/StartPageComp/ImageSlider'; // 이미지 슬라이더 컴포넌트를 가져옵니다.
 import Divider from '@mui/material/Divider';
-import CustomContainer2 from '../components/CustomContainer2';
+import CustomContainer2 from '../components/ContainerComp/CustomContainer2';
 
 import slide1 from '../img/slide1.jpg';
 import slide2 from '../img/slide2.jpg';

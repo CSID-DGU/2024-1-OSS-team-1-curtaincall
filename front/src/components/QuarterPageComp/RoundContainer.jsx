@@ -6,7 +6,7 @@ const RoundContainer = ({ group, onImageSelect }) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md')); // 900px 이하
 
     return (
-        <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0, overflow: 'hidden' }}>
+        <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0, overflow: 'hidden', backgroundColor: '#F5F5F5' }}>
             <div style={{ width: '100vw', height: '70vh', margin: 0, padding: 0, overflow: 'hidden' }}>
                 <Grid container spacing={0} style={{ height: '100%', margin: 0, width: '100%' }}>
                     {group.images.map((image, idx) => (

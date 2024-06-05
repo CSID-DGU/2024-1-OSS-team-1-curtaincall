@@ -4,9 +4,11 @@ import { modalState, loginState } from '../../atom/atom';
 import IDInputFormMini from "./IDInputFormMini";
 import PasswordInputFormMini from "./PasswordInputFormMini";
 import ConfirmButtonMini from "./ConfirmButtonMini";
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box, Typography, useMediaQuery, useTheme, Link } from '@mui/material';
 import api from "../../axios";
 import { useNavigate } from "react-router-dom";
+import NickchangeButtonMini from "./NickchangeButtonMini";
+import PasswordInputFormMiniTop from "./PasswordInputFormMiniTop";
 
 function UserModal({ username }) {
     const navigate = useNavigate();
@@ -16,6 +18,9 @@ function UserModal({ username }) {
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [mode, setMode] = useState('');
     const [islogin, setislogin] = useRecoilState(loginState);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const checkPasswordMatch = () => {
         return password1 === password2;
@@ -58,6 +63,9 @@ function UserModal({ username }) {
                 await api.post('accounts/logout/');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
+                setMode('');
+                setPassword1('');
+                setPassword2('');
                 setIsOpen(false);
                 setislogin(false);
                 navigate('/login');
@@ -79,6 +87,8 @@ function UserModal({ username }) {
                 await api.post('accounts/logout/');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
+                setMode('');
+                setvarUsername('');
                 setIsOpen(false);
                 setislogin(false);
                 navigate('/login');
@@ -110,46 +120,52 @@ function UserModal({ username }) {
                 width: '50%',
                 minWidth: 300,
                 maxWidth: '90vw',
-                bgcolor: 'background.paper',
+                bgcolor: '#F5F5F5',
                 border: '2px solid #000',
                 boxShadow: 24,
                 display: 'flex',
                 flexDirection: 'column',
-                height: '70%',
+                height: isMobile ? '50%' : '70%',
                 justifyContent: 'space-between',
             }}>
                 <Box sx={{ p: 2, textAlign: 'center' }}>
-                    <Typography id="user-modal-title" variant="h6" component="h2">
+                    <Typography id="user-modal-title" variant="h5" component="h1" style={{fontFamily: 'RIDIBatang'}}>
                         사용자 정보
                     </Typography>
-                    <Typography id="user-modal-description">
+                    <Typography id="user-modal-description" style={{fontFamily: 'RIDIBatang'}}>
                         {username}님, 환영합니다.
                     </Typography>
                 </Box>
                 <Box sx={{ p: 4, flex: '1 1 auto', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
                     {mode === 'nickname' && (
                         <>
-                            <IDInputFormMini username={varusername} onUsernameChange={setvarUsername} placeholder="새 닉네임"/>
-                            <Box sx={{ position: 'relative', bottom: 0, width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                <ConfirmButtonMini onClick={handleNicknameChange} disabled={isnicknull(varusername)}>닉네임 수정</ConfirmButtonMini>
-                            </Box>
+                            <IDInputFormMini
+                                username={varusername}
+                                onUsernameChange={setvarUsername}
+                                placeholder="새 닉네임"
+                                onLinkClick={handleNicknameChange}
+                                isLinkDisabled={isnicknull(varusername)}
+                            />
                         </>
                     )}
                     {mode === 'password' && (
                         <>
-                            <PasswordInputFormMini password={password1} onPasswordChange={setPassword1} placeholder="새 비밀번호"/>
+                            <PasswordInputFormMiniTop
+                                password={password1}
+                                onPasswordChange={setPassword1}
+                                placeholder="새 비밀번호"
+                                onLinkClick={handleChangePassword}
+                                isLinkDisabled={!checkPasswordMatch() || !checkPasswordLength(password1)}
+                            />
                             {!ispwnull(password1) && !checkPasswordLength(password1) && <Typography color="error">비밀번호는 최소 8글자 이상이어야 합니다!</Typography>}
                             {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <Typography color="error">비밀번호는 특수문자를 포함해야 합니다!</Typography>}
                             <PasswordInputFormMini password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
                             {!checkPasswordMatch() && <Typography color="error">비밀번호가 다릅니다!</Typography>}
-                            <Box sx={{ position: 'relative', bottom: 0, width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                <ConfirmButtonMini onClick={handleChangePassword} disabled={!checkPasswordMatch() || !checkPasswordLength(password1)}>비밀번호 수정</ConfirmButtonMini>
-                            </Box>
                         </>
                     )}
                 </Box>
                 <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-around', borderTop: '1px solid #000' }}>
-                    <ConfirmButtonMini onClick={handleOpenNicknameChange}>닉네임 변경</ConfirmButtonMini>
+                    <NickchangeButtonMini onClick={handleOpenNicknameChange}>닉네임 변경</NickchangeButtonMini>
                     <ConfirmButtonMini onClick={handleOpenPasswordChange}>비밀번호 변경</ConfirmButtonMini>
                 </Box>
             </Box>
