@@ -16,16 +16,19 @@ import axios from "axios";
 
 function Upload() {
     const navigate = useNavigate();
-    const [url, setUrl] = useState('');
     const [guests, setGuests] = useState([]);
     const [stageId, setStageId] = useRecoilState(stageState);
     const [files, setFiles] = useState([]);
     const isHost = useRecoilValue(isHostState);
 
     useEffect(() => {
-        console.log(isHost);
+        console.log("isHost : ", isHost);
     }
     , [isHost]);
+
+    useEffect(() => {
+        console.log('Stage ID:', stageId);
+    }, [stageId]);
 
     const handleFileChange = (renamedFiles) => {
         setFiles(renamedFiles);

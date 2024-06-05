@@ -49,13 +49,13 @@ function UserModal({ username }) {
     const handleChangePassword = async () => {
         console.log('Attempting to Change PW with:', { password1, password2 });
         try {
-            const response = await api.post('accounts/dj-rest-auth/password/change/', {
+            const response = await api.post('accounts/password/change/', {
                 new_password1: password1,
                 new_password2: password2
             });
             if(response.status === 200) {
                 alert('비밀번호가 변경되었습니다. 로그아웃합니다.');
-                await api.post('accounts/dj-rest-auth/logout/');
+                await api.post('accounts/logout/');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 setIsOpen(false);
@@ -70,13 +70,13 @@ function UserModal({ username }) {
     const handleNicknameChange = async () => {
         console.log('Attempting to Change Nickname with:', { varusername });
         try {
-            const response = await api.patch('accounts/dj-rest-auth/user/', {
-                user_nickname: varusername  // 닉네임 변경 대상 필드 수정
+            const response = await api.post('accounts/replaceUsername/', {
+                username: varusername  // 닉네임 변경 대상 필드 수정
             });
             if (response.status === 200) {
                 console.log('Nickname changed:', response.data);
                 alert('닉네임이 변경되었습니다. 로그아웃합니다.');
-                await api.post('accounts/dj-rest-auth/logout/');
+                await api.post('accounts/logout/');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 setIsOpen(false);
