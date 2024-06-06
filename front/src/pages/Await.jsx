@@ -48,13 +48,10 @@ function Guest() {
 
     const fetchGuests = async () => {
         try {
-            const response = await api.get('/Stage/getStageSort/', {
-                params: {
-                    stageId: stageStage
-                }
-            });
-            if (response.data.sort) {
-                setLoading(false);
+            const response = await api.get(`/Stage/checkStage/?stageId=${stageStage}`);
+            console.log(response.data);
+            if (response.data.stage.sort) {  // response.data.stage.sort로 접근
+                setLoading(false);  // sort가 false일 때 setLoading을 false로 설정
             }
         } catch (error) {
             console.error(error);
@@ -62,8 +59,10 @@ function Guest() {
     };
 
     useEffect(() => {
-        fetchGuests();
+        const intervalId = setInterval(fetchGuests, 5000); // 5초마다 실행
+        return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 해제
     }, []);
+
 
     useEffect(() => {
         if (!loading) {

@@ -3,6 +3,34 @@
     overflow: hidden; /* 스크롤 생성을 방지 */
     width: 100%;
 }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.4); /* 더 반투명한 검정 배경 */
+    border-radius: 0%; /* 둥근 버튼 */
+    padding: 8px; /* 간격을 약간 줄임 */
+    color: white; /* 아이콘 색상 */
+    font-size: 1.5rem; /* 아이콘 크기 */
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.808); /* 진해진 색 */
+}
+
+.carousel-control-prev-icon.active,
+.carousel-control-next-icon.active {
+    background-color: rgba(0, 0, 0, 0.808); /* 클릭된 상태에서 진해진 색 유지 */
+}
+
+@media (max-width: 768px) {
+    .download-buttons {
+        flex-direction: column; /* 모바일에서는 세로 정렬 */
+        gap: 10px; /* 버튼 간격 */
+    }
+}
+
 
 .carousel-container {
     position: relative;
@@ -51,4 +79,16 @@
 .carousel-indicators .active {
     filter: invert(100%);
     background-color: darkgray; /* 활성화된 인디케이터의 색상 */
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .download-buttons {
+        flex-direction: column; /* 모바일에서는 세로 정렬 */
+    }
 }

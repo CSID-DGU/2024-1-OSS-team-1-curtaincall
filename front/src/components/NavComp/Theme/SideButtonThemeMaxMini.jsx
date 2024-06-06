@@ -20,6 +20,7 @@ export const SideButtonThemeMaxMini = createTheme({
                     marginLeft: '0.25vw',
                     fontSize: '1vw',
                     width: '98%', // 부모 요소의 너비에 맞춤
+                    minWidth: '18vw', // 최소 너비 설정
                     '@media (max-width: 1200px)': {
                         fontSize: '1.5vw',
                     },
