@@ -1,5 +1,5 @@
 import boto3
-from CurtainCall.donotcommit import aws_s3 as AWS_S3
+from CurtainCall.resources import aws_s3 as AWS_S3
 from Image.views import whitelist, blacklist
 
 
