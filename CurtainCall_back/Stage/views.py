@@ -234,3 +234,34 @@ class checkStage(APIView):
         request = {"status": "success", "stage": stage}
         # send response
         return Response(request, status=status.HTTP_200_OK)
+
+class getStageSort(APIView):
+    """
+    스테이지 정렬 여부 확인
+    """
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('stageId', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='스테이지 ID', required=True)
+        ],
+        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+            'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
+            'sort': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='정렬 여부')
+        })})
+    def get(self, request):
+
+        # 1 input data
+        data = request.GET
+        stageId = data.get('stageId')
+
+        # 2 check stage
+        try:
+            stage = Stage_list.objects.get(id=stageId)
+        except Stage_list.DoesNotExist:
+            request = {"status": "fail", "message": "stage not exist"}
+            return Response(request, status=status.HTTP_200_OK)
+
+        # 4 response
+        request = {"status": "success", "sort": stage.get_sort_flag()}
+        # send response
+        return Response(request, status=status.HTTP_200_OK)
