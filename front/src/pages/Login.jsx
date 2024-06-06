@@ -18,6 +18,8 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import RoomMakerButton from "../components/StartPageComp/RoomMakerButton";
+import {motion} from "framer-motion";
 
 
 function Login() {
@@ -84,27 +86,74 @@ function Login() {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const maxhe_ = isMobile ? '20%': '67%';
 
+    const buttonVariants = {
+        initial: {
+            opacity: 0,
+            y: 20,
+        },
+        in: {
+            opacity: 1,
+            y: 0,
+        },
+        out: {
+            opacity: 0,
+            y: -20,
+        },
+    };
+
+    const buttonTransition =(delay = 0) => ({
+        type: 'tween',
+        ease: 'anticipate',
+        duration: 0.8,
+        delay: delay,
+    });
+
     return (
         <CustomContainer>
             <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
-            <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
-                <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
-                <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="Email" />
-                <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
-                <PasswordInputForm password={password} onPasswordChange={setPassword} placeholder="비밀번호" />
-                <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
+            <div className="buttonWrapper"
+                 style={{display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px'}}>
+                <div style={{width: '100%', height: '2px', marginBottom: '2.5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.2)}
+                >
+                    <UsernameInputForm username={userId} onUsernameChange={setuserId} placeholder="Email"/>
+                </motion.div>
 
-                <LoginButton onClick={handleLogin}>Login</LoginButton>
-                <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
+                <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.4)}
+                >
+                    <PasswordInputForm password={password} onPasswordChange={setPassword} placeholder="비밀번호"/>
+                </motion.div>
+                <div style={{width: '100%', height: '2px', marginBottom: '5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.6)}
+                >
+                    <LoginButton onClick={handleLogin}>Login</LoginButton>
+                </motion.div>
+                    <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
 
-                <GoogleLogin
-                    onSuccess={handleGoogleLoginSuccess}
-                    onFailure={(response) => console.error('Google login failed:', response)}
-                />
+                    <GoogleLogin
+                        onSuccess={handleGoogleLoginSuccess}
+                        onFailure={(response) => console.error('Google login failed:', response)}
+                    />
             </div>
 
         </CustomContainer>
-    );
+);
 }
 
 export default Login;

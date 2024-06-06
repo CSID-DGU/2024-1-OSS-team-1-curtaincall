@@ -1,0 +1,22 @@
+.center-svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    transform: translateY(10px); /* 아래로 약간 내림 */
+}
+
+@media screen and (min-width: 600px) {
+    .center-svg {
+        width: 50%; /* PC에서 글씨 크기를 크게 조정 */
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .center-svg {
+        width: 100%;
+        height: auto;
+        transform: translateY(10px); /* 모바일에서 중앙 정렬 */
+    }
+}
