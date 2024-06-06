@@ -1,20 +1,76 @@
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden; /* 스크롤 생성을 방지 */
+    width: 100%;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.4); /* 더 반투명한 검정 배경 */
+    border-radius: 0%; /* 둥근 버튼 */
+    padding: 8px; /* 간격을 약간 줄임 */
+    color: white; /* 아이콘 색상 */
+    font-size: 1.5rem; /* 아이콘 크기 */
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.808); /* 진해진 색 */
+}
+
+.carousel-control-prev-icon.active,
+.carousel-control-next-icon.active {
+    background-color: rgba(0, 0, 0, 0.808); /* 클릭된 상태에서 진해진 색 유지 */
+}
+
+@media (max-width: 768px) {
+    .download-buttons {
+        flex-direction: column; /* 모바일에서는 세로 정렬 */
+        gap: 10px; /* 버튼 간격 */
+    }
+}
+
+
+.carousel-container {
+    position: relative;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden; /* 스크롤 생성을 방지 */
+}
+
+.next, .prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: rgba(0, 0, 0, 0.808); /* 반투명한 검정 배경 */
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    padding: 10px;
+    border-radius: 0%;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev {
+    left: 10px;
+    transform: translateY(-50%) rotateY(180deg);
+}
+
 .carousel-caption-below {
     text-align: center;
     color: black;
     padding: 10px;
     margin-top: 0px; /* 이미지와의 간격 조정 */
+    position: relative;
+    z-index: 1;
+    background: #F5F5F5; /* 반투명한 흰색 배경 */
 }
 
-/* 화살표 버튼 색상 변경 */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-
-    background-color: rgba(0, 0, 0, 0.808); /* 반투명한 검정 배경 */
-    border-radius: 0%; /* 둥근 버튼 */
-    padding: 10px;
-}
-
-/* 인디케이터 버튼 색상 변경 */
 .carousel-indicators li {
     filter: invert(100%);
     background-color: black; /* 어두운 색상 */
@@ -23,4 +79,16 @@
 .carousel-indicators .active {
     filter: invert(100%);
     background-color: darkgray; /* 활성화된 인디케이터의 색상 */
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .download-buttons {
+        flex-direction: column; /* 모바일에서는 세로 정렬 */
+    }
 }

@@ -6,6 +6,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from .models import Stage_list, User_list
 from accounts.models import User
+import json
 
 import boto3
 from botocore.exceptions import ClientError
@@ -215,7 +216,7 @@ class checkStage(APIView):
         ],
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
-            'users': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 전송 정보')
+            'stage': openapi.Schema(type=openapi.TYPE_OBJECT, description='스테이지 정보')
         })})
     def get(self, request):
 
@@ -227,13 +228,21 @@ class checkStage(APIView):
         try:
             stage = Stage_list.objects.get(id=stageId)
         except Stage_list.DoesNotExist:
-            request = {"status": "fail", "message": "stage not exist"}
-            return Response(request, status=status.HTTP_200_OK)
+            response = {"status": "fail", "message": "stage not exist"}
+            return Response(response, status=status.HTTP_200_OK)
+
+        # 필요한 데이터를 추출하여 응답
+        stage_data = {
+            "id": str(stage.id),
+            "host": stage.host,
+            "created_at": stage.created_at.isoformat(),
+            "sort": stage.get_sort_flag()
+        }
 
         # 4 response
-        request = {"status": "success", "stage": stage}
+        response = {"status": "success", "stage": stage_data}
         # send response
-        return Response(request, status=status.HTTP_200_OK)
+        return Response(response, status=status.HTTP_200_OK)
 
 class getStageSort(APIView):
     """
@@ -258,10 +267,10 @@ class getStageSort(APIView):
         try:
             stage = Stage_list.objects.get(id=stageId)
         except Stage_list.DoesNotExist:
-            request = {"status": "fail", "message": "stage not exist"}
-            return Response(request, status=status.HTTP_200_OK)
+            response = {"status": "fail", "message": "stage not exist"}
+            return Response(response, status=status.HTTP_200_OK)
 
         # 4 response
-        request = {"status": "success", "sort": stage.get_sort_flag()}
+        response = {"status": "success", "sort": stage.get_sort_flag()}
         # send response
-        return Response(request, status=status.HTTP_200_OK)
+        return Response(response, status=status.HTTP_200_OK)

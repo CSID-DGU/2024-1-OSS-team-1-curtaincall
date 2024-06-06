@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRecoilState } from 'recoil';
-import { modalState, loginState } from '../../atom/atom';
+import { modalState, loginState, isModalNameState, isModalPWState } from '../../atom/atom';
 import IDInputFormMini from "./IDInputFormMini";
 import PasswordInputFormMini from "./PasswordInputFormMini";
 import ConfirmButtonMini from "./ConfirmButtonMini";
-import { Modal, Box, Typography, useMediaQuery, useTheme, Link } from '@mui/material';
+import { Modal, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import api from "../../axios";
 import { useNavigate } from "react-router-dom";
 import NickchangeButtonMini from "./NickchangeButtonMini";
 import PasswordInputFormMiniTop from "./PasswordInputFormMiniTop";
+import { motion } from 'framer-motion';
 
 function UserModal({ username }) {
     const navigate = useNavigate();
@@ -18,6 +19,8 @@ function UserModal({ username }) {
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [mode, setMode] = useState('');
     const [islogin, setislogin] = useRecoilState(loginState);
+    const [isModalName, setisModalName] = useRecoilState(isModalNameState);
+    const [isModalPW, setisModalPW] = useRecoilState(isModalPWState);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -102,6 +105,46 @@ function UserModal({ username }) {
         }
     };
 
+    useEffect(() => {
+        if(!checkPasswordMatch() || !checkPasswordLength(password1) || !hasSpecialCharacter(password1)) {
+            setisModalPW(false);
+        }
+        else {
+            setisModalPW(true);
+        }
+    }, [password1, password2, isModalPW]);
+
+    useEffect(() => {
+        if(!isnicknull(varusername)) {
+            setisModalName(false);
+        }
+        else {
+            setisModalName(true);
+        }
+    }, [varusername, isModalName]);
+
+    const buttonVariants = {
+        initial: {
+            opacity: 0,
+            y: 20,
+        },
+        in: {
+            opacity: 1,
+            y: 0,
+        },
+        out: {
+            opacity: 0,
+            y: -20,
+        },
+    };
+
+    const buttonTransition = (delay = 0) => ({
+        type: 'tween',
+        ease: 'anticipate',
+        duration: 0.8,
+        delay: delay,
+    });
+
     return (
         <Modal
             open={isOpen}
@@ -129,14 +172,39 @@ function UserModal({ username }) {
                 justifyContent: 'space-between',
             }}>
                 <Box sx={{ p: 2, textAlign: 'center' }}>
-                    <Typography id="user-modal-title" variant="h5" component="h1" style={{fontFamily: 'RIDIBatang'}}>
-                        사용자 정보
-                    </Typography>
-                    <Typography id="user-modal-description" style={{fontFamily: 'RIDIBatang'}}>
-                        {username}님, 환영합니다.
-                    </Typography>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(0.2)}
+                    >
+                        <Typography id="user-modal-title" variant="h5" component="h1" style={{ fontFamily: 'RIDIBatang' }}>
+                            사용자 정보
+                        </Typography>
+                    </motion.div>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(0.4)}
+                    >
+                        <Typography id="user-modal-description" style={{ fontFamily: 'RIDIBatang' }}>
+                            {username}님, 환영합니다.
+                        </Typography>
+                    </motion.div>
                 </Box>
-                <Box sx={{ p: 4, flex: '1 1 auto', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+                <Box sx={{
+                    p: 4,
+                    flex: '1 1 auto',
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 2
+                }}>
                     {mode === 'nickname' && (
                         <>
                             <IDInputFormMini
@@ -144,7 +212,6 @@ function UserModal({ username }) {
                                 onUsernameChange={setvarUsername}
                                 placeholder="새 닉네임"
                                 onLinkClick={handleNicknameChange}
-                                isLinkDisabled={isnicknull(varusername)}
                             />
                         </>
                     )}
@@ -155,18 +222,35 @@ function UserModal({ username }) {
                                 onPasswordChange={setPassword1}
                                 placeholder="새 비밀번호"
                                 onLinkClick={handleChangePassword}
-                                isLinkDisabled={!checkPasswordMatch() || !checkPasswordLength(password1)}
                             />
                             {!ispwnull(password1) && !checkPasswordLength(password1) && <Typography color="error">비밀번호는 최소 8글자 이상이어야 합니다!</Typography>}
                             {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <Typography color="error">비밀번호는 특수문자를 포함해야 합니다!</Typography>}
-                            <PasswordInputFormMini password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
+                            <PasswordInputFormMini password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인" />
                             {!checkPasswordMatch() && <Typography color="error">비밀번호가 다릅니다!</Typography>}
                         </>
                     )}
                 </Box>
                 <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-around', borderTop: '1px solid #000' }}>
-                    <NickchangeButtonMini onClick={handleOpenNicknameChange}>닉네임 변경</NickchangeButtonMini>
-                    <ConfirmButtonMini onClick={handleOpenPasswordChange}>비밀번호 변경</ConfirmButtonMini>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(0.3)}
+                        style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', minWidth: 0 }}
+                    >
+                        <NickchangeButtonMini onClick={handleOpenNicknameChange}>닉네임 변경</NickchangeButtonMini>
+                    </motion.div>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(0.5)}
+                        style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', minWidth: 0 }}
+                    >
+                        <ConfirmButtonMini onClick={handleOpenPasswordChange}>비밀번호 변경</ConfirmButtonMini>
+                    </motion.div>
                 </Box>
             </Box>
         </Modal>

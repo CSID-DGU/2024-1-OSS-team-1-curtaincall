@@ -18,7 +18,7 @@ function setUsernameToLocalStorage(username) {
 
 
 const api = axios.create({
-    baseURL: 'http://43.203.170.251:8000',
+    baseURL: 'http://43.200.102.162:8000',
     //baseURL: 'http://127.0.0.1:8000',
     headers: {
         'Content-Type': 'application/json'
@@ -70,6 +70,8 @@ api.interceptors.response.use(
             // 로그아웃 처리
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
+            localStorage.removeItem('loginState');
+            localStorage.removeItem('username');
             setLoginStateToLocalStorage(false);
             setUsernameToLocalStorage('');
             alert('로그인이 필요합니다.');

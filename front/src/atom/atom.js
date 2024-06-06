@@ -28,7 +28,11 @@ export const guestState = atom({
 const localStorageEffect = key => ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
     if (savedValue != null) {
-        setSelf(JSON.parse(savedValue));
+        try {
+            setSelf(JSON.parse(savedValue));
+        } catch (e) {
+            console.warn(`Error parsing localStorage key "${key}":`, e);
+        }
     }
 
     onSet(newValue => {
@@ -60,4 +64,19 @@ export const modalState = atom({
 export const isHostState = atom({
     key: 'isHostState',
     default: false,
+});
+
+export const isInputState = atom({
+    key: 'isInputState',
+    default: true,
+});
+
+export const isModalPWState = atom({
+    key: 'isModalPWState',
+    default: true,
+});
+
+export const isModalNameState = atom({
+    key: 'isModalNameState',
+    default: true,
 });

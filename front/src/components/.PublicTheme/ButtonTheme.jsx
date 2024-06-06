@@ -8,6 +8,7 @@ export const ButtonTheme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
+                    boxShadow: 'none',
                     border: '1px solid black',
                     width: '40vw',
                     maxWidth: '600px',
@@ -17,6 +18,9 @@ export const ButtonTheme = createTheme({
                     position: 'relative',
                     transition: 'background-color 0.5s ease',
                     marginLeft: '0.25vw',
+                    '&:hover': {
+                        boxShadow: 'none',  // 호버 상태에서 그림자 없애기
+                    },
                     '@media (max-width: 1920px)': {
                         fontSize: '2.5vh',
                         marginTop: '0.25vw',

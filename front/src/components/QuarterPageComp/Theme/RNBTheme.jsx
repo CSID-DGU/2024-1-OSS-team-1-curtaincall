@@ -15,7 +15,7 @@ const RNBTheme = createTheme({
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    fontFamily: 'Playfair Display', // Typography에 폰트 설정
+                    fontFamily: 'RIDIBatang', // Typography에 폰트 설정
                 },
             },
         },

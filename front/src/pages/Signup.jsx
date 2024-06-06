@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container } from '@mui/material';
 import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
@@ -17,8 +17,8 @@ import {
     useTheme,
 } from "@mui/material";
 import {useRecoilState} from "recoil";
-import {loginState, usernameState} from "../atom/atom";
-
+import {loginState, usernameState, isInputState} from "../atom/atom";
+import {motion} from "framer-motion";
 function SignUp() {
     const navigate = useNavigate();
     const [constusername, setConstUsername] = useState('');
@@ -28,12 +28,14 @@ function SignUp() {
 
     const [login, setLogin] = useRecoilState(loginState);
     const [username, setUsername] = useRecoilState(usernameState);
+    const [isInput, setIsInput] = useRecoilState(isInputState);
+
 
     const fetchUsername = async () => {
         try {
-            const response = await api.get('/accounts/user/');
+            const response = await api.get('/accounts/userInformation/');
             console.log('API Response:', response.data);
-            setUsername(response.data.pk);
+            setUsername(response.data.username);
         } catch (error) {
             console.error('Failed to fetch username:', error);
         }
@@ -89,31 +91,108 @@ function SignUp() {
         slide2,
         // 추가 이미지 경로를 여기에 입력하세요.
       ];
+    const buttonVariants = {
+        initial: {
+            opacity: 0,
+            y: 20,
+        },
+        in: {
+            opacity: 1,
+            y: 0,
+        },
+        out: {
+            opacity: 0,
+            y: -20,
+        },
+    };
+
+    const buttonTransition =(delay = 0) => ({
+        type: 'tween',
+        ease: 'anticipate',
+        duration: 0.8,
+        delay: delay,
+    });
+
+    useEffect(() => {
+        if(!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1) || !hasSpecialCharacter(password1)) {
+            setIsInput(false);
+        }
+        else {
+            setIsInput(true);
+        }
+
+        if(!isInput) {
+        }
+    }, [password1, password2, email, constusername, isInput]);
 
     return (
         <CustomContainer>
         <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
-        <div className="buttonWrapper" style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px' }}>
-        <div style={{ width: '100%', height:'2px', marginBottom:'2.5%'}}></div>
-            <UsernameInputForm username={constusername} onUsernameChange={setConstUsername} placeholder="Username"/>
-            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
-            <UsernameInputForm username={email} onUsernameChange={setEmail} placeholder="Email"/>
-            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
-            <PasswordInputForm password={password1} onPasswordChange={setPassword1} placeholder="비밀번호"/>
-            <div style={{ width: '100%', height:'2px', marginBottom:'1.5%'}}></div>
-            {!ispwnull(password1) && !checkPasswordLength(password1) && <p style={{ color: 'red' }}>비밀번호는 최소 8글자 이상이어야 합니다!</p>}
-            {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <p style={{ color: 'red' }}>비밀번호는 특수문자를 포함해야 합니다!</p>}
-            <PasswordInputForm password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
-            {!checkPasswordMatch() && <p style={{ color: 'red' }}>비밀번호가 다릅니다!</p>}
-            <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
-            <LoginButton onClick={handleSignUp} disabled={!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1)}>
-                Sign Up
-            </LoginButton>
-        </div>
+            <div className="buttonWrapper"
+                 style={{display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px'}}>
+                <div style={{width: '100%', height: '2px', marginBottom: '2.5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.2)}
+                >
+                    <UsernameInputForm username={constusername} onUsernameChange={setConstUsername}
+                                       placeholder="Username"/>
+                </motion.div>
+                <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.4)}
+                >
+                    <UsernameInputForm username={email} onUsernameChange={setEmail} placeholder="Email"/>
+                </motion.div>
+                <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.6)}
+                >
+                    <PasswordInputForm password={password1} onPasswordChange={setPassword1} placeholder="비밀번호"/>
+                </motion.div>
+                <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
+                {!ispwnull(password1) && !checkPasswordLength(password1) &&
+                    <p style={{color: 'red'}}>비밀번호는 최소 8글자 이상이어야 합니다!</p>}
+                {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) &&
+                    <p style={{color: 'red'}}>비밀번호는 특수문자를 포함해야 합니다!</p>}
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(0.8)}
+                >
+                    <PasswordInputForm password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
+                </motion.div>
+                {!checkPasswordMatch() && <p style={{color: 'red'}}>비밀번호가 다릅니다!</p>}
+                <div style={{width: '100%', height: '2px', marginBottom: '5%'}}></div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(1)}
+                >
+                    <LoginButton onClick={handleSignUp}>
+                        Sign Up
+                    </LoginButton>
+                </motion.div>
+            </div>
 
         </CustomContainer>
 
-    );
+);
 }
 
 export default SignUp;

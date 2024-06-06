@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Button, CircularProgress, ThemeProvider } from '@mui/material';
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
+import {stageState} from "../../atom/atom";
+import {useRecoilValue} from "recoil";
 
 
-
-const CopyButton = ({ url, children }) => {
+const CopyButton = ({ children }) => {
     const [loading, setLoading] = useState(false); // 로딩 상태 관리
+    const stageId = useRecoilValue(stageState);
 
     const copyToClipboard = async () => {
         setLoading(true); // 버튼 클릭 시 로딩 시작
         setTimeout(async () => {  // setTimeout을 사용하여 딜레이 구현
             try {
-                await navigator.clipboard.writeText(url);
+                await navigator.clipboard.writeText(stageId);
                 alert('URL이 클립보드에 복사되었습니다!');
             } catch (err) {
                 console.error('복사 실패: ', err);
