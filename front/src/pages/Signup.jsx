@@ -33,7 +33,7 @@ function SignUp() {
 
     const fetchUsername = async () => {
         try {
-            const response = await api.get('/accounts/user/');
+            const response = await api.get('/accounts/userInformation/');
             console.log('API Response:', response.data);
             setUsername(response.data.username);
         } catch (error) {

@@ -33,10 +33,10 @@ const SortButton = ({ children }) => {
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-                    backgroundColor: loading ? '#ffa793' : '#ff5838',
+                    backgroundColor: loading ? '#bfbfbf' : '#7f7f7f',
                     color: 'white',
                     '&:hover': {
-                        backgroundColor: loading ? '#ffa793' : '#ffa793'
+                        backgroundColor: loading ? '#bfbfbf' : '#bfbfbf'
                     }
                 }}
             >

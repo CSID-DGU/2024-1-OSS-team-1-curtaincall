@@ -12,8 +12,30 @@ import FileInputButton from "../components/UploadPageComp/FileInputButton";
 import UploadButton from "../components/UploadPageComp/UploadButton";
 import { stageState, isHostState } from "../atom/atom";
 import {Paper, useMediaQuery, useTheme} from "@mui/material";
+import {motion} from "framer-motion";
 
 function Upload() {
+    const buttonVariants = {
+        initial: {
+            opacity: 0,
+            y: 20,
+        },
+        in: {
+            opacity: 1,
+            y: 0,
+        },
+        out: {
+            opacity: 0,
+            y: -20,
+        },
+    };
+
+    const buttonTransition =(delay = 0) => ({
+        type: 'tween',
+        ease: 'anticipate',
+        duration: 0.8,
+        delay: delay,
+    });
     const navigate = useNavigate();
     const [guests, setGuests] = useState([]);
     const [stageId, setStageId] = useRecoilState(stageState);
@@ -134,14 +156,38 @@ function Upload() {
                 padding: '16px',
                 margin: '8px'
             }}>
-                {isHost && <h2><CopyButton>복사</CopyButton></h2>}
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(isHost && 0.2)}
+                >
+                    {isHost && <h2><CopyButton>복사</CopyButton></h2>}
+                </motion.div>
                 <form onSubmit={handleSubmit}>
-                    <FileInputButton onChange={handleFileChange}/>
-                    <UploadButton>Upload</UploadButton>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(isHost ? 0.4 : 0.2)}
+                    >
+                        <FileInputButton onChange={handleFileChange}/>
+                    </motion.div>
+                    <motion.div
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        variants={buttonVariants}
+                        transition={buttonTransition(isHost ? 0.6 : 0.4)}
+                    >
+                        <UploadButton>Upload</UploadButton>
+                    </motion.div>
                 </form>
             </div>
         </CustomContainer>
-    );
+);
 }
 
 export default Upload;
