@@ -2,7 +2,7 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import { ContainerTheme } from './.PublicTheme/ContainerTheme';
+import { ContainerTheme } from '../.PublicTheme/ContainerTheme';
 import { useRecoilValue } from 'recoil';
 
 import {

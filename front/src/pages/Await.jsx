@@ -1,76 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomContainer from "../components/ContainerComp/CustomContainer";
+import { Button, Box, Typography, useMediaQuery, useTheme, keyframes, Fade } from "@mui/material";
 
-import ImageSlider from '../components/StartPageComp/ImageSlider';
 import DoneIcon from '@mui/icons-material/Done';
+import LogoBlink from "../components/AwaitComp/LogoBlink";
 
-import slide1 from '../img/slide1.jpg';
-import slide2 from '../img/slide2.jpg';
-
-import {
-    Box,
-    Typography,
-    useMediaQuery,
-    useTheme,
-} from "@mui/material";
+const fadeInOut = keyframes`
+    0% { opacity: 0; }
+    40% { opacity: 1; }
+    60% { opacity: 1; }
+    100% { opacity: 0; }
+`;
 
 function Guest() {
     const navigate = useNavigate();
-
-    const images = [
-        slide1,
-        slide2,
-        // 추가 이미지 경로를 여기에 입력하세요.
-    ];
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const maxhe_ = isMobile ? '20%' : '67%';
 
-    const [loading, setLoading] = useState(true);
-    const [dots, setDots] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [step, setStep] = useState(0);
 
     useEffect(() => {
+        let interval;
         if (loading) {
-            const interval = setInterval(() => {
-                setDots(prev => (prev.length < 3 ? prev + '.' : '.'));
-            }, 500);
-            return () => clearInterval(interval);
+            interval = setInterval(() => {
+                setStep((prevStep) => (prevStep + 1) % 3);
+            }, 2000);
+        } else {
+            setStep(0);
         }
+        return () => clearInterval(interval);
     }, [loading]);
+
+    const handleButtonClick = () => {
+        setLoading(!loading);
+    };
 
     return (
         <CustomContainer>
-            <ImageSlider images={images} interval={9000} maxhe={maxhe_} /> {/* 이미지 슬라이더 컴포넌트를 추가합니다. */}
             <div className="buttonWrapper"
-                 style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px', paddingTop: '7%' }}>
+                 style={{ display: 'flex', justifyContent: 'top', flexDirection: 'column', marginLeft: '10px'}}>
                 <Box
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        width: '100%',
                     }}
                 >
-                    {loading ?
-                        <>
-                        <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'SBAggroB', fontSize: '20px' }}>
-                            {dots}
-                        </Typography>
-                            <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'Playfair Display' }}>
-                                Waiting For Host
+                    <Fade in={loading} timeout={1000}>
+                        <Box sx={{ display: loading ? 'block' : 'none', width: '100%' }}>
+                            <LogoBlink step={step} fontSize="150px" color='#7f7f7f' />
+                            <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang' }}>
+                                기다리는중
                             </Typography>
-                        </>
-                        :
-                        <>
-                            <DoneIcon sx={{ color: '#7f7f7f', fontSize: '200px' }} />
+                        </Box>
+                    </Fade>
+                    <Fade in={!loading} timeout={1000}>
+                        <Box sx={{ display: !loading ? 'block' : 'none', textAlign: 'center' }}>
+                            <DoneIcon sx={{ color: '#7f7f7f', fontSize: '180px' }} />
                             <br />
-                            <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'Playfair Display' }}>
-                                Done!<br />Moving to Tournament!
+                            <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang' }}>
+                                로딩 완료!
                             </Typography>
-                        </>
-                    }
+                        </Box>
+                    </Fade>
                 </Box>
+                <Button
+                    variant="contained"
+                    onClick={handleButtonClick}
+                    sx={{ marginTop: '20px' }}
+                >
+                    {loading ? "Stop Loading" : "Start Loading"}
+                </Button>
             </div>
         </CustomContainer>
     );

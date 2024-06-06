@@ -35,9 +35,9 @@ function Login() {
 
     const fetchUsername = async () => {
             try {
-                const response = await api.get('/accounts/user/');
+                const response = await api.get('/accounts/userInformation/');
                 console.log('API Response:', response.data);
-                setUsername(response.data.pk);
+                setUsername(response.data.username);
             } catch (error) {
                 console.error('Failed to fetch username:', error);
             }
@@ -59,6 +59,7 @@ function Login() {
             navigate('/');
         } catch (error) {
             console.error('Login failed:', error.response.data);
+            alert('로그인 실패! 아이디 혹은 패스워드를 확인해주세요.');
         }
     };
 

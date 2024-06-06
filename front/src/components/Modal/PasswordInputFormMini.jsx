@@ -1,21 +1,25 @@
 import React from 'react';
 import { TextField, ThemeProvider, Box } from '@mui/material';
 import { InputFormMiniTheme } from '../.PublicTheme/InputFormMini'
+import {InputFormTheme} from "../.PublicTheme/InputForm";
+import Form from "react-bootstrap/Form";
 
 function PasswordInputFormMini({ password, onPasswordChange, placeholder }) {
     return (
-        <ThemeProvider theme={InputFormMiniTheme}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                <TextField
-                    hiddenLabel
+        <ThemeProvider theme={InputFormTheme}>
+            <div className="emailInputWrapper" style={{ width: '100%', display: 'flex', justifyContent: 'self-start', flexDirection: 'column', alignItems: 'self-start' }}>
+                <Form.Label htmlFor="inputPassword5" style={{fontFamily: 'RIDIBatang'}}>{placeholder}</Form.Label>
+                <Form.Control
                     type="password"
-                    variant="outlined"
-                    placeholder={placeholder}
-                    value={password}
+                    id="inputPassword5"
                     onChange={(e) => onPasswordChange(e.target.value)}
-                    sx={{ width: '33.33vw', marginTop: '0.25vw', marginLeft: '0.25vw' }}
+                    aria-describedby="passwordHelpBlock"
                 />
-            </Box>
+            </div>
+            {/* <Form.Text id="passwordHelpBlock" muted>
+                Your password must be 8-20 characters long, contain letters and numbers,
+                and must not contain spaces, special characters, or emoji.
+            </Form.Text> */}
         </ThemeProvider>
     );
 }
