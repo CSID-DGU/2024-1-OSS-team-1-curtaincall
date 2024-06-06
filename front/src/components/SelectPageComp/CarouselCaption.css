@@ -1,20 +1,48 @@
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden; /* 스크롤 생성을 방지 */
+    width: 100%;
+}
+
+.carousel-container {
+    position: relative;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden; /* 스크롤 생성을 방지 */
+}
+
+.next, .prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: rgba(0, 0, 0, 0.808); /* 반투명한 검정 배경 */
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    padding: 10px;
+    border-radius: 0%;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev {
+    left: 10px;
+    transform: translateY(-50%) rotateY(180deg);
+}
+
 .carousel-caption-below {
     text-align: center;
     color: black;
     padding: 10px;
     margin-top: 0px; /* 이미지와의 간격 조정 */
+    position: relative;
+    z-index: 1;
+    background: #F5F5F5; /* 반투명한 흰색 배경 */
 }
 
-/* 화살표 버튼 색상 변경 */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-
-    background-color: rgba(0, 0, 0, 0.808); /* 반투명한 검정 배경 */
-    border-radius: 0%; /* 둥근 버튼 */
-    padding: 10px;
-}
-
-/* 인디케이터 버튼 색상 변경 */
 .carousel-indicators li {
     filter: invert(100%);
     background-color: black; /* 어두운 색상 */
