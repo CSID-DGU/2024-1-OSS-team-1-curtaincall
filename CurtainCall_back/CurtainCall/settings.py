@@ -13,15 +13,20 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-# from CurtainCall.donotcommit.aws_s3 import s3_config as s3
-from CurtainCall.donotcommit import postgre as pg
-from CurtainCall.donotcommit import aws_s3 as s3
-# from CurtainCall.donotcommit import oauth2 as oa
+
+
 
 from datetime import timedelta
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+from CurtainCall.resources import postgre as pg
+from CurtainCall.resources import aws_s3 as s3
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
