@@ -4,7 +4,7 @@ import uuid
 import boto3
 from botocore.exceptions import ClientError
 from rest_framework import serializers
-from CurtainCall.resources import aws_s3 as s3
+from CurtainCall.donotcommit import aws_s3 as s3
 
 logger = logging.getLogger(__name__)
 
