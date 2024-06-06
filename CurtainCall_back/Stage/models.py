@@ -17,6 +17,9 @@ class Stage_list(models.Model):
         self.sort = True
         self.save()
 
+    def get_sort_flag(self):
+        return self.sort
+
 
 class User_list(models.Model):
     app_label = 'Stage'
