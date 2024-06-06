@@ -1,0 +1,26 @@
+.carousel-caption-below {
+    text-align: center;
+    color: black;
+    padding: 10px;
+    margin-top: 0px; /* 이미지와의 간격 조정 */
+}
+
+/* 화살표 버튼 색상 변경 */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+    background-color: rgba(0, 0, 0, 0.808); /* 반투명한 검정 배경 */
+    border-radius: 0%; /* 둥근 버튼 */
+    padding: 10px;
+}
+
+/* 인디케이터 버튼 색상 변경 */
+.carousel-indicators li {
+    filter: invert(100%);
+    background-color: black; /* 어두운 색상 */
+}
+
+.carousel-indicators .active {
+    filter: invert(100%);
+    background-color: darkgray; /* 활성화된 인디케이터의 색상 */
+}

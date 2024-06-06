@@ -23,9 +23,7 @@ function Select() {
     return (
         <CustomContainer>
         <Container>
-            <SelectNavBar currentView="Your Picks" />
             <IMGCarousel images={selectedImages} />
-            <DropDownButton value={dropdownValue} onChange={handleDropdownChange} />
         </Container>
         </CustomContainer>
     );
