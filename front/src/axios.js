@@ -18,8 +18,8 @@ function setUsernameToLocalStorage(username) {
 
 
 const api = axios.create({
-    baseURL: 'https://port-0-curtaincall-1mrfs72llx0wp6iu.sel5.cloudtype.app',
-    //baseURL: 'http://43.201.36.193:8000',
+    baseURL: 'http://43.203.170.251:8000',
+    //baseURL: 'http://127.0.0.1:8000',
     headers: {
         'Content-Type': 'application/json'
     },
