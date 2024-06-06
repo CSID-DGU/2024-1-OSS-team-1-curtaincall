@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useRecoilState } from 'recoil';
-import { modalState, loginState } from '../../atom/atom';
+import { modalState, loginState, isModalNameState, isModalPWState } from '../../atom/atom';
 import IDInputFormMini from "./IDInputFormMini";
 import PasswordInputFormMini from "./PasswordInputFormMini";
 import ConfirmButtonMini from "./ConfirmButtonMini";
@@ -18,6 +18,8 @@ function UserModal({ username }) {
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [mode, setMode] = useState('');
     const [islogin, setislogin] = useRecoilState(loginState);
+    const [isModalName, setisModalName] = useRecoilState(isModalNameState);
+    const [isModalPW, setisModalPW] = useRecoilState(isModalPWState);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -102,6 +104,24 @@ function UserModal({ username }) {
         }
     };
 
+    useEffect(() => {
+        if(!checkPasswordMatch() || !checkPasswordLength(password1) || !hasSpecialCharacter(password1)) {
+            setisModalPW(false);
+        }
+        else {
+            setisModalPW(true);
+        }
+    }, [password1, password2, isModalPW]);
+
+    useEffect(() => {
+        if(!isnicknull(varusername)) {
+            setisModalName(false);
+        }
+        else {
+            setisModalName(true);
+        }
+    }, [varusername, isModalName]);
+
     return (
         <Modal
             open={isOpen}
@@ -144,7 +164,6 @@ function UserModal({ username }) {
                                 onUsernameChange={setvarUsername}
                                 placeholder="새 닉네임"
                                 onLinkClick={handleNicknameChange}
-                                isLinkDisabled={isnicknull(varusername)}
                             />
                         </>
                     )}
@@ -155,7 +174,6 @@ function UserModal({ username }) {
                                 onPasswordChange={setPassword1}
                                 placeholder="새 비밀번호"
                                 onLinkClick={handleChangePassword}
-                                isLinkDisabled={!checkPasswordMatch() || !checkPasswordLength(password1)}
                             />
                             {!ispwnull(password1) && !checkPasswordLength(password1) && <Typography color="error">비밀번호는 최소 8글자 이상이어야 합니다!</Typography>}
                             {!ispwnull(password1) && checkPasswordLength(password1) && !hasSpecialCharacter(password1) && <Typography color="error">비밀번호는 특수문자를 포함해야 합니다!</Typography>}

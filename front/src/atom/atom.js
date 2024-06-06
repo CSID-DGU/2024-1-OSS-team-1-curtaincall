@@ -61,3 +61,18 @@ export const isHostState = atom({
     key: 'isHostState',
     default: false,
 });
+
+export const isInputState = atom({
+    key: 'isInputState',
+    default: true,
+});
+
+export const isModalPWState = atom({
+    key: 'isModalPWState',
+    default: true,
+});
+
+export const isModalNameState = atom({
+    key: 'isModalNameState',
+    default: true,
+});

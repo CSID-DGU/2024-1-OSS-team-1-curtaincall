@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { Button, CircularProgress, ThemeProvider } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme'; // Import the custom theme for LoginButton
+import {useRecoilState, useRecoilValue} from 'recoil';
+import { isInputState } from "../../atom/atom";
 
-function LoginButton({ onClick, children, disabled }) {
+function LoginButton({ onClick, children }) {
     const [loading, setLoading] = useState(false);
+    const isInput = useRecoilValue(isInputState);
+    const disabled = !isInput;
 
     const handleClick = () => {
         if (loading || disabled) return;

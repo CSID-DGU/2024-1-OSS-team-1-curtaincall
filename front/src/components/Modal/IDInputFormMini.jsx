@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { TextField, ThemeProvider, Box, Link } from '@mui/material';
 import { InputFormMiniTheme } from '../.PublicTheme/InputFormMini';
 import { InputFormTheme } from "../.PublicTheme/InputForm";
 import Form from "react-bootstrap/Form";
+import {useRecoilValue} from "recoil";
+import {isModalNameState} from "../../atom/atom";
 
-function IDInputFormMini({ username, onUsernameChange, placeholder, onLinkClick, isLinkDisabled }) {
+function IDInputFormMini({ username, onUsernameChange, placeholder, onLinkClick }) {
+    const isModalName = useRecoilValue(isModalNameState);
+    const isLinkDisabled = isModalName;
     return (
         <ThemeProvider theme={InputFormTheme}>
             <div className="emailInputWrapper" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

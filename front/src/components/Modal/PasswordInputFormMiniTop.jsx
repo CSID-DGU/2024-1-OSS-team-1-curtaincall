@@ -3,8 +3,12 @@ import { TextField, ThemeProvider, Box, Link } from '@mui/material';
 import { InputFormMiniTheme } from '../.PublicTheme/InputFormMini';
 import { InputFormTheme } from "../.PublicTheme/InputForm";
 import Form from "react-bootstrap/Form";
+import {isModalPWState} from "../../atom/atom";
+import {useRecoilValue} from "recoil";
 
-function PasswordInputFormMini({ password, onPasswordChange, placeholder, onLinkClick, isLinkDisabled }) {
+function PasswordInputFormMini({ password, onPasswordChange, placeholder, onLinkClick }) {
+    const isModalPW = useRecoilValue(isModalPWState);
+    const isLinkDisabled = !isModalPW;
     return (
         <ThemeProvider theme={InputFormTheme}>
             <div className="emailInputWrapper" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

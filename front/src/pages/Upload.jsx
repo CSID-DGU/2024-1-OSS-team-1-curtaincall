@@ -134,7 +134,7 @@ function Upload() {
                 padding: '16px',
                 margin: '8px'
             }}>
-                {isHost && <h2><CopyButton url={stageId}>복사</CopyButton></h2>}
+                {isHost && <h2><CopyButton>복사</CopyButton></h2>}
                 <form onSubmit={handleSubmit}>
                     <FileInputButton onChange={handleFileChange}/>
                     <UploadButton>Upload</UploadButton>

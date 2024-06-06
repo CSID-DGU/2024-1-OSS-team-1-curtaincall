@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container } from '@mui/material';
 import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adjust the path accordingly
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
@@ -17,7 +17,7 @@ import {
     useTheme,
 } from "@mui/material";
 import {useRecoilState} from "recoil";
-import {loginState, usernameState} from "../atom/atom";
+import {loginState, usernameState, isInputState} from "../atom/atom";
 import {motion} from "framer-motion";
 function SignUp() {
     const navigate = useNavigate();
@@ -28,13 +28,14 @@ function SignUp() {
 
     const [login, setLogin] = useRecoilState(loginState);
     const [username, setUsername] = useRecoilState(usernameState);
+    const [isInput, setIsInput] = useRecoilState(isInputState);
 
 
     const fetchUsername = async () => {
         try {
             const response = await api.get('/accounts/user/');
             console.log('API Response:', response.data);
-            setUsername(response.data.pk);
+            setUsername(response.data.username);
         } catch (error) {
             console.error('Failed to fetch username:', error);
         }
@@ -112,6 +113,14 @@ function SignUp() {
         delay: delay,
     });
 
+    useEffect(() => {
+        if(!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1) || !hasSpecialCharacter(password1)) {
+            setIsInput(false);
+        }
+        else {
+            setIsInput(true);
+        }
+    }, [password1, password2, email, constusername, isInput]);
 
     return (
         <CustomContainer>
@@ -172,8 +181,7 @@ function SignUp() {
                     variants={buttonVariants}
                     transition={buttonTransition(1)}
                 >
-                    <LoginButton onClick={handleSignUp}
-                                 disabled={!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1)}>
+                    <LoginButton onClick={handleSignUp}>
                         Sign Up
                     </LoginButton>
                 </motion.div>
