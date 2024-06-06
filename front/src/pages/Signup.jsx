@@ -106,7 +106,7 @@ function SignUp() {
             <PasswordInputForm password={password2} onPasswordChange={setPassword2} placeholder="비밀번호 확인"/>
             {!checkPasswordMatch() && <p style={{ color: 'red' }}>비밀번호가 다릅니다!</p>}
             <div style={{ width: '100%', height:'2px', marginBottom:'5%'}}></div>
-            <LoginButton onClick={handleSignUp}>
+            <LoginButton onClick={handleSignUp} disabled={!areAllFieldsFilled() || !checkPasswordMatch() || !checkPasswordLength(password1)}>
                 Sign Up
             </LoginButton>
         </div>
