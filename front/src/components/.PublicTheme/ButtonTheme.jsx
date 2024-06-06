@@ -30,7 +30,7 @@ export const ButtonTheme = createTheme({
                     },
                     '@media (max-width: 600px)': {
                         maxWidth: '900px',
-                        fontSize: '2.5vh',
+                        fontSize: '1.8vh',
                         height: '5.4vh',
                         width: '66.6vw',
                         marginTop: '0.25vw',
