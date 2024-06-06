@@ -28,7 +28,11 @@ export const guestState = atom({
 const localStorageEffect = key => ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
     if (savedValue != null) {
-        setSelf(JSON.parse(savedValue));
+        try {
+            setSelf(JSON.parse(savedValue));
+        } catch (e) {
+            console.warn(`Error parsing localStorage key "${key}":`, e);
+        }
     }
 
     onSet(newValue => {

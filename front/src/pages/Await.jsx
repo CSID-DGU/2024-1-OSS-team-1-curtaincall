@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 import { Button, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { stageState, isHostState } from "../atom/atom";
 import DoneIcon from '@mui/icons-material/Done';
 import LogoBlink from "../components/AwaitComp/LogoBlink";
+import api from "../axios";
+import {useRecoilValue} from "recoil";
 
 function Guest() {
     const navigate = useNavigate();
+    const stageStage = useRecoilValue(stageState);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -42,6 +45,34 @@ function Guest() {
         duration: 0.3,
         ease: "easeInOut"
     };
+
+    const fetchGuests = async () => {
+        try {
+            const response = await api.get('/Stage/getStageSort/', {
+                params: {
+                    stageId: stageStage
+                }
+            });
+            if (response.data.sort) {
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchGuests();
+    }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            const timer = setTimeout(() => {
+                navigate('/Quarter');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [loading, navigate]);
 
     return (
         <CustomContainer>
@@ -87,13 +118,6 @@ function Guest() {
                         )}
                     </AnimatePresence>
                 </Box>
-                <Button
-                    variant="contained"
-                    onClick={handleButtonClick}
-                    sx={{ marginTop: '20px' }}
-                >
-                    {loading ? "Stop Loading" : "Start Loading"}
-                </Button>
             </div>
         </CustomContainer>
     );

@@ -7,7 +7,7 @@ import UsernameInputForm from '../components/LoginPageComp/IDInputForm'; // Adju
 import PasswordInputForm from '../components/LoginPageComp/PasswordInputForm'; // Adjust the path accordingly
 import api from '../axios'
 import {useRecoilState} from "recoil";
-import {loginState, usernameState} from "../atom/atom";
+import {isInputState, loginState, usernameState} from "../atom/atom";
 
 import ImageSlider from '../components/StartPageComp/ImageSlider';
 
@@ -28,6 +28,8 @@ function Login() {
     const [password, setPassword] = useState('');
     const [login, setLogin] = useRecoilState(loginState);
     const [username, setUsername] = useRecoilState(usernameState);
+    const [isInput, setIsInput] = useRecoilState(isInputState);
+    setIsInput(true);
 
     const images = [
         slide1,

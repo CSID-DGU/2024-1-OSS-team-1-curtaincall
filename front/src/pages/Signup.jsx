@@ -120,6 +120,9 @@ function SignUp() {
         else {
             setIsInput(true);
         }
+
+        if(!isInput) {
+        }
     }, [password1, password2, email, constusername, isInput]);
 
     return (

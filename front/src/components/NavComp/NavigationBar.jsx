@@ -1,20 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import {Link, Typography} from '@mui/material';
-import { AppBar, Toolbar, IconButton, Box} from '@mui/material';
+import { Link, Typography } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import DehazeSharpIcon from '@mui/icons-material/DehazeSharp';
 import { NVTheme } from './Theme/NavigationBarTheme';
-import Devnavlinkcomplex from "./devnavlinkcomplex";
-import Usernavlinkcomplex from "./usernavlinkomplex";
-import {useRecoilState} from "recoil";
-import {loginState, modalState} from '../../atom/atom';
-import api from "../../axios";
-import {useRecoilValue} from "recoil";
-import {usernameState} from "../../atom/atom";
-import UserModal from "../Modal/UserModal";
-import LogoutButton from "./LogoutButton";
+import Devnavlinkcomplex from './devnavlinkcomplex';
+import Usernavlinkcomplex from './usernavlinkomplex';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { loginState, modalState, usernameState } from '../../atom/atom';
+import UserModal from '../Modal/UserModal';
+import LogoutButton from './LogoutButton';
 
 function NavigationBar({ isMobile, handleDrawerToggle }) {
     const login = useRecoilValue(loginState);
@@ -22,17 +18,18 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
     const [username, setUsername] = useRecoilState(usernameState);
     const [isOpen, setIsOpen] = useRecoilState(modalState);
 
-
     useEffect(() => {
         const savedUsername = localStorage.getItem('usernameState');
         if (savedUsername) {
-            setUsername(JSON.parse(savedUsername));
+            try {
+                setUsername(JSON.parse(savedUsername));
+            } catch (error) {
+                console.error('Error parsing username from localStorage:', error);
+            }
         }
     }, [setUsername]);
 
     const handleOpenModal = () => {
-
-
         console.log('Opening modal...');
         setIsOpen(true);
     };
@@ -74,7 +71,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                                 alt=""
                                 src="/logo.svg"
                                 style={{
-                                    height: '51%', // 부모 컴포넌트의 70% 높이 설정
+                                    height: '51%',
                                     verticalAlign: 'middle',
                                     horizontalAlign: 'middle',
                                 }}
@@ -92,7 +89,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                             <DehazeSharpIcon fontSize="large" />
                         </IconButton>
                     ) : (
-                        <Box sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' , flexGrow: 1 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right', flexGrow: 1 }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 {login && !isdev ? (
                                     <>
@@ -114,7 +111,7 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                 </Toolbar>
             </AppBar>
             <UserModal username={username} />
-            <div className="divline" style={{ backgroundColor: "#000000", width: '100%', height:'2px', marginBottom:'1%'}}></div>
+            <div className="divline" style={{ backgroundColor: '#000000', width: '100%', height: '2px', marginBottom: '1%' }}></div>
         </ThemeProvider>
     );
 }

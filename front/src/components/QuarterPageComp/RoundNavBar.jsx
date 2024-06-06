@@ -1,19 +1,19 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Container, LinearProgress } from '@mui/material';
+import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import RNBTheme from './Theme/RNBTheme';
 
 const RoundNavBar = ({ currentRound, totalRounds, currentGroup, groupRound, groupTotalRounds }) => {
-    const progress = (currentRound / totalRounds) * 100;
-
     return (
         <ThemeProvider theme={RNBTheme}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ margin: 0, padding: 0, width: '100%' }}>
                 <Container>
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
-                            CGroup {currentGroup.group_id} | Round {groupRound}/{groupTotalRounds}
-                        </Typography>
+                        <div style={{ flexGrow: 1 }}>
+                            <Typography variant="h5" color="inherit" component="div">
+                                Sorted Group {currentGroup.group_id}
+                            </Typography>
+                        </div>
                     </Toolbar>
                 </Container>
             </AppBar>

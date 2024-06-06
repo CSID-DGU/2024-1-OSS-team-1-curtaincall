@@ -70,6 +70,8 @@ api.interceptors.response.use(
             // 로그아웃 처리
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
+            localStorage.removeItem('loginState');
+            localStorage.removeItem('username');
             setLoginStateToLocalStorage(false);
             setUsernameToLocalStorage('');
             alert('로그인이 필요합니다.');
