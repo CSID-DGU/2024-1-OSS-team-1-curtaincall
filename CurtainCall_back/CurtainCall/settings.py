@@ -180,6 +180,8 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+CORS_ORIGINS_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://localhost:8000',
@@ -187,6 +189,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://0.0.0.0:3000',
     'http://54.180.118.53:3000',
     'http://54.180.118.53:8000',
+    'https://warm-licorice-94b556.netlify.app',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -196,6 +199,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://0.0.0.0:8000',
     'http://54.180.118.53:3000',
     'http://54.180.118.53:8000',
+    'https://warm-licorice-94b556.netlify.app',
 ]
 
 # CORS_ORIGIN_WHITELIST = [
