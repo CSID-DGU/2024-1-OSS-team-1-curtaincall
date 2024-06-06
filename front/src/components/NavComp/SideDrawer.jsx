@@ -32,9 +32,18 @@ function SideDrawer({ open, handleDrawerToggle }) {
                                 <Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>
                             )}
                             <ListItemButton onClick={handleOpenModal}>
-                                <ListItemText primary={username} />
+                                <ListItemText primary={username}
+                                              primaryTypographyProps={{
+                                                  style: {
+                                                      fontFamily: 'RIDIBatang',
+                                                      whiteSpace: 'nowrap',
+                                                      overflow: 'hidden',
+                                                      textOverflow: 'ellipsis',
+                                                      maxWidth: '20vw'
+                                                  },
+                                              }}/>
                             </ListItemButton>
-                            <SideLogoutButton>Logout</SideLogoutButton>
+                            <SideLogoutButton>로그아웃</SideLogoutButton>
                         </>
                     ) : (
                         <Usersidelinkcomplex handleDrawerToggle={handleDrawerToggle} username={username}/>

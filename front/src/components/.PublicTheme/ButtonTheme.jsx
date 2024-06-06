@@ -22,12 +22,14 @@ export const ButtonTheme = createTheme({
                         marginTop: '0.25vw',
                     },
                     '@media (max-width: 900px)': {
+                        maxWidth: '900px',
                         fontSize: '2.0vh',
                         height: '5.4vh',
                         width: '66.6vw',
                         marginTop: '0.25vw',
                     },
                     '@media (max-width: 600px)': {
+                        maxWidth: '900px',
                         fontSize: '2.5vh',
                         height: '5.4vh',
                         width: '66.6vw',

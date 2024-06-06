@@ -96,10 +96,10 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 {login && !isdev ? (
                                     <>
-                                        <Typography sx={{ cursor: 'pointer', fontFamily: 'Playfair Display' }} onClick={handleOpenModal}>
+                                        <Typography sx={{ cursor: 'pointer', fontFamily: 'RIDIBatang' }} onClick={handleOpenModal}>
                                             {username}
                                         </Typography>
-                                        <LogoutButton>Logout</LogoutButton>
+                                        <LogoutButton>로그아웃</LogoutButton>
                                     </>
                                 ) : (
                                     isdev ? (

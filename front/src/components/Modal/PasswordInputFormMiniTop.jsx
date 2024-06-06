@@ -4,7 +4,7 @@ import { InputFormMiniTheme } from '../.PublicTheme/InputFormMini';
 import { InputFormTheme } from "../.PublicTheme/InputForm";
 import Form from "react-bootstrap/Form";
 
-function IDInputFormMini({ username, onUsernameChange, placeholder, onLinkClick, isLinkDisabled }) {
+function PasswordInputFormMini({ password, onPasswordChange, placeholder, onLinkClick, isLinkDisabled }) {
     return (
         <ThemeProvider theme={InputFormTheme}>
             <div className="emailInputWrapper" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -24,18 +24,17 @@ function IDInputFormMini({ username, onUsernameChange, placeholder, onLinkClick,
                         pointerEvents: isLinkDisabled ? 'none' : 'auto'
                     }}
                 >
-                    닉네임 수정
+                    비밀번호 수정
                 </Link>
             </div>
             <Form.Control
-                type="input"
+                type="password"
                 id="inputPassword5"
+                onChange={(e) => onPasswordChange(e.target.value)}
                 aria-describedby="passwordHelpBlock"
-                onChange={(e) => onUsernameChange(e.target.value)}
-                style={{ width: '100%' }}
             />
         </ThemeProvider>
     );
 }
 
-export default IDInputFormMini;
+export default PasswordInputFormMini;

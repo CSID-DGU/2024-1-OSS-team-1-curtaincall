@@ -1,5 +1,6 @@
 // theme.js
 import { createTheme } from '@mui/material/styles';
+import backgroundDots from '../../../img/background_dots.png'; // 이미지 파일 경로
 
 const Foottheme = createTheme({
     typography: {
@@ -7,7 +8,7 @@ const Foottheme = createTheme({
     },
     palette: {
         background: {
-            default: '#7f7f7f',
+            default: '#F5F5F5',
         },
     },
 });
