@@ -37,14 +37,14 @@ const FileInputButton = ({ onChange }) => {
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
                 sx={{
-                    backgroundColor: '#595959',
-                    color: 'white',
+                    backgroundColor: '#F5F5F5',
+                    color: '#7D7D7D',
                     '&:hover': {
-                        backgroundColor: '#adadad'
+                        backgroundColor: '#F5F5F5'
                     }
                 }}
             >
-                Upload file
+                사진 선택
                 <VisuallyHiddenInput type="file" multiple onChange={handleFileChange} />
             </Button>
             <Box id="fileList">

@@ -30,7 +30,7 @@ const Tournament = ({ onRoundsReady, onGroupChange }) => {
             const remainder = length % 4;
             if (remainder !== 0) {
                 const fillers = Array(4 - remainder).fill({
-                    src: '../../img/curtainCall.png',
+                    src: '../dummy.png',
                     group_id: group.group_id,
                     isDummy: true
                 });

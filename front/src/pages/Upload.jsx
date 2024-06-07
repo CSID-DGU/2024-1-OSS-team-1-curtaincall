@@ -163,7 +163,7 @@ function Upload() {
                     variants={buttonVariants}
                     transition={buttonTransition(isHost && 0.2)}
                 >
-                    {isHost && <h2><CopyButton>복사</CopyButton></h2>}
+                    {isHost && <h2><CopyButton>방 번호 복사하기</CopyButton></h2>}
                 </motion.div>
                 <form onSubmit={handleSubmit}>
                     <motion.div
@@ -182,7 +182,7 @@ function Upload() {
                         variants={buttonVariants}
                         transition={buttonTransition(isHost ? 0.6 : 0.4)}
                     >
-                        <UploadButton>Upload</UploadButton>
+                        <UploadButton>업로드</UploadButton>
                     </motion.div>
                 </form>
             </div>
