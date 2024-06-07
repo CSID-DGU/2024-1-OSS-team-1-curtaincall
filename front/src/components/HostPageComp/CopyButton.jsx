@@ -1,41 +1,55 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress, ThemeProvider } from '@mui/material';
+import { CircularProgress, Link, styled, ThemeProvider } from '@mui/material';
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
-import {stageState} from "../../atom/atom";
-import {useRecoilValue} from "recoil";
+import { stageState } from "../../atom/atom";
+import { useRecoilValue } from "recoil";
 
+const StyledLink = styled(Link)(({ theme }) => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    ...theme.typography.button,
+    ...theme.components.MuiButton.styleOverrides.root,
+    backgroundColor: '#7f7f7f',
+    color: 'white',
+    '&:hover': {
+        backgroundColor: '#bfbfbf',
+    },
+    '&[disabled]': {
+        backgroundColor: '#bfbfbf',
+        cursor: 'not-allowed',
+    },
+}));
 
 const CopyButton = ({ children }) => {
-    const [loading, setLoading] = useState(false); // 로딩 상태 관리
+    const [loading, setLoading] = useState(false);
     const stageId = useRecoilValue(stageState);
 
-    const copyToClipboard = async () => {
-        setLoading(true); // 버튼 클릭 시 로딩 시작
-        setTimeout(async () => {  // setTimeout을 사용하여 딜레이 구현
+    const copyToClipboard = async (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        setLoading(true);
+        setTimeout(async () => {
             try {
                 await navigator.clipboard.writeText(stageId);
                 alert('URL이 클립보드에 복사되었습니다!');
             } catch (err) {
                 console.error('복사 실패: ', err);
             }
-            setLoading(false); // 딜레이 후 로딩 종료
-        }, 500); // 2000ms (2초) 딜레이
+            setLoading(false);
+        }, 500); // 500ms delay
     };
 
     return (
         <ThemeProvider theme={ButtonTheme}>
-            <Button variant="contained"
-                    onClick={copyToClipboard}
-                    disabled={loading}
-                    sx={{
-                        backgroundColor: loading ? '#bfbfbf' : '#7f7f7f', // 로딩 상태에 따른 배경색 변경
-                        color: 'white',
-                        '&:hover': {
-                            backgroundColor: loading ? '#bfbfbf' : '#bfbfbf' // 호버 상태에서의 배경색
-                        }
-                    }}>
+            <StyledLink
+                href="#"
+                onClick={copyToClipboard}
+                disabled={loading ? 'disabled' : undefined}
+            >
                 {loading ? <CircularProgress size={24} color="inherit" /> : children}
-            </Button>
+            </StyledLink>
         </ThemeProvider>
     );
 };
