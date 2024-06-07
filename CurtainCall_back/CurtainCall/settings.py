@@ -32,8 +32,7 @@ SECRET_KEY = 'django-insecure-0d(z=n2&n22ha7#a_)z2i^n0t1o5t1=5z%kmps7rh##%cd7la9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',
-                 "3.131.38.82"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -175,13 +174,15 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://localhost:8000',
     'http://0.0.0.0:8000',
     'http://0.0.0.0:3000',
-    'http://54.180.118.53:3000',
-    'http://54.180.118.53:8000',
+    'http://43.201.36.193:3000',
+    'http://43.200.102.162:8000/',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -189,16 +190,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     "http://0.0.0.0:3000",
     'http://0.0.0.0:8000',
-    'http://54.180.118.53:3000',
-    'http://54.180.118.53:8000',
+    'http://43.201.36.193:3000',
+    'http://43.200.102.162:8000/',
 ]
 
-# CORS_ORIGIN_WHITELIST = [
-#     'http://127.0.0.1:3000',
-#     'http://localhost:3000',
-#     'http://3.131.38.82:3000'
-# ]
-# CORS_ALLOW_ALL_ORIGINS = True #(모든 포트 허용)
 
 ROOT_URLCONF = 'CurtainCall.urls'
 
