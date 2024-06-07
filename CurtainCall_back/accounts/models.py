@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
         return cls(stage_id=stage_id_val, user=user_val)
 
     def set_send_image_flag(self):
-        self.sendImage = True
+        self.user_ready = True
         self.save()
 
     def replace_username(self, username):

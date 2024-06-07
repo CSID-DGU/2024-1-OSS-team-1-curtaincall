@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from .models import Stage_list, User_list
+from .models import Stage_list
 from accounts.models import User
 import json
 
@@ -116,15 +116,14 @@ class joinStage(APIView):
         return Response(request, status=status.HTTP_200_OK)
 
 
-class seandImge(APIView):
+class sendImage(APIView):
     """
     이미지 전송 여부 변경
     """
 
     @swagger_auto_schema(
         request_body=(openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-            'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID'),
-            'userID': openapi.Schema(type=openapi.TYPE_STRING, description='유저 ID')
+
         })),
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부')
@@ -133,9 +132,9 @@ class seandImge(APIView):
     def post(self, request):
 
         # 1 input data
-        data = request.data
-        stageId = data.get('stageId')
-        userID = data.get('userId')
+        data = request.user
+        stageId = data.stage_uuid_id
+        userID = data.id
 
         # 2 check stage
         try:
@@ -146,8 +145,8 @@ class seandImge(APIView):
 
         # 3 check user
         try:
-            user = User_list.objects.get(id=userID)
-        except User_list.DoesNotExist:
+            user = User.objects.get(id=userID)
+        except User.DoesNotExist:
             request = {"status": "fail", "message": "user not exist"}
             return Response(request, status=status.HTTP_200_OK)
 
@@ -174,7 +173,8 @@ class checkStageUsers(APIView):
             'users': openapi.Schema(type=openapi.TYPE_OBJECT, properties={
                 'username': openapi.Schema(type=openapi.TYPE_STRING, description='유저 이름'),
                 'user_ready': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 준비 여부')
-            })
+            }),
+            'stage_status': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 상태')
         })},
         security=[{'Bearer': []}])
     def get(self, request):
@@ -185,7 +185,7 @@ class checkStageUsers(APIView):
 
         # 2 check stage
         try:
-            Stage_list.objects.get(id=stageId)
+            stage = Stage_list.objects.get(id=stageId)
         except Stage_list.DoesNotExist:
             request = {"status": "fail", "message": "stage not exist"}
             return Response(request, status=status.HTTP_200_OK)
@@ -200,7 +200,7 @@ class checkStageUsers(APIView):
         users_send_info = users.values('username', 'user_ready')
 
         # 4 response
-        request = {"status": "success", "users": users_send_info}
+        request = {"status": "success", "users": users_send_info, "stage_status": stage.get_status()}
         # send response
         return Response(request, status=status.HTTP_200_OK)
 
@@ -236,7 +236,7 @@ class checkStage(APIView):
             "id": str(stage.id),
             "host": stage.host,
             "created_at": stage.created_at.isoformat(),
-            "sort": stage.get_sort_flag()
+            #"sort": stage.get_sort_flag()
         }
 
         # 4 response
