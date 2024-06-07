@@ -199,8 +199,13 @@ class checkStageUsers(APIView):
 
         users_send_info = users.values('username', 'user_ready')
 
+
+
         # 4 response
-        request = {"status": "success", "users": users_send_info, "stage_status": stage.get_status()}
+        request = {"status": "success",
+                   "users": users_send_info,
+                   "stage_status": stage.get_status(),
+                   "stage_data": stage.data}
         # send response
         return Response(request, status=status.HTTP_200_OK)
 
