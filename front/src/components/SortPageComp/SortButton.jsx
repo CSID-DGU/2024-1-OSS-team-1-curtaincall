@@ -7,7 +7,6 @@ import {useSetRecoilState} from "recoil";
 import {sortedImageDataState} from "../../atom/atom";
 
 const SortButton = ({ children }) => {
-    const setSortedImages = useSetRecoilState(sortedImageDataState);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -17,10 +16,8 @@ const SortButton = ({ children }) => {
         console.log('api 호출');
         try {
             const response = await api.get('/Algorithm_cv2/sort/');
-            setSortedImages(response.data);
             console.log(response.data);
             setLoading(false);
-            navigate('/quarter');
         } catch (error) {
             console.error('Error fetching data', error);
             setLoading(false);

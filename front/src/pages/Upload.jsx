@@ -13,6 +13,7 @@ import UploadButton from "../components/UploadPageComp/UploadButton";
 import { stageState, isHostState } from "../atom/atom";
 import {Paper, useMediaQuery, useTheme} from "@mui/material";
 import {motion} from "framer-motion";
+import SortButton from "../components/SortPageComp/SortButton";
 
 function Upload() {
     const buttonVariants = {
@@ -86,11 +87,6 @@ function Upload() {
 
                 if (uploadResponse.status === 200) {
                     console.log(`File ${file.name} uploaded successfully.`);
-                    if(isHost) {
-                        navigate('/Sort');
-                    } else {
-                        navigate('/await');
-                    }
                 } else {
                     console.log(`File ${file.name} upload failed.`);
                     alert('파일 업로드에 실패하였습니다. 관리자에게 문의하세요.');
@@ -115,6 +111,9 @@ function Upload() {
                     user_ready: user.user_ready
                 }));
                 setGuests(guestData);
+                if (response.data.stage_status === "SORTING") {
+                    navigate('/await');
+                }
             } else {
                 console.error('Failed to fetch guests');
             }
@@ -127,10 +126,16 @@ function Upload() {
         fetchGuests();
     }, []);
 
+
+
     useEffect(() => {
-        const intervalId = setInterval(fetchGuests, 5000); // 5초마다 실행
-        return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 해제
+        const intervalId = setInterval(fetchGuests, 1000); // 5초마다 실행
+
+        return () => {
+            clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 해제
+        };
     }, []);
+
 
     return (
         <CustomContainer style={{ flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'center' : 'flex-start' }}>
@@ -156,6 +161,8 @@ function Upload() {
                 padding: '16px',
                 margin: '8px'
             }}>
+                {isHost &&
+                    <h2>
                 <motion.div
                     initial="initial"
                     animate="in"
@@ -163,15 +170,26 @@ function Upload() {
                     variants={buttonVariants}
                     transition={buttonTransition(isHost && 0.2)}
                 >
-                    {isHost && <h2><CopyButton>방 번호 복사하기</CopyButton></h2>}
+                    <CopyButton>방 번호 복사하기</CopyButton>
                 </motion.div>
+                <motion.div
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={buttonVariants}
+                    transition={buttonTransition(isHost && 0.4)}
+                >
+                    <SortButton>정렬 시작</SortButton>
+                </motion.div>
+                </h2>
+                }
                 <form onSubmit={handleSubmit}>
                     <motion.div
                         initial="initial"
                         animate="in"
                         exit="out"
                         variants={buttonVariants}
-                        transition={buttonTransition(isHost ? 0.4 : 0.2)}
+                        transition={buttonTransition(isHost ? 0.6 : 0.2)}
                     >
                         <FileInputButton onChange={handleFileChange}/>
                     </motion.div>
@@ -180,14 +198,14 @@ function Upload() {
                         animate="in"
                         exit="out"
                         variants={buttonVariants}
-                        transition={buttonTransition(isHost ? 0.6 : 0.4)}
+                        transition={buttonTransition(isHost ? 0.8 : 0.4)}
                     >
                         <UploadButton>업로드</UploadButton>
                     </motion.div>
                 </form>
             </div>
         </CustomContainer>
-);
+    );
 }
 
 export default Upload;

@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 import { Button, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from 'framer-motion';
-import { stageState, isHostState } from "../atom/atom";
+import {stageState, isHostState, sortedImageDataState} from "../atom/atom";
 import DoneIcon from '@mui/icons-material/Done';
 import LogoBlink from "../components/AwaitComp/LogoBlink";
 import api from "../axios";
-import {useRecoilValue} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 
 function Guest() {
+    const setSortedImages = useSetRecoilState(sortedImageDataState);
     const navigate = useNavigate();
     const stageStage = useRecoilValue(stageState);
 
@@ -48,9 +49,10 @@ function Guest() {
 
     const fetchGuests = async () => {
         try {
-            const response = await api.get(`/Stage/checkStage/?stageId=${stageStage}`);
+            const response = await api.get(`/Stage/checkStageUsers/?stageId=${stageStage}`);
             console.log(response.data);
-            if (response.data.stage.sort) {  // response.data.stage.sort로 접근
+            if (response.data.stage_status === "COMPLETE") {  // response.data.stage.sort로 접근
+                setSortedImages(response.data.stage_data);
                 setLoading(false);  // sort가 false일 때 setLoading을 false로 설정
             }
         } catch (error) {
