@@ -171,7 +171,10 @@ class checkStageUsers(APIView):
         ],
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
-            'users': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 전송 정보')
+            'users': openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+                'username': openapi.Schema(type=openapi.TYPE_STRING, description='유저 이름'),
+                'user_ready': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 준비 여부')
+            })
         })},
         security=[{'Bearer': []}])
     def get(self, request):
