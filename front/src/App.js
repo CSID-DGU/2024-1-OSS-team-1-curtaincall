@@ -5,7 +5,6 @@ import './App.css';
 import Start from './pages/Start';
 import Upload from './pages/Upload';
 import Guest from './pages/Guest';
-import Upload_past from './pages/Upload_past';
 import Sort from './pages/Sort';
 import Select from './pages/Select';
 import Quarter from "./pages/Quarter";
@@ -37,9 +36,8 @@ function App() {
                 <SideDrawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
                 <Routes>
                     <Route path="/" element={<Start />} />
-                    <Route path="/host" element={<Upload />} />
+                    <Route path="/stage" element={<Upload />} />
                     <Route path="/guest" element={<Guest />} />
-                    <Route path="/upload" element={<Upload_past />} />
                     <Route path="/sort" element={<Sort />} />
                     <Route path="/quarter" element={<Quarter />} />
                     <Route path="/select" element={<Select />} />
