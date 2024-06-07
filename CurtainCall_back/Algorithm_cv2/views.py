@@ -21,6 +21,6 @@ class AlgoView(APIView):
     )
     def get(self, request):
         stageId = request.user.stage_uuid_id
-        Thread(target=sp.getsim, args=stageId).start()
+        Thread(target=sp.getsim, args=(stageId,)).start()
         return Response({'result': 'success'})
 # Create your views here.
