@@ -52,7 +52,8 @@ class createStage(APIView):
         user = request.user
         username = user.username
 
-        # 2 name preprocessing
+        # 2 status update
+        User.objects.filter(username=username).update(user_ready=False)
 
         # 3 check if user already has stage as host
         old_stage = Stage_list.objects.filter(host=username)
@@ -95,6 +96,9 @@ class joinStage(APIView):
         data = request.data
         stageId = data.get('stageId')
         user = request.user
+
+        # 2 status update
+        User.objects.filter(username=user.username).update(user_ready=False)
 
         # 2 check stage
         try:
