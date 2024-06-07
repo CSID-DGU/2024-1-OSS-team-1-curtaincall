@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Grid, Paper, ThemeProvider, Typography, Avatar } from '@mui/material';
 import { GLTheme } from './Theme/GLTheme';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import DoneIcon from '@mui/icons-material/Done';
 
 const GuestList = ({ guests }) => {
     const buttonVariants = {
@@ -25,6 +26,16 @@ const GuestList = ({ guests }) => {
         duration: 0.8,
         delay: delay,
     });
+
+    const iconTransitionAppear = {
+        duration: 0.8,
+        ease: "easeInOut"
+    };
+
+    const iconTransitionDisappear = {
+        duration: 0.3,
+        ease: "easeInOut"
+    };
 
     return (
         <ThemeProvider theme={GLTheme}>
@@ -54,7 +65,8 @@ const GuestList = ({ guests }) => {
                                         display: 'flex',
                                         alignItems: 'center',
                                         width: '100%', // Paper의 너비를 100%로 설정하여 Grid의 너비에 맞춤
-                                        minHeight: '64px' // 높이를 최소한으로 설정하여 일관된 높이 유지
+                                        minHeight: '64px', // 높이를 최소한으로 설정하여 일관된 높이 유지
+                                        position: 'relative' // 아이콘 위치 고정을 위해 relative로 설정
                                     }}
                                 >
                                     <Avatar
@@ -82,6 +94,19 @@ const GuestList = ({ guests }) => {
                                             {guest.username}
                                         </Typography>
                                     </div>
+                                    <AnimatePresence>
+                                        {guest.user_ready && (
+                                            <motion.div
+                                                initial={{ opacity: 0, scale: 0 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0 }}
+                                                transition={iconTransitionAppear}
+                                                style={{ position: 'absolute', right: '16px' }}
+                                            >
+                                                <DoneIcon sx={{ color: '#7bc96f', fontSize: '24px' }} />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </Paper>
                             </motion.div>
                         </Grid>

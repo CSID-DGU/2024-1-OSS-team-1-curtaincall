@@ -92,9 +92,13 @@ function Upload() {
                     alert('파일 업로드에 실패하였습니다. 관리자에게 문의하세요.');
                 }
             }
+            alert('이미지 업로드 완료');
+            const sendResponse = await api.post('/Stage/sendImage/');
+            console.log(sendResponse);
         } catch (error) {
             console.error('Error during file upload:', error);
         }
+
     };
 
     const fetchGuests = async () => {
