@@ -9,18 +9,23 @@ class Stage_list(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     sort = models.BooleanField(default=False)
     data = models.JSONField()
+    status = models.CharField(max_length=20, default='READY')
 
     @classmethod
     def create(cls, host_val):
         return cls(host=host_val)
 
-    def set_sort_flag(self, the_dict):
-        self.data = the_dict
-        self.sort = True
+    def status_sorting(self):
+        self.status = 'SORTING'
         self.save()
 
-    def get_sort_flag(self):
-        return self.sort
+    def status_complete(self, the_dict):
+        self.data = the_dict
+        self.status = 'COMPLETE'
+        self.save()
+
+    def get_status(self):
+        return self.status
 
 
 class User_list(models.Model):

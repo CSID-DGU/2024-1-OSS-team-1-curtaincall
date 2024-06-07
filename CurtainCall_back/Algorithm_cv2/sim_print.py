@@ -123,6 +123,6 @@ def getsim(stage_id):
         group_to_image[key] = list(group_to_image[key])
 
     the_stage = Stage_list.objects.get(id=stage_id)
-    the_stage.set_sort_flag(group_to_image)
+    the_stage.status_complete(group_to_image)
 
     return

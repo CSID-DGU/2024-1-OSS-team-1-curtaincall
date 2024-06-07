@@ -8,6 +8,8 @@ from drf_yasg.utils import swagger_auto_schema
 
 from threading import Thread
 
+from Stage.models import Stage_list
+
 
 class AlgoView(APIView):
     """
@@ -22,5 +24,6 @@ class AlgoView(APIView):
     def get(self, request):
         stageId = request.user.stage_uuid_id
         Thread(target=sp.getsim, args=(stageId,)).start()
+        Stage_list.objects.get(id=stageId).status_sorting()
         return Response({'result': 'success'})
 # Create your views here.
