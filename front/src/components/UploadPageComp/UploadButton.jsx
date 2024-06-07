@@ -32,10 +32,10 @@ const UploadButton = ({ children }) => {
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-                    backgroundColor: loading ? '#ffa793' : '#ff5838',
+                    backgroundColor: loading ? '#bfbfbf' : '#7f7f7f', // 로딩 상태에 따른 배경색 변경
                     color: 'white',
                     '&:hover': {
-                        backgroundColor: loading ? '#ffa793' : '#ffa793'
+                        backgroundColor: loading ? '#bfbfbf' : '#bfbfbf' // 호버 상태에서의 배경색
                     }
                 }}
             >

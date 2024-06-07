@@ -53,7 +53,5 @@ class replaceUsername(APIView):
         if not username:
             return Response({'result': 'username not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if user.replace_username(username):
-            return Response({'result': 'success'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'result': 'duplicate username'}, status=status.HTTP_400_BAD_REQUEST)
+        user.replace_username(username)
+        return Response({'result': 'success'}, status=status.HTTP_200_OK)

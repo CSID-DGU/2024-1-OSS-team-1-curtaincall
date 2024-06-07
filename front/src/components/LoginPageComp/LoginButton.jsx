@@ -15,7 +15,7 @@ function LoginButton({ onClick, children }) {
     }, [isInput]);
 
     const handleClick = () => {
-        if (loading || disabled) return;
+        if (loading) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
@@ -29,12 +29,12 @@ function LoginButton({ onClick, children }) {
                 variant="contained"
                 color="primary"
                 onClick={handleClick}
-                disabled={loading || disabled}
+                disabled={loading}
                 sx={{
-                    backgroundColor: (loading || disabled) ? '#bfbfbf' : '#7f7f7f',
+                    backgroundColor: (loading ) ? '#bfbfbf' : '#7f7f7f',
                     color: 'white',
                     '&:hover': {
-                        backgroundColor: (loading || disabled) ? '#bfbfbf' : '#bfbfbf'
+                        backgroundColor: (loading ) ? '#bfbfbf' : '#bfbfbf'
                     }
                 }}>
                 {loading ? <CircularProgress size={24} color="inherit" /> : children}

@@ -49,13 +49,15 @@ class createStage(APIView):
     """
 
     @swagger_auto_schema(
-        request_body=(openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-            #'name': openapi.Schema(type=openapi.TYPE_STRING, description='호스트 명')
-        })),
+        # request_body=(openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+        #     #'name': openapi.Schema(type=openapi.TYPE_STRING, description='호스트 명')
+        # })),
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID'),
             'userId': openapi.Schema(type=openapi.TYPE_STRING, description='유저 ID')
-        })})
+        })},
+        security=[{'Bearer': []}]
+    )
     def post(self, request):
 
         # 1 input data
@@ -147,12 +149,13 @@ class seandImge(APIView):
         stageId = data.get('stageId')
         userID = data.get('userId')
 
-        # 2 check stage
-        try:
-            stage = Stage_list.objects.get(id=stageId)
-        except Stage_list.DoesNotExist:
-            request = {"status": "fail", "message": "stage not exist"}
-            return Response(request, status=status.HTTP_200_OK)
+        stage = Stage_list.objects.get(id=stageId)
+        # # 2 check stage
+        # try:
+        #     stage = Stage_list.objects.get(id=stageId)
+        # except Stage_list.DoesNotExist:
+        #     request = {"status": "fail", "message": "stage not exist"}
+        #     return Response(request, status=status.HTTP_200_OK)
 
         # 3 check user
         try:
@@ -189,12 +192,14 @@ class checkStageUsers(APIView):
         data = request.GET
         stageId = data.get('stageId')
 
-        # 2 check stage
-        try:
-            stage = Stage_list.objects.get(id=stageId)
-        except Stage_list.DoesNotExist:
-            request = {"status": "fail", "message": "stage not exist"}
-            return Response(request, status=status.HTTP_200_OK)
+        stage = Stage_list.objects.get(id=stageId)
+
+        # # 2 check stage
+        # try:
+        #     stage = Stage_list.objects.get(id=stageId)
+        # except Stage_list.DoesNotExist:
+        #     request = {"status": "fail", "message": "stage not exist"}
+        #     return Response(request, status=status.HTTP_200_OK)
 
         # 3 find users
         users = User.objects.filter(stage_uuid_id=stageId)
