@@ -28,20 +28,20 @@ const AllImagesDownloadButton = ({ children, images }) => {
 
     return (
         <ThemeProvider theme={ButtonTheme}>
-        <Button
-            //variant="contained"
-            onClick={handleClick}
-            disabled={loading}
-            sx={{
-                backgroundColor: loading ? '#bfbfbf' : '#7f7f7f', // 로딩 상태에 따른 배경색 변경
-                color: 'white',
-                '&:hover': {
-                    backgroundColor: loading ? '#bfbfbf' : '#bfbfbf' // 호버 상태에서의 배경색
-                }
-            }}
-        >
-            {loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : children}
-        </Button>
+            <Button
+                //variant="contained"
+                onClick={handleClick}
+                disabled={loading}
+                sx={{
+                    backgroundColor: loading ? '#bfbfbf' : '#7f7f7f', // 로딩 상태에 따른 배경색 변경
+                    color: 'white',
+                    '&:hover': {
+                        backgroundColor: loading ? '#bfbfbf' : '#bfbfbf' // 호버 상태에서의 배경색
+                    }
+                }}
+            >
+                {loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : children}
+            </Button>
         </ThemeProvider>
     );
 };
