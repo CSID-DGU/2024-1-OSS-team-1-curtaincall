@@ -75,6 +75,7 @@ function UserModal({ username }) {
             }
         } catch (error) {
             console.error('Change failed:', error.response.data);
+            alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
         }
     }
 
@@ -97,11 +98,8 @@ function UserModal({ username }) {
                 navigate('/login');
             }
         } catch (error) {
-            if (error.response) {
                 console.error('Change failed:', error.response.data);
-            } else {
-                console.error('Change failed:', error.message);
-            }
+                alert('닉네임 변경에 실패했습니다. 다시 시도해주세요.');
         }
     };
 
