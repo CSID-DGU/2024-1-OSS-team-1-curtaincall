@@ -22,7 +22,7 @@ const RoomMakerButton = ({ children }) => {
             if (response.status === 200) {
                 setStageId(response.data.stageId);
                 setIsHost(true);
-                navigate('/host');
+                navigate('/stage');
             }
         } catch (error) {
             console.error('Error creating stage:', error);

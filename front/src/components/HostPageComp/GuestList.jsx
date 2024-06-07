@@ -66,11 +66,18 @@ const GuestList = ({ guests }) => {
                                             marginRight: '16px'
                                         }}
                                     />
-                                    <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
                                         <Typography
                                             variant="subtitle1"
                                             component="h2"
-                                            style={{ fontFamily: 'RIDIBatang', textAlign: 'center', width: '100%' }}
+                                            style={{
+                                                fontFamily: 'RIDIBatang',
+                                                textAlign: 'center',
+                                                width: '100%',
+                                                whiteSpace: 'nowrap',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis'
+                                            }}
                                         >
                                             {guest.username}
                                         </Typography>
