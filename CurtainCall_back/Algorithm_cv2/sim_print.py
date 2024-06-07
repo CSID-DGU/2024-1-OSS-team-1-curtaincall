@@ -118,6 +118,10 @@ def getsim(stage_id):
         # predict_image_keywords(filename)
         print(filename)
 
+    # Convert sets to lists for JSON serialization
+    for key in group_to_image:
+        group_to_image[key] = list(group_to_image[key])
+
     the_stage = Stage_list.objects.get(id=stage_id)
     the_stage.set_sort_flag(group_to_image)
 
