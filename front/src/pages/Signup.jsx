@@ -79,6 +79,7 @@ function SignUp() {
                 navigate('/');
             } catch (error) {
                 console.error('Sign up failed:', error.response.data);
+                alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         }
     };
 
