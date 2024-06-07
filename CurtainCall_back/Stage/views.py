@@ -24,16 +24,7 @@ def create_s3_bucket(db_id):
     bucket_name = AWS_S3.AWS_STORAGE_BUCKET_NAME
     folder_key = str(db_id) + '/'
 
-    #file_key = folder_key + 'info.txt'
-    #file_content = f"mack host: {host}\n"
-    #file_content += f"mack time: {datetime.now()}\n"
-
     try:
-        # 정보 파일 업로드
-        #s3_client.put_object(Bucket=bucket_name, Key=file_key, Body=file_content)
-        # row 데이터 폴더 업로드
-        #s3_client.put_object(Bucket=bucket_name, Key=folder_key + 'row_image/', Body='')
-
         # 기본 stage 폴더 업로드
         s3_client.put_object(Bucket=bucket_name, Key=folder_key, Body='')
         # print(f"File '{file_key}' uploaded successfully.")
@@ -49,9 +40,6 @@ class createStage(APIView):
     """
 
     @swagger_auto_schema(
-        # request_body=(openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-        #     #'name': openapi.Schema(type=openapi.TYPE_STRING, description='호스트 명')
-        # })),
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID'),
             'userId': openapi.Schema(type=openapi.TYPE_STRING, description='유저 ID')
@@ -96,18 +84,17 @@ class joinStage(APIView):
     @swagger_auto_schema(
         request_body=(openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'stageId': openapi.Schema(type=openapi.TYPE_STRING, description='스테이지 ID')
-            #'name': openapi.Schema(type=openapi.TYPE_STRING, description='유저 명')
         })),
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부')
-        })})
+        })},
+        security=[{'Bearer': []}])
     def post(self, request):
 
         # 1 input data
         data = request.data
         stageId = data.get('stageId')
         user = request.user
-        #name = data.get('name')
 
         # 2 check stage
         try:
@@ -141,7 +128,8 @@ class seandImge(APIView):
         })),
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부')
-        })})
+        })},
+        security=[{'Bearer': []}])
     def post(self, request):
 
         # 1 input data
@@ -149,13 +137,12 @@ class seandImge(APIView):
         stageId = data.get('stageId')
         userID = data.get('userId')
 
-        stage = Stage_list.objects.get(id=stageId)
-        # # 2 check stage
-        # try:
-        #     stage = Stage_list.objects.get(id=stageId)
-        # except Stage_list.DoesNotExist:
-        #     request = {"status": "fail", "message": "stage not exist"}
-        #     return Response(request, status=status.HTTP_200_OK)
+        # 2 check stage
+        try:
+            Stage_list.objects.get(id=stageId)
+        except Stage_list.DoesNotExist:
+            request = {"status": "fail", "message": "stage not exist"}
+            return Response(request, status=status.HTTP_200_OK)
 
         # 3 check user
         try:
@@ -184,25 +171,32 @@ class checkStageUsers(APIView):
         ],
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
-            'users': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 전송 정보')
-        })})
+            'users': openapi.Schema(type=openapi.TYPE_OBJECT, properties={
+                'username': openapi.Schema(type=openapi.TYPE_STRING, description='유저 이름'),
+                'user_ready': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='유저 준비 여부')
+            })
+        })},
+        security=[{'Bearer': []}])
     def get(self, request):
 
         # 1 input data
         data = request.GET
         stageId = data.get('stageId')
 
-        stage = Stage_list.objects.get(id=stageId)
-
-        # # 2 check stage
-        # try:
-        #     stage = Stage_list.objects.get(id=stageId)
-        # except Stage_list.DoesNotExist:
-        #     request = {"status": "fail", "message": "stage not exist"}
-        #     return Response(request, status=status.HTTP_200_OK)
+        # 2 check stage
+        try:
+            Stage_list.objects.get(id=stageId)
+        except Stage_list.DoesNotExist:
+            request = {"status": "fail", "message": "stage not exist"}
+            return Response(request, status=status.HTTP_200_OK)
 
         # 3 find users
-        users = User.objects.filter(stage_uuid_id=stageId)
+        try:
+            users = User.objects.filter(stage_uuid_id=stageId)
+        except User.DoesNotExist:
+            request = {"status": "fail", "message": "user not exist"}
+            return Response(request, status=status.HTTP_200_OK)
+
         users_send_info = users.values('username', 'user_ready')
 
         # 4 response
@@ -222,7 +216,8 @@ class checkStage(APIView):
         responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
             'stage': openapi.Schema(type=openapi.TYPE_OBJECT, description='스테이지 정보')
-        })})
+        })},
+        security=[{'Bearer': []}])
     def get(self, request):
 
         # 1 input data
@@ -246,36 +241,5 @@ class checkStage(APIView):
 
         # 4 response
         response = {"status": "success", "stage": stage_data}
-        # send response
-        return Response(response, status=status.HTTP_200_OK)
-
-class getStageSort(APIView):
-    """
-    스테이지 정렬 여부 확인
-    """
-
-    @swagger_auto_schema(
-        manual_parameters=[
-            openapi.Parameter('stageId', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='스테이지 ID', required=True)
-        ],
-        responses={200: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-            'status': openapi.Schema(type=openapi.TYPE_STRING, description='성공 여부'),
-            'sort': openapi.Schema(type=openapi.TYPE_BOOLEAN, description='정렬 여부')
-        })})
-    def get(self, request):
-
-        # 1 input data
-        data = request.GET
-        stageId = data.get('stageId')
-
-        # 2 check stage
-        try:
-            stage = Stage_list.objects.get(id=stageId)
-        except Stage_list.DoesNotExist:
-            response = {"status": "fail", "message": "stage not exist"}
-            return Response(response, status=status.HTTP_200_OK)
-
-        # 4 response
-        response = {"status": "success", "sort": stage.get_sort_flag()}
         # send response
         return Response(response, status=status.HTTP_200_OK)

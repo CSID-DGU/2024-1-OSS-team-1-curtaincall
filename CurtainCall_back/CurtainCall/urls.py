@@ -41,17 +41,6 @@ schema_view = get_schema_view(
     authentication_classes=[],
 )
 
-# urlpatterns = [
-#     path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-#     path(r'swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-#     path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
-#     # path('CurtainCallApp/', include('CurtainCallApp.urls')),
-#     path('admin/', admin.site.urls),
-#     #path('accounts/', include('allauth.urls')),
-#     path('accounts/', include('accounts.urls')),
-#     #path('logout/', auth_views.LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout'),
-# ]
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('dj_rest_auth.urls')),  # Ensure this is included
@@ -67,16 +56,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # urlpatterns += [
-    #     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    #     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    #     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    #     # path('CurtainCallApp/', include('CurtainCallApp.urls')),
-    #     path('Stage/', include('Stage.urls')),
-    #     path('Image/', include('Image.urls')),
-    #     # path("photoGrouping/", include('Photo_Grouping.urls')),
-    #     path('Algorithm_cv2/', include('Algorithm_cv2.urls')),
-    # ]
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

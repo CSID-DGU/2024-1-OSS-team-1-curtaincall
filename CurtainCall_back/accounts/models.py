@@ -8,8 +8,8 @@ class UserManager(BaseUserManager):
     def create_user(self, user_email, password, **kwargs):
         if not user_email:
             raise ValueError('Users must have an email address')
-        print("Hello")
-        print(user_email)
+        # print("Hello")
+        # print(user_email)
         user = self.model(
             user_email=user_email,
         )
@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     USER_ID_FIELD = 'username'
 
-    print('User model created')
+    # print('User model created')
 
     @classmethod
     def create(cls, stage_id_val, user_val):
