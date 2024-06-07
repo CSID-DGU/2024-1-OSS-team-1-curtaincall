@@ -118,5 +118,7 @@ def getsim(stage_id):
         # predict_image_keywords(filename)
         print(filename)
 
-    Stage_list.objects.get(id=stage_id).set_sort_flag()
-    return group_to_image
+    the_stage = Stage_list.objects.get(id=stage_id)
+    the_stage.set_sort_flag(group_to_image)
+
+    return
