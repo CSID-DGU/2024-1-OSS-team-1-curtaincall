@@ -8,7 +8,8 @@ const RNBTheme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#333333', // 원하는 배경색으로 변경
+                    backgroundColor: '#7f7f7f', // 원하는 배경색으로 변경
+                    border: '1px solid black',
                 },
             },
         },

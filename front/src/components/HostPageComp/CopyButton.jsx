@@ -12,10 +12,10 @@ const StyledLink = styled('a')(({ theme, disabled }) => ({
     cursor: disabled ? 'not-allowed' : 'pointer',
     ...theme.typography.button,
     ...theme.components.MuiButton.styleOverrides.root,
-    backgroundColor: disabled ? '#bfbfbf' : '#7f7f7f',
-    color: 'white',
+    backgroundColor: disabled ? '#E3E3E3' : '#F5F5F5',
+    color: '#7D7D7D',
     '&:hover': {
-        backgroundColor: disabled ? '#bfbfbf' : '#bfbfbf',
+        backgroundColor: disabled ? '#E3E3E3' : '#F5F5F5',
     },
 }));
 
@@ -49,7 +49,7 @@ const CopyButton = ({ children }) => {
 
         try {
             document.execCommand('copy');
-            alert('URL이 클립보드에 복사되었습니다! (Fallback)');
+            alert('URL이 클립보드에 복사되었습니다!');
         } catch (err) {
             console.error('Fallback 복사 실패: ', err);
             alert('복사 실패: ' + err.message);
