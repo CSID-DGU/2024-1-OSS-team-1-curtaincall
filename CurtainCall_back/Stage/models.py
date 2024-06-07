@@ -8,7 +8,7 @@ class Stage_list(models.Model):
     host = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     sort = models.BooleanField(default=False)
-    data = models.JSONField()
+    data = models.JSONField(default=dict, blank=True)
     status = models.CharField(max_length=20, default='READY')
 
     @classmethod
