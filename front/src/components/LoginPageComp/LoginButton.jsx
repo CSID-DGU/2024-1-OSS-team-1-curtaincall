@@ -15,7 +15,7 @@ function LoginButton({ onClick, children }) {
     }, [isInput]);
 
     const handleClick = () => {
-        if (loading || disabled) return;
+        if (loading) return;
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
