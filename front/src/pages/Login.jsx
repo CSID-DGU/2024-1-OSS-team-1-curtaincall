@@ -147,11 +147,12 @@ function Login() {
                     <LoginButton onClick={handleLogin}>Login</LoginButton>
                 </motion.div>
                     <div style={{width: '100%', height: '2px', marginBottom: '1.5%'}}></div>
-
+                {/*
                     <GoogleLogin
                         onSuccess={handleGoogleLoginSuccess}
                         onFailure={(response) => console.error('Google login failed:', response)}
                     />
+                */}
             </div>
 
         </CustomContainer>
