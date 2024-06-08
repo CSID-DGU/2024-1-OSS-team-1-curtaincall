@@ -40,35 +40,28 @@ function Login() {
     const fetchUsername = async () => {
             try {
                 const response = await api.get('/accounts/userInformation/');
-                console.log('API Response:', response.data);
                 setUsername(response.data.username);
             } catch (error) {
-                console.error('Failed to fetch username:', error);
             }
     };
 
     const handleLogin = async () => {
-        console.log('Logging in with:', { userId, password });
-
         try {
             const response = await api.post('accounts/login/', {
                 email: userId,
                 password: password
             });
-            console.log('Login successful:', response.data);
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
             fetchUsername();
             setLogin(true);
             navigate('/');
         } catch (error) {
-            console.error('Login failed:', error.response.data);
             alert('로그인 실패! 아이디 혹은 패스워드를 확인해주세요.');
         }
     };
 
     const handleGoogleLoginSuccess = async (response) => {
-        console.log('Google login successful:', response);
         try {
             const res = await api.post('/auth/complete/google-oauth2/', {
                 access_token: response.credential,
@@ -77,10 +70,8 @@ function Login() {
             if (res.data.key) {
                 navigate('/');
             } else {
-                console.error('Login failed:', res.data.message);
             }
         } catch (error) {
-            console.error('Error logging in:', error);
         }
     };
 

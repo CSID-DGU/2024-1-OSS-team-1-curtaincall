@@ -14,10 +14,6 @@ function HosPageInputButton({ name,conststageId, children }) {
 
     setStageId(conststageId);
 
-    useEffect(() => {
-        console.log('스테이지 id', stageId);
-    }, [setStageId]);
-
     const handleClick = async () => {
         if (loading) return;
         setLoading(true);
@@ -30,15 +26,11 @@ function HosPageInputButton({ name,conststageId, children }) {
 
             if (response.status === 200 && response.data.status === 'success') {
 
-                console.log('Stage joined successfully', response.data);
-
                 navigate('/stage');
             } else {
-                console.error('Failed to join stage');
                 alert('Failed to join stage');
             }
         } catch (error) {
-            console.error('Error joining stage:', error);
             alert('An error occurred while joining the stage');
         } finally {
             setLoading(false);

@@ -45,13 +45,6 @@ function Upload() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    useEffect(() => {
-        console.log("isHost : ", isHost);
-    }, [isHost]);
-
-    useEffect(() => {
-        console.log('Stage ID:', stageId);
-    }, [stageId]);
 
     const handleFileChange = (renamedFiles) => {
         setFiles(renamedFiles);
@@ -61,7 +54,6 @@ function Upload() {
         event.preventDefault();
 
         if (files.length === 0) {
-            console.log('No files to upload');
             return;
         }
 
@@ -74,8 +66,6 @@ function Upload() {
 
             const presignedUrls = response.data.url;
 
-            console.log('Received presigned URLs:', presignedUrls);
-
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const presignedUrl = presignedUrls[i];
@@ -86,17 +76,13 @@ function Upload() {
                 });
 
                 if (uploadResponse.status === 200) {
-                    console.log(`File ${file.name} uploaded successfully.`);
                 } else {
-                    console.log(`File ${file.name} upload failed.`);
                     alert('파일 업로드에 실패하였습니다. 관리자에게 문의하세요.');
                 }
             }
             alert('이미지 업로드 완료');
             const sendResponse = await api.post('/Stage/sendImage/');
-            console.log(sendResponse);
         } catch (error) {
-            console.error('Error during file upload:', error);
         }
 
     };
@@ -119,10 +105,8 @@ function Upload() {
                     navigate('/await');
                 }
             } else {
-                console.error('Failed to fetch guests');
             }
         } catch (error) {
-            console.error('Error fetching guests:', error);
         }
     };
 

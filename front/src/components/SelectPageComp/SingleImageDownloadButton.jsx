@@ -19,7 +19,8 @@ const SingleImageDownloadButton = ({ children, image }) => {
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
         } catch (error) {
-            console.error('Error downloading image:', error);
+            alert('다운로드에 실패했습니다. 다시 시도해주세요.');
+
         } finally {
             setLoading(false);
         }
