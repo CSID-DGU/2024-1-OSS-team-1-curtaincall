@@ -10,7 +10,6 @@ function LoginButton({ onClick, children }) {
     const [disabled, setDisabled] = useState(!isInput);
 
     useEffect(() => {
-        console.log('isInput:', isInput);
         setDisabled(!isInput);
     }, [isInput]);
 

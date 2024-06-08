@@ -32,7 +32,6 @@ const CopyButton = ({ children }) => {
                     await navigator.clipboard.writeText(stageId);
                     alert('URL이 클립보드에 복사되었습니다!');
                 } catch (err) {
-                    console.error('navigator.clipboard.writeText 실패: ', err);
                     fallbackCopyTextToClipboard(stageId);
                 }
                 setLoading(false);
@@ -51,7 +50,6 @@ const CopyButton = ({ children }) => {
             document.execCommand('copy');
             alert('URL이 클립보드에 복사되었습니다!');
         } catch (err) {
-            console.error('Fallback 복사 실패: ', err);
             alert('복사 실패: ' + err.message);
         }
 

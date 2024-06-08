@@ -50,13 +50,11 @@ function Guest() {
     const fetchGuests = async () => {
         try {
             const response = await api.get(`/Stage/checkStageUsers/?stageId=${stageStage}`);
-            console.log(response.data);
             if (response.data.stage_status === "COMPLETE") {  // response.data.stage.sort로 접근
                 setSortedImages(response.data.stage_data);
                 setLoading(false);  // sort가 false일 때 setLoading을 false로 설정
             }
         } catch (error) {
-            console.error(error);
         }
     };
 

@@ -43,7 +43,6 @@ function App() {
                     <Route path="/select" element={<Select />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/test" element={<Testpage />} />
                     <Route path="/await" element={<AwaitPage/>}/>
                     <Route path="*" element={<div>404</div>} />
                 </Routes>

@@ -25,7 +25,6 @@ const RoomMakerButton = ({ children }) => {
                 navigate('/stage');
             }
         } catch (error) {
-            console.error('Error creating stage:', error);
         } finally {
             setLoading(false);
         }

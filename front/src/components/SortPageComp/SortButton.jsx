@@ -13,13 +13,10 @@ const SortButton = ({ children }) => {
     const handleClick = async () => {
         if (loading) return;
         setLoading(true);
-        console.log('api 호출');
         try {
             const response = await api.get('/Algorithm_cv2/sort/');
-            console.log(response.data);
             setLoading(false);
         } catch (error) {
-            console.error('Error fetching data', error);
             setLoading(false);
         }
     };
