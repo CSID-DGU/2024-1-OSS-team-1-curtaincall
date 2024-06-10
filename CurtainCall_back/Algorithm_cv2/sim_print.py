@@ -70,8 +70,8 @@ def get_single_keyword(image):
 #     # 모델 입력 전처리
 #     return preprocess_input(img_array_expanded_dims)
 
-def load_tensor(image):
-    prepared_image = prepare_image(image, width=260, height=260, convert_mode='RGB')
+def load_tensor(img):
+    prepared_image = prepare_image(img, width=260, height=260, convert_mode='RGB')
     img_array = image.img_to_array(prepared_image)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return preprocess_input(img_array_expanded_dims)
