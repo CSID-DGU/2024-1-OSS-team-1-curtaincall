@@ -18,8 +18,6 @@ function LogoutButton({ onClick, children, disabled }) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         setislogin(false);
-        console.log("islogin : ",islogin);
-        console.log("logingout");
         navigate('/login');
     };
 

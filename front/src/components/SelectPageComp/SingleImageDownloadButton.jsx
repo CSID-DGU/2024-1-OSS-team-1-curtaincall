@@ -1,22 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { Button, ThemeProvider, CircularProgress } from '@mui/material';
-import { useNavigate } from "react-router-dom";
 import { ButtonTheme } from '../.PublicTheme/ButtonTheme';
-import api from '../../axios';
-import {stageState, isHostState} from "../../atom/atom";
-import {useRecoilState} from "recoil";
 
 const SingleImageDownloadButton = ({ children, image }) => {
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     const handleClick = async () => {
-        const link = document.createElement('a');
-        link.href = image.src;
-        link.download = 'downloaded_image.jpg'; // 원하는 파일명으로 변경 가능
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        setLoading(true);
+        try {
+            const response = await fetch(image.src);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'downloaded_image.jpg'; // 원하는 파일명으로 변경 가능
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            alert('다운로드에 실패했습니다. 다시 시도해주세요.');
+
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -25,7 +32,6 @@ const SingleImageDownloadButton = ({ children, image }) => {
                 onClick={handleClick}
                 disabled={loading}
                 sx={{
-
                     backgroundColor: loading ? '#E3E3E3' : '#F5F5F5',
                     color: '#7D7D7D',
                     '&:hover': {
@@ -33,7 +39,7 @@ const SingleImageDownloadButton = ({ children, image }) => {
                     }
                 }}
             >
-                {loading ? <CircularProgress size={24} style={{ color: 'white' }} /> : children}
+                {loading ? <CircularProgress size={24} style={{ color: '#7D7D7D' }} /> : children}
             </Button>
         </ThemeProvider>
     );

@@ -34,10 +34,8 @@ function SignUp() {
     const fetchUsername = async () => {
         try {
             const response = await api.get('/accounts/userInformation/');
-            console.log('API Response:', response.data);
             setUsername(response.data.username);
         } catch (error) {
-            console.error('Failed to fetch username:', error);
         }
     };
 
@@ -63,7 +61,6 @@ function SignUp() {
     };
 
     const handleSignUp = async () => {
-        console.log('Attempting to sign up with:', { constusername, email, password1, password2 });
         try {
             const response = await api.post('accounts/', {
                 username: constusername,
@@ -78,7 +75,7 @@ function SignUp() {
 
                 navigate('/');
             } catch (error) {
-                console.error('Sign up failed:', error.response.data);
+                alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         }
     };
 

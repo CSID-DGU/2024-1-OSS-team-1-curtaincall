@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import CustomContainer from "../components/ContainerComp/CustomContainer";
 import { Button, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from 'framer-motion';
-import {stageState, isHostState, sortedImageDataState} from "../atom/atom";
+import { stageState, isHostState, sortedImageDataState } from "../atom/atom";
 import DoneIcon from '@mui/icons-material/Done';
 import LogoBlink from "../components/AwaitComp/LogoBlink";
 import api from "../axios";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 function Guest() {
     const setSortedImages = useSetRecoilState(sortedImageDataState);
@@ -50,13 +50,11 @@ function Guest() {
     const fetchGuests = async () => {
         try {
             const response = await api.get(`/Stage/checkStageUsers/?stageId=${stageStage}`);
-            console.log(response.data);
             if (response.data.stage_status === "COMPLETE") {  // response.data.stage.sort로 접근
                 setSortedImages(response.data.stage_data);
                 setLoading(false);  // sort가 false일 때 setLoading을 false로 설정
             }
         } catch (error) {
-            console.error(error);
         }
     };
 
@@ -96,9 +94,9 @@ function Guest() {
                                 exit={{ opacity: 0, scale: 0, transition: transitionSettingsDisappear }}
                                 style={{ width: '100%' }}
                             >
-                                <LogoBlink step={step} fontSize="150px" color='#7f7f7f' />
-                                <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang' }}>
-                                    기다리는중
+                                <LogoBlink step={step} fontSize="100px" color='#7f7f7f' />
+                                <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang', fontSize: '100%' }}>
+                                    추억을 정리하는 중...
                                 </Typography>
                             </motion.div>
                         ) : (
@@ -110,10 +108,10 @@ function Guest() {
                                 transition={transitionSettingsDisappear}
                                 style={{ textAlign: 'center' }}
                             >
-                                <DoneIcon sx={{ color: '#7f7f7f', fontSize: '180px' }} />
+                                <DoneIcon sx={{ color: '#7f7f7f', fontSize: '120px' }} />
                                 <br />
-                                <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang' }}>
-                                    로딩 완료!
+                                <Typography variant="h4" sx={{ color: '#7f7f7f', fontFamily: 'RIDIBatang', fontSize: '100%' }}>
+                                    정리 완료!
                                 </Typography>
                             </motion.div>
                         )}

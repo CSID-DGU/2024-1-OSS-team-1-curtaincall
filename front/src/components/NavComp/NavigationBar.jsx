@@ -24,23 +24,14 @@ function NavigationBar({ isMobile, handleDrawerToggle }) {
             try {
                 setUsername(JSON.parse(savedUsername));
             } catch (error) {
-                console.error('Error parsing username from localStorage:', error);
             }
         }
     }, [setUsername]);
 
     const handleOpenModal = () => {
-        console.log('Opening modal...');
         setIsOpen(true);
     };
 
-    useEffect(() => {
-        console.log(username);
-    }, [username]);
-
-    useEffect(() => {
-        console.log('isOpen:', isOpen);
-    }, [isOpen]);
 
     return (
         <ThemeProvider theme={NVTheme}>
