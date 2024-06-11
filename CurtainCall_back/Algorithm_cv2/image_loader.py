@@ -2,11 +2,11 @@ import requests
 from io import BytesIO
 from PIL import Image
 
-def prepare_image(image, width=260, height=260, convert_mode='None'):
-    image = image.resize((width, height))
+def prepare_image(photo, width=260, height=260, convert_mode='None'):
+    photo = photo.resize((width, height))
     if convert_mode != 'None':
-        image = image.convert(convert_mode)
-    return image
+        photo = photo.convert(convert_mode)
+    return photo
 
 
 def load_image(fileurl):
