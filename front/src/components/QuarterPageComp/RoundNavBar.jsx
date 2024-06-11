@@ -11,7 +11,7 @@ const RoundNavBar = ({ currentRound, totalRounds, currentGroup, groupRound, grou
                     <Toolbar>
                         <div style={{ flexGrow: 1 }}>
                             <Typography variant="h5" color="inherit" component="div">
-                                Sorted Group {currentGroup.group_id}
+                                Sorted Group {currentGroup.group_id + 1}
                             </Typography>
                         </div>
                     </Toolbar>
