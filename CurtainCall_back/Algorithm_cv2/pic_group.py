@@ -35,11 +35,15 @@ class pic_group:
 
 
         hist = calculate_histogram(photo)
-        hist_point = compare_histogram(self.histogram, hist)
-        if hist_point > 0.85:
+        hist_point1 = compare_histogram(self.histogram, hist)
+        hist_point2 = compare_histogram(hist, self.histogram)
+        print("histpoints")
+        print(hist_point1, hist_point2)
+        hist_point = (hist_point1 + hist_point2) / 2
+        if hist_point > 0.83:
             self.append(url, data_t)
             return True
-        elif hist_point > 0.7:
+        elif hist_point > 0.68:
             moho += 1
 
         keywords = get_single_keyword(photo)
