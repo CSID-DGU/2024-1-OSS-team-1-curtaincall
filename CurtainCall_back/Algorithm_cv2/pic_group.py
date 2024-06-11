@@ -26,12 +26,13 @@ class pic_group:
 
         data_t = get_metadata_time(photo)
         if data_t is not None:
-            if self.end_time + 3600 < data_t:
-                return False
-            elif self.start_time - 3600 > data_t:
-                return False
-            elif (self.end_time + 10 > data_t) and (self.start_time - 10 < data_t):
-                moho += 1
+            if self.start_time is not None and self.end_time is not None:
+                if self.end_time + 3600 < data_t:
+                    return False
+                elif self.start_time - 3600 > data_t:
+                    return False
+                elif (self.end_time + 10 > data_t) and (self.start_time - 10 < data_t):
+                    moho += 1
 
         hist = calculate_histogram(photo)
         hist_point1 = compare_histogram(self.histogram, hist)
