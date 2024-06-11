@@ -27,7 +27,7 @@ function Footer() {
             <StyledBox sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <StyledTypography sx={{ color: '#7f7f7f', fontSize: isMobile ? '10px' : '20px', fontFamily: 'RIDIBatang' }}>
-                        STAFF
+                        Team STAFF
                     </StyledTypography>
                     <Link href="https://www.dongguk.edu/main" target="_blank" rel="noopener" underline="none">
                         <Box sx={{display: 'flex', alignItems: 'center'}}>
