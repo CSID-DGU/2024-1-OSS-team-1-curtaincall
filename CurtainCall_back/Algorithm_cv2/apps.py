@@ -5,5 +5,5 @@ class AlgorithmCv2Config(AppConfig):
     name = 'Algorithm_cv2'
 
     def ready(self):
-        from .sim_print import load_model
+        from .keras_keywords import load_model
         load_model()
