@@ -138,8 +138,11 @@ class PresignedURLView(APIView):
     S3에 이미지 업로드를 위한 presigned URL 생성 API
     """
     @swagger_auto_schema(
+        # manual_parameters=[
+        #     openapi.Parameter('Authorization', openapi.IN_HEADER, description='JWT token', type=openapi.TYPE_STRING)
+        # ],
         manual_parameters=[
-            openapi.Parameter('Authorization', openapi.IN_HEADER, description='JWT token', type=openapi.TYPE_STRING)
+            openapi.Parameter('image_list', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='image_list', required=True)
         ],
         responses={201: openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'url': openapi.Schema(type=openapi.TYPE_STRING, description='presigned URL'),
